@@ -1,5 +1,6 @@
 {
-  "master_seed": 20260626,
+  "source": "real screenshots (random rotation/flip/crop)",
+  "master_seed": 20260630,
   "provinces": [
     "Settat",
     "Khouribga",
@@ -15,2207 +16,1808 @@
     2025
   ],
   "per_cell": 8,
+  "out_size": 320,
   "count": 200,
   "pairs": [
     {
       "pair_id": "Settat_2021_0001",
       "province": "Settat",
       "year": 2021,
-      "image_a": "Settat/2021/pair_0001_a.png",
-      "image_b": "Settat/2021/pair_0001_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 19471185,
-      "seed_b": 1454673807
+      "image_a": "Settat/2021/pair_0001_a.jpg",
+      "truth_a": "till",
+      "image_b": "Settat/2021/pair_0001_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2021_0002",
       "province": "Settat",
       "year": 2021,
-      "image_a": "Settat/2021/pair_0002_a.png",
-      "image_b": "Settat/2021/pair_0002_b.png",
+      "image_a": "Settat/2021/pair_0002_a.jpg",
       "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 228134437,
-      "seed_b": 375856416
+      "image_b": "Settat/2021/pair_0002_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2021_0003",
       "province": "Settat",
       "year": 2021,
-      "image_a": "Settat/2021/pair_0003_a.png",
-      "image_b": "Settat/2021/pair_0003_b.png",
+      "image_a": "Settat/2021/pair_0003_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 1630128766,
-      "seed_b": 225405605
+      "image_b": "Settat/2021/pair_0003_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2021_0004",
       "province": "Settat",
       "year": 2021,
-      "image_a": "Settat/2021/pair_0004_a.png",
-      "image_b": "Settat/2021/pair_0004_b.png",
+      "image_a": "Settat/2021/pair_0004_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 180912106,
-      "seed_b": 1968036980
+      "image_b": "Settat/2021/pair_0004_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Settat_2021_0005",
       "province": "Settat",
       "year": 2021,
-      "image_a": "Settat/2021/pair_0005_a.png",
-      "image_b": "Settat/2021/pair_0005_b.png",
+      "image_a": "Settat/2021/pair_0005_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 752546867,
-      "seed_b": 1598487642
+      "image_b": "Settat/2021/pair_0005_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2021_0006",
       "province": "Settat",
       "year": 2021,
-      "image_a": "Settat/2021/pair_0006_a.png",
-      "image_b": "Settat/2021/pair_0006_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 1140309300,
-      "seed_b": 1530626532
+      "image_a": "Settat/2021/pair_0006_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Settat/2021/pair_0006_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Settat_2021_0007",
       "province": "Settat",
       "year": 2021,
-      "image_a": "Settat/2021/pair_0007_a.png",
-      "image_b": "Settat/2021/pair_0007_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "till",
-      "seed_a": 1980978999,
-      "seed_b": 452552207
+      "image_a": "Settat/2021/pair_0007_a.jpg",
+      "truth_a": "till",
+      "image_b": "Settat/2021/pair_0007_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2021_0008",
       "province": "Settat",
       "year": 2021,
-      "image_a": "Settat/2021/pair_0008_a.png",
-      "image_b": "Settat/2021/pair_0008_b.png",
+      "image_a": "Settat/2021/pair_0008_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1678886957,
-      "seed_b": 950677771
+      "image_b": "Settat/2021/pair_0008_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2022_0001",
       "province": "Settat",
       "year": 2022,
-      "image_a": "Settat/2022/pair_0001_a.png",
-      "image_b": "Settat/2022/pair_0001_b.png",
+      "image_a": "Settat/2022/pair_0001_a.jpg",
       "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 882650751,
-      "seed_b": 744889146
+      "image_b": "Settat/2022/pair_0001_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2022_0002",
       "province": "Settat",
       "year": 2022,
-      "image_a": "Settat/2022/pair_0002_a.png",
-      "image_b": "Settat/2022/pair_0002_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1444018231,
-      "seed_b": 742015082
+      "image_a": "Settat/2022/pair_0002_a.jpg",
+      "truth_a": "till",
+      "image_b": "Settat/2022/pair_0002_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Settat_2022_0003",
       "province": "Settat",
       "year": 2022,
-      "image_a": "Settat/2022/pair_0003_a.png",
-      "image_b": "Settat/2022/pair_0003_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1703984186,
-      "seed_b": 884546254
+      "image_a": "Settat/2022/pair_0003_a.jpg",
+      "truth_a": "till",
+      "image_b": "Settat/2022/pair_0003_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Settat_2022_0004",
       "province": "Settat",
       "year": 2022,
-      "image_a": "Settat/2022/pair_0004_a.png",
-      "image_b": "Settat/2022/pair_0004_b.png",
+      "image_a": "Settat/2022/pair_0004_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 808826604,
-      "seed_b": 1225580303
+      "image_b": "Settat/2022/pair_0004_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2022_0005",
       "province": "Settat",
       "year": 2022,
-      "image_a": "Settat/2022/pair_0005_a.png",
-      "image_b": "Settat/2022/pair_0005_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 180198992,
-      "seed_b": 1842176207
+      "image_a": "Settat/2022/pair_0005_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Settat/2022/pair_0005_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Settat_2022_0006",
       "province": "Settat",
       "year": 2022,
-      "image_a": "Settat/2022/pair_0006_a.png",
-      "image_b": "Settat/2022/pair_0006_b.png",
+      "image_a": "Settat/2022/pair_0006_a.jpg",
       "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 1342443214,
-      "seed_b": 1425606113
+      "image_b": "Settat/2022/pair_0006_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Settat_2022_0007",
       "province": "Settat",
       "year": 2022,
-      "image_a": "Settat/2022/pair_0007_a.png",
-      "image_b": "Settat/2022/pair_0007_b.png",
+      "image_a": "Settat/2022/pair_0007_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 835796704,
-      "seed_b": 1731309764
+      "image_b": "Settat/2022/pair_0007_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2022_0008",
       "province": "Settat",
       "year": 2022,
-      "image_a": "Settat/2022/pair_0008_a.png",
-      "image_b": "Settat/2022/pair_0008_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "till",
-      "seed_a": 948560624,
-      "seed_b": 639460220
+      "image_a": "Settat/2022/pair_0008_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Settat/2022/pair_0008_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Settat_2023_0001",
       "province": "Settat",
       "year": 2023,
-      "image_a": "Settat/2023/pair_0001_a.png",
-      "image_b": "Settat/2023/pair_0001_b.png",
-      "truth_a": "no_till",
-      "truth_b": "ambiguous",
-      "seed_a": 1119145264,
-      "seed_b": 1953396467
+      "image_a": "Settat/2023/pair_0001_a.jpg",
+      "truth_a": "till",
+      "image_b": "Settat/2023/pair_0001_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2023_0002",
       "province": "Settat",
       "year": 2023,
-      "image_a": "Settat/2023/pair_0002_a.png",
-      "image_b": "Settat/2023/pair_0002_b.png",
+      "image_a": "Settat/2023/pair_0002_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1882636221,
-      "seed_b": 922408879
+      "image_b": "Settat/2023/pair_0002_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Settat_2023_0003",
       "province": "Settat",
       "year": 2023,
-      "image_a": "Settat/2023/pair_0003_a.png",
-      "image_b": "Settat/2023/pair_0003_b.png",
+      "image_a": "Settat/2023/pair_0003_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 42673030,
-      "seed_b": 1413806844
+      "image_b": "Settat/2023/pair_0003_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2023_0004",
       "province": "Settat",
       "year": 2023,
-      "image_a": "Settat/2023/pair_0004_a.png",
-      "image_b": "Settat/2023/pair_0004_b.png",
-      "truth_a": "no_till",
-      "truth_b": "ambiguous",
-      "seed_a": 1966056176,
-      "seed_b": 1567273333
+      "image_a": "Settat/2023/pair_0004_a.jpg",
+      "truth_a": "till",
+      "image_b": "Settat/2023/pair_0004_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Settat_2023_0005",
       "province": "Settat",
       "year": 2023,
-      "image_a": "Settat/2023/pair_0005_a.png",
-      "image_b": "Settat/2023/pair_0005_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 1812238483,
-      "seed_b": 1882626334
+      "image_a": "Settat/2023/pair_0005_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Settat/2023/pair_0005_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Settat_2023_0006",
       "province": "Settat",
       "year": 2023,
-      "image_a": "Settat/2023/pair_0006_a.png",
-      "image_b": "Settat/2023/pair_0006_b.png",
-      "truth_a": "no_till",
-      "truth_b": "ambiguous",
-      "seed_a": 644336002,
-      "seed_b": 1940979646
+      "image_a": "Settat/2023/pair_0006_a.jpg",
+      "truth_a": "till",
+      "image_b": "Settat/2023/pair_0006_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2023_0007",
       "province": "Settat",
       "year": 2023,
-      "image_a": "Settat/2023/pair_0007_a.png",
-      "image_b": "Settat/2023/pair_0007_b.png",
+      "image_a": "Settat/2023/pair_0007_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 96929349,
-      "seed_b": 201872093
+      "image_b": "Settat/2023/pair_0007_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2023_0008",
       "province": "Settat",
       "year": 2023,
-      "image_a": "Settat/2023/pair_0008_a.png",
-      "image_b": "Settat/2023/pair_0008_b.png",
+      "image_a": "Settat/2023/pair_0008_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 1118494386,
-      "seed_b": 1365043698
+      "image_b": "Settat/2023/pair_0008_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2024_0001",
       "province": "Settat",
       "year": 2024,
-      "image_a": "Settat/2024/pair_0001_a.png",
-      "image_b": "Settat/2024/pair_0001_b.png",
-      "truth_a": "till",
-      "truth_b": "ambiguous",
-      "seed_a": 1900114787,
-      "seed_b": 478500346
+      "image_a": "Settat/2024/pair_0001_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Settat/2024/pair_0001_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2024_0002",
       "province": "Settat",
       "year": 2024,
-      "image_a": "Settat/2024/pair_0002_a.png",
-      "image_b": "Settat/2024/pair_0002_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 843641931,
-      "seed_b": 655788574
+      "image_a": "Settat/2024/pair_0002_a.jpg",
+      "truth_a": "till",
+      "image_b": "Settat/2024/pair_0002_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2024_0003",
       "province": "Settat",
       "year": 2024,
-      "image_a": "Settat/2024/pair_0003_a.png",
-      "image_b": "Settat/2024/pair_0003_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 332545439,
-      "seed_b": 1525796993
+      "image_a": "Settat/2024/pair_0003_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Settat/2024/pair_0003_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Settat_2024_0004",
       "province": "Settat",
       "year": 2024,
-      "image_a": "Settat/2024/pair_0004_a.png",
-      "image_b": "Settat/2024/pair_0004_b.png",
+      "image_a": "Settat/2024/pair_0004_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 824979298,
-      "seed_b": 1741312590
+      "image_b": "Settat/2024/pair_0004_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2024_0005",
       "province": "Settat",
       "year": 2024,
-      "image_a": "Settat/2024/pair_0005_a.png",
-      "image_b": "Settat/2024/pair_0005_b.png",
+      "image_a": "Settat/2024/pair_0005_a.jpg",
       "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 1938961115,
-      "seed_b": 797818706
+      "image_b": "Settat/2024/pair_0005_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Settat_2024_0006",
       "province": "Settat",
       "year": 2024,
-      "image_a": "Settat/2024/pair_0006_a.png",
-      "image_b": "Settat/2024/pair_0006_b.png",
+      "image_a": "Settat/2024/pair_0006_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1552836454,
-      "seed_b": 1641559607
+      "image_b": "Settat/2024/pair_0006_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Settat_2024_0007",
       "province": "Settat",
       "year": 2024,
-      "image_a": "Settat/2024/pair_0007_a.png",
-      "image_b": "Settat/2024/pair_0007_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 273056165,
-      "seed_b": 1452819277
+      "image_a": "Settat/2024/pair_0007_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Settat/2024/pair_0007_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Settat_2024_0008",
       "province": "Settat",
       "year": 2024,
-      "image_a": "Settat/2024/pair_0008_a.png",
-      "image_b": "Settat/2024/pair_0008_b.png",
+      "image_a": "Settat/2024/pair_0008_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 311212253,
-      "seed_b": 619346595
+      "image_b": "Settat/2024/pair_0008_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Settat_2025_0001",
       "province": "Settat",
       "year": 2025,
-      "image_a": "Settat/2025/pair_0001_a.png",
-      "image_b": "Settat/2025/pair_0001_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 877743707,
-      "seed_b": 167697953
+      "image_a": "Settat/2025/pair_0001_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Settat/2025/pair_0001_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2025_0002",
       "province": "Settat",
       "year": 2025,
-      "image_a": "Settat/2025/pair_0002_a.png",
-      "image_b": "Settat/2025/pair_0002_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 293616808,
-      "seed_b": 996752871
+      "image_a": "Settat/2025/pair_0002_a.jpg",
+      "truth_a": "till",
+      "image_b": "Settat/2025/pair_0002_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2025_0003",
       "province": "Settat",
       "year": 2025,
-      "image_a": "Settat/2025/pair_0003_a.png",
-      "image_b": "Settat/2025/pair_0003_b.png",
+      "image_a": "Settat/2025/pair_0003_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "ambiguous",
-      "seed_a": 242583134,
-      "seed_b": 1988723635
+      "image_b": "Settat/2025/pair_0003_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2025_0004",
       "province": "Settat",
       "year": 2025,
-      "image_a": "Settat/2025/pair_0004_a.png",
-      "image_b": "Settat/2025/pair_0004_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "ambiguous",
-      "seed_a": 647856473,
-      "seed_b": 1042769074
+      "image_a": "Settat/2025/pair_0004_a.jpg",
+      "truth_a": "till",
+      "image_b": "Settat/2025/pair_0004_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2025_0005",
       "province": "Settat",
       "year": 2025,
-      "image_a": "Settat/2025/pair_0005_a.png",
-      "image_b": "Settat/2025/pair_0005_b.png",
+      "image_a": "Settat/2025/pair_0005_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1711253400,
-      "seed_b": 1020694982
+      "image_b": "Settat/2025/pair_0005_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2025_0006",
       "province": "Settat",
       "year": 2025,
-      "image_a": "Settat/2025/pair_0006_a.png",
-      "image_b": "Settat/2025/pair_0006_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "till",
-      "seed_a": 128438560,
-      "seed_b": 615919856
+      "image_a": "Settat/2025/pair_0006_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Settat/2025/pair_0006_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2025_0007",
       "province": "Settat",
       "year": 2025,
-      "image_a": "Settat/2025/pair_0007_a.png",
-      "image_b": "Settat/2025/pair_0007_b.png",
+      "image_a": "Settat/2025/pair_0007_a.jpg",
       "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 1690107151,
-      "seed_b": 320858516
+      "image_b": "Settat/2025/pair_0007_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Settat_2025_0008",
       "province": "Settat",
       "year": 2025,
-      "image_a": "Settat/2025/pair_0008_a.png",
-      "image_b": "Settat/2025/pair_0008_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 750260865,
-      "seed_b": 1424906475
+      "image_a": "Settat/2025/pair_0008_a.jpg",
+      "truth_a": "till",
+      "image_b": "Settat/2025/pair_0008_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Khouribga_2021_0001",
       "province": "Khouribga",
       "year": 2021,
-      "image_a": "Khouribga/2021/pair_0001_a.png",
-      "image_b": "Khouribga/2021/pair_0001_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1962812177,
-      "seed_b": 1709148391
+      "image_a": "Khouribga/2021/pair_0001_a.jpg",
+      "truth_a": "till",
+      "image_b": "Khouribga/2021/pair_0001_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2021_0002",
       "province": "Khouribga",
       "year": 2021,
-      "image_a": "Khouribga/2021/pair_0002_a.png",
-      "image_b": "Khouribga/2021/pair_0002_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "till",
-      "seed_a": 1839668383,
-      "seed_b": 1642345467
+      "image_a": "Khouribga/2021/pair_0002_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Khouribga/2021/pair_0002_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Khouribga_2021_0003",
       "province": "Khouribga",
       "year": 2021,
-      "image_a": "Khouribga/2021/pair_0003_a.png",
-      "image_b": "Khouribga/2021/pair_0003_b.png",
+      "image_a": "Khouribga/2021/pair_0003_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1359083214,
-      "seed_b": 1929471242
+      "image_b": "Khouribga/2021/pair_0003_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2021_0004",
       "province": "Khouribga",
       "year": 2021,
-      "image_a": "Khouribga/2021/pair_0004_a.png",
-      "image_b": "Khouribga/2021/pair_0004_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1365282276,
-      "seed_b": 1922649890
+      "image_a": "Khouribga/2021/pair_0004_a.jpg",
+      "truth_a": "till",
+      "image_b": "Khouribga/2021/pair_0004_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2021_0005",
       "province": "Khouribga",
       "year": 2021,
-      "image_a": "Khouribga/2021/pair_0005_a.png",
-      "image_b": "Khouribga/2021/pair_0005_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1711630877,
-      "seed_b": 1825716582
+      "image_a": "Khouribga/2021/pair_0005_a.jpg",
+      "truth_a": "till",
+      "image_b": "Khouribga/2021/pair_0005_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Khouribga_2021_0006",
       "province": "Khouribga",
       "year": 2021,
-      "image_a": "Khouribga/2021/pair_0006_a.png",
-      "image_b": "Khouribga/2021/pair_0006_b.png",
+      "image_a": "Khouribga/2021/pair_0006_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 180089888,
-      "seed_b": 1980676151
+      "image_b": "Khouribga/2021/pair_0006_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Khouribga_2021_0007",
       "province": "Khouribga",
       "year": 2021,
-      "image_a": "Khouribga/2021/pair_0007_a.png",
-      "image_b": "Khouribga/2021/pair_0007_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "till",
-      "seed_a": 1324518430,
-      "seed_b": 1978168972
+      "image_a": "Khouribga/2021/pair_0007_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Khouribga/2021/pair_0007_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2021_0008",
       "province": "Khouribga",
       "year": 2021,
-      "image_a": "Khouribga/2021/pair_0008_a.png",
-      "image_b": "Khouribga/2021/pair_0008_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1254531503,
-      "seed_b": 1658063280
+      "image_a": "Khouribga/2021/pair_0008_a.jpg",
+      "truth_a": "till",
+      "image_b": "Khouribga/2021/pair_0008_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2022_0001",
       "province": "Khouribga",
       "year": 2022,
-      "image_a": "Khouribga/2022/pair_0001_a.png",
-      "image_b": "Khouribga/2022/pair_0001_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 1506721879,
-      "seed_b": 1411832109
+      "image_a": "Khouribga/2022/pair_0001_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Khouribga/2022/pair_0001_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Khouribga_2022_0002",
       "province": "Khouribga",
       "year": 2022,
-      "image_a": "Khouribga/2022/pair_0002_a.png",
-      "image_b": "Khouribga/2022/pair_0002_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1328222000,
-      "seed_b": 593302605
+      "image_a": "Khouribga/2022/pair_0002_a.jpg",
+      "truth_a": "till",
+      "image_b": "Khouribga/2022/pair_0002_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2022_0003",
       "province": "Khouribga",
       "year": 2022,
-      "image_a": "Khouribga/2022/pair_0003_a.png",
-      "image_b": "Khouribga/2022/pair_0003_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 933399363,
-      "seed_b": 179034543
+      "image_a": "Khouribga/2022/pair_0003_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Khouribga/2022/pair_0003_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2022_0004",
       "province": "Khouribga",
       "year": 2022,
-      "image_a": "Khouribga/2022/pair_0004_a.png",
-      "image_b": "Khouribga/2022/pair_0004_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 390863735,
-      "seed_b": 779842230
+      "image_a": "Khouribga/2022/pair_0004_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Khouribga/2022/pair_0004_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Khouribga_2022_0005",
       "province": "Khouribga",
       "year": 2022,
-      "image_a": "Khouribga/2022/pair_0005_a.png",
-      "image_b": "Khouribga/2022/pair_0005_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 634882705,
-      "seed_b": 1123963274
+      "image_a": "Khouribga/2022/pair_0005_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Khouribga/2022/pair_0005_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Khouribga_2022_0006",
       "province": "Khouribga",
       "year": 2022,
-      "image_a": "Khouribga/2022/pair_0006_a.png",
-      "image_b": "Khouribga/2022/pair_0006_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 503997293,
-      "seed_b": 1426636408
+      "image_a": "Khouribga/2022/pair_0006_a.jpg",
+      "truth_a": "till",
+      "image_b": "Khouribga/2022/pair_0006_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Khouribga_2022_0007",
       "province": "Khouribga",
       "year": 2022,
-      "image_a": "Khouribga/2022/pair_0007_a.png",
-      "image_b": "Khouribga/2022/pair_0007_b.png",
+      "image_a": "Khouribga/2022/pair_0007_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 959898631,
-      "seed_b": 1181855036
+      "image_b": "Khouribga/2022/pair_0007_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2022_0008",
       "province": "Khouribga",
       "year": 2022,
-      "image_a": "Khouribga/2022/pair_0008_a.png",
-      "image_b": "Khouribga/2022/pair_0008_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 855763809,
-      "seed_b": 1938174777
+      "image_a": "Khouribga/2022/pair_0008_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Khouribga/2022/pair_0008_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2023_0001",
       "province": "Khouribga",
       "year": 2023,
-      "image_a": "Khouribga/2023/pair_0001_a.png",
-      "image_b": "Khouribga/2023/pair_0001_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1800388503,
-      "seed_b": 419622125
+      "image_a": "Khouribga/2023/pair_0001_a.jpg",
+      "truth_a": "till",
+      "image_b": "Khouribga/2023/pair_0001_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2023_0002",
       "province": "Khouribga",
       "year": 2023,
-      "image_a": "Khouribga/2023/pair_0002_a.png",
-      "image_b": "Khouribga/2023/pair_0002_b.png",
+      "image_a": "Khouribga/2023/pair_0002_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 553164594,
-      "seed_b": 1673175173
+      "image_b": "Khouribga/2023/pair_0002_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Khouribga_2023_0003",
       "province": "Khouribga",
       "year": 2023,
-      "image_a": "Khouribga/2023/pair_0003_a.png",
-      "image_b": "Khouribga/2023/pair_0003_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 425098764,
-      "seed_b": 1922137185
+      "image_a": "Khouribga/2023/pair_0003_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Khouribga/2023/pair_0003_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2023_0004",
       "province": "Khouribga",
       "year": 2023,
-      "image_a": "Khouribga/2023/pair_0004_a.png",
-      "image_b": "Khouribga/2023/pair_0004_b.png",
+      "image_a": "Khouribga/2023/pair_0004_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 207869392,
-      "seed_b": 5528811
+      "image_b": "Khouribga/2023/pair_0004_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Khouribga_2023_0005",
       "province": "Khouribga",
       "year": 2023,
-      "image_a": "Khouribga/2023/pair_0005_a.png",
-      "image_b": "Khouribga/2023/pair_0005_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 588248631,
-      "seed_b": 1606009775
+      "image_a": "Khouribga/2023/pair_0005_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Khouribga/2023/pair_0005_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2023_0006",
       "province": "Khouribga",
       "year": 2023,
-      "image_a": "Khouribga/2023/pair_0006_a.png",
-      "image_b": "Khouribga/2023/pair_0006_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 869844512,
-      "seed_b": 1178775848
+      "image_a": "Khouribga/2023/pair_0006_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Khouribga/2023/pair_0006_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2023_0007",
       "province": "Khouribga",
       "year": 2023,
-      "image_a": "Khouribga/2023/pair_0007_a.png",
-      "image_b": "Khouribga/2023/pair_0007_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "no_till",
-      "seed_a": 1606798156,
-      "seed_b": 965029340
+      "image_a": "Khouribga/2023/pair_0007_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Khouribga/2023/pair_0007_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Khouribga_2023_0008",
       "province": "Khouribga",
       "year": 2023,
-      "image_a": "Khouribga/2023/pair_0008_a.png",
-      "image_b": "Khouribga/2023/pair_0008_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 855954161,
-      "seed_b": 981486198
+      "image_a": "Khouribga/2023/pair_0008_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Khouribga/2023/pair_0008_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2024_0001",
       "province": "Khouribga",
       "year": 2024,
-      "image_a": "Khouribga/2024/pair_0001_a.png",
-      "image_b": "Khouribga/2024/pair_0001_b.png",
+      "image_a": "Khouribga/2024/pair_0001_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 639059388,
-      "seed_b": 1952250064
+      "image_b": "Khouribga/2024/pair_0001_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Khouribga_2024_0002",
       "province": "Khouribga",
       "year": 2024,
-      "image_a": "Khouribga/2024/pair_0002_a.png",
-      "image_b": "Khouribga/2024/pair_0002_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 36259164,
-      "seed_b": 1669013662
+      "image_a": "Khouribga/2024/pair_0002_a.jpg",
+      "truth_a": "till",
+      "image_b": "Khouribga/2024/pair_0002_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2024_0003",
       "province": "Khouribga",
       "year": 2024,
-      "image_a": "Khouribga/2024/pair_0003_a.png",
-      "image_b": "Khouribga/2024/pair_0003_b.png",
+      "image_a": "Khouribga/2024/pair_0003_a.jpg",
       "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 123938635,
-      "seed_b": 819583626
+      "image_b": "Khouribga/2024/pair_0003_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Khouribga_2024_0004",
       "province": "Khouribga",
       "year": 2024,
-      "image_a": "Khouribga/2024/pair_0004_a.png",
-      "image_b": "Khouribga/2024/pair_0004_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "no_till",
-      "seed_a": 643150588,
-      "seed_b": 938442495
+      "image_a": "Khouribga/2024/pair_0004_a.jpg",
+      "truth_a": "till",
+      "image_b": "Khouribga/2024/pair_0004_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2024_0005",
       "province": "Khouribga",
       "year": 2024,
-      "image_a": "Khouribga/2024/pair_0005_a.png",
-      "image_b": "Khouribga/2024/pair_0005_b.png",
+      "image_a": "Khouribga/2024/pair_0005_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1054343352,
-      "seed_b": 1826278434
+      "image_b": "Khouribga/2024/pair_0005_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2024_0006",
       "province": "Khouribga",
       "year": 2024,
-      "image_a": "Khouribga/2024/pair_0006_a.png",
-      "image_b": "Khouribga/2024/pair_0006_b.png",
+      "image_a": "Khouribga/2024/pair_0006_a.jpg",
       "truth_a": "till",
-      "truth_b": "ambiguous",
-      "seed_a": 441521911,
-      "seed_b": 1430492033
+      "image_b": "Khouribga/2024/pair_0006_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Khouribga_2024_0007",
       "province": "Khouribga",
       "year": 2024,
-      "image_a": "Khouribga/2024/pair_0007_a.png",
-      "image_b": "Khouribga/2024/pair_0007_b.png",
+      "image_a": "Khouribga/2024/pair_0007_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1466383707,
-      "seed_b": 596986919
+      "image_b": "Khouribga/2024/pair_0007_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Khouribga_2024_0008",
       "province": "Khouribga",
       "year": 2024,
-      "image_a": "Khouribga/2024/pair_0008_a.png",
-      "image_b": "Khouribga/2024/pair_0008_b.png",
-      "truth_a": "no_till",
-      "truth_b": "ambiguous",
-      "seed_a": 429040834,
-      "seed_b": 1422247703
+      "image_a": "Khouribga/2024/pair_0008_a.jpg",
+      "truth_a": "till",
+      "image_b": "Khouribga/2024/pair_0008_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Khouribga_2025_0001",
       "province": "Khouribga",
       "year": 2025,
-      "image_a": "Khouribga/2025/pair_0001_a.png",
-      "image_b": "Khouribga/2025/pair_0001_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 1625816610,
-      "seed_b": 1213119309
+      "image_a": "Khouribga/2025/pair_0001_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Khouribga/2025/pair_0001_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Khouribga_2025_0002",
       "province": "Khouribga",
       "year": 2025,
-      "image_a": "Khouribga/2025/pair_0002_a.png",
-      "image_b": "Khouribga/2025/pair_0002_b.png",
+      "image_a": "Khouribga/2025/pair_0002_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 4310492,
-      "seed_b": 1536554364
+      "image_b": "Khouribga/2025/pair_0002_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2025_0003",
       "province": "Khouribga",
       "year": 2025,
-      "image_a": "Khouribga/2025/pair_0003_a.png",
-      "image_b": "Khouribga/2025/pair_0003_b.png",
+      "image_a": "Khouribga/2025/pair_0003_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 305288888,
-      "seed_b": 1746561950
+      "image_b": "Khouribga/2025/pair_0003_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Khouribga_2025_0004",
       "province": "Khouribga",
       "year": 2025,
-      "image_a": "Khouribga/2025/pair_0004_a.png",
-      "image_b": "Khouribga/2025/pair_0004_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 68616247,
-      "seed_b": 25599989
+      "image_a": "Khouribga/2025/pair_0004_a.jpg",
+      "truth_a": "till",
+      "image_b": "Khouribga/2025/pair_0004_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2025_0005",
       "province": "Khouribga",
       "year": 2025,
-      "image_a": "Khouribga/2025/pair_0005_a.png",
-      "image_b": "Khouribga/2025/pair_0005_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1257758618,
-      "seed_b": 1510210631
+      "image_a": "Khouribga/2025/pair_0005_a.jpg",
+      "truth_a": "till",
+      "image_b": "Khouribga/2025/pair_0005_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2025_0006",
       "province": "Khouribga",
       "year": 2025,
-      "image_a": "Khouribga/2025/pair_0006_a.png",
-      "image_b": "Khouribga/2025/pair_0006_b.png",
+      "image_a": "Khouribga/2025/pair_0006_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 84665920,
-      "seed_b": 1237548454
+      "image_b": "Khouribga/2025/pair_0006_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2025_0007",
       "province": "Khouribga",
       "year": 2025,
-      "image_a": "Khouribga/2025/pair_0007_a.png",
-      "image_b": "Khouribga/2025/pair_0007_b.png",
+      "image_a": "Khouribga/2025/pair_0007_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 1251245671,
-      "seed_b": 564614667
+      "image_b": "Khouribga/2025/pair_0007_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Khouribga_2025_0008",
       "province": "Khouribga",
       "year": 2025,
-      "image_a": "Khouribga/2025/pair_0008_a.png",
-      "image_b": "Khouribga/2025/pair_0008_b.png",
+      "image_a": "Khouribga/2025/pair_0008_a.jpg",
       "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 582669374,
-      "seed_b": 292500742
+      "image_b": "Khouribga/2025/pair_0008_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2021_0001",
       "province": "Safi",
       "year": 2021,
-      "image_a": "Safi/2021/pair_0001_a.png",
-      "image_b": "Safi/2021/pair_0001_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "till",
-      "seed_a": 138782663,
-      "seed_b": 1969474464
+      "image_a": "Safi/2021/pair_0001_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2021/pair_0001_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2021_0002",
       "province": "Safi",
       "year": 2021,
-      "image_a": "Safi/2021/pair_0002_a.png",
-      "image_b": "Safi/2021/pair_0002_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 69686929,
-      "seed_b": 676544266
+      "image_a": "Safi/2021/pair_0002_a.jpg",
+      "truth_a": "till",
+      "image_b": "Safi/2021/pair_0002_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2021_0003",
       "province": "Safi",
       "year": 2021,
-      "image_a": "Safi/2021/pair_0003_a.png",
-      "image_b": "Safi/2021/pair_0003_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "no_till",
-      "seed_a": 751826094,
-      "seed_b": 646622445
+      "image_a": "Safi/2021/pair_0003_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2021/pair_0003_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2021_0004",
       "province": "Safi",
       "year": 2021,
-      "image_a": "Safi/2021/pair_0004_a.png",
-      "image_b": "Safi/2021/pair_0004_b.png",
+      "image_a": "Safi/2021/pair_0004_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 84520436,
-      "seed_b": 896623078
+      "image_b": "Safi/2021/pair_0004_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2021_0005",
       "province": "Safi",
       "year": 2021,
-      "image_a": "Safi/2021/pair_0005_a.png",
-      "image_b": "Safi/2021/pair_0005_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 1578242576,
-      "seed_b": 304472396
+      "image_a": "Safi/2021/pair_0005_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2021/pair_0005_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2021_0006",
       "province": "Safi",
       "year": 2021,
-      "image_a": "Safi/2021/pair_0006_a.png",
-      "image_b": "Safi/2021/pair_0006_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 887218270,
-      "seed_b": 892730294
+      "image_a": "Safi/2021/pair_0006_a.jpg",
+      "truth_a": "till",
+      "image_b": "Safi/2021/pair_0006_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2021_0007",
       "province": "Safi",
       "year": 2021,
-      "image_a": "Safi/2021/pair_0007_a.png",
-      "image_b": "Safi/2021/pair_0007_b.png",
+      "image_a": "Safi/2021/pair_0007_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1572723640,
-      "seed_b": 518178320
+      "image_b": "Safi/2021/pair_0007_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2021_0008",
       "province": "Safi",
       "year": 2021,
-      "image_a": "Safi/2021/pair_0008_a.png",
-      "image_b": "Safi/2021/pair_0008_b.png",
+      "image_a": "Safi/2021/pair_0008_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 977324350,
-      "seed_b": 300709856
+      "image_b": "Safi/2021/pair_0008_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2022_0001",
       "province": "Safi",
       "year": 2022,
-      "image_a": "Safi/2022/pair_0001_a.png",
-      "image_b": "Safi/2022/pair_0001_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 917040067,
-      "seed_b": 474371775
+      "image_a": "Safi/2022/pair_0001_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2022/pair_0001_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2022_0002",
       "province": "Safi",
       "year": 2022,
-      "image_a": "Safi/2022/pair_0002_a.png",
-      "image_b": "Safi/2022/pair_0002_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1605553682,
-      "seed_b": 791638993
+      "image_a": "Safi/2022/pair_0002_a.jpg",
+      "truth_a": "till",
+      "image_b": "Safi/2022/pair_0002_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2022_0003",
       "province": "Safi",
       "year": 2022,
-      "image_a": "Safi/2022/pair_0003_a.png",
-      "image_b": "Safi/2022/pair_0003_b.png",
+      "image_a": "Safi/2022/pair_0003_a.jpg",
       "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 301016859,
-      "seed_b": 532233845
+      "image_b": "Safi/2022/pair_0003_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2022_0004",
       "province": "Safi",
       "year": 2022,
-      "image_a": "Safi/2022/pair_0004_a.png",
-      "image_b": "Safi/2022/pair_0004_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1359968338,
-      "seed_b": 1302850719
+      "image_a": "Safi/2022/pair_0004_a.jpg",
+      "truth_a": "till",
+      "image_b": "Safi/2022/pair_0004_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2022_0005",
       "province": "Safi",
       "year": 2022,
-      "image_a": "Safi/2022/pair_0005_a.png",
-      "image_b": "Safi/2022/pair_0005_b.png",
-      "truth_a": "till",
-      "truth_b": "ambiguous",
-      "seed_a": 1338794411,
-      "seed_b": 202203197
+      "image_a": "Safi/2022/pair_0005_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2022/pair_0005_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2022_0006",
       "province": "Safi",
       "year": 2022,
-      "image_a": "Safi/2022/pair_0006_a.png",
-      "image_b": "Safi/2022/pair_0006_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "till",
-      "seed_a": 1133339623,
-      "seed_b": 385135513
+      "image_a": "Safi/2022/pair_0006_a.jpg",
+      "truth_a": "till",
+      "image_b": "Safi/2022/pair_0006_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2022_0007",
       "province": "Safi",
       "year": 2022,
-      "image_a": "Safi/2022/pair_0007_a.png",
-      "image_b": "Safi/2022/pair_0007_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 1578328285,
-      "seed_b": 1720939407
+      "image_a": "Safi/2022/pair_0007_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2022/pair_0007_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2022_0008",
       "province": "Safi",
       "year": 2022,
-      "image_a": "Safi/2022/pair_0008_a.png",
-      "image_b": "Safi/2022/pair_0008_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "no_till",
-      "seed_a": 1475954096,
-      "seed_b": 758422450
+      "image_a": "Safi/2022/pair_0008_a.jpg",
+      "truth_a": "till",
+      "image_b": "Safi/2022/pair_0008_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2023_0001",
       "province": "Safi",
       "year": 2023,
-      "image_a": "Safi/2023/pair_0001_a.png",
-      "image_b": "Safi/2023/pair_0001_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "no_till",
-      "seed_a": 1110408182,
-      "seed_b": 406226785
+      "image_a": "Safi/2023/pair_0001_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2023/pair_0001_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2023_0002",
       "province": "Safi",
       "year": 2023,
-      "image_a": "Safi/2023/pair_0002_a.png",
-      "image_b": "Safi/2023/pair_0002_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 460586041,
-      "seed_b": 392957686
+      "image_a": "Safi/2023/pair_0002_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2023/pair_0002_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2023_0003",
       "province": "Safi",
       "year": 2023,
-      "image_a": "Safi/2023/pair_0003_a.png",
-      "image_b": "Safi/2023/pair_0003_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "no_till",
-      "seed_a": 423340670,
-      "seed_b": 1288780518
+      "image_a": "Safi/2023/pair_0003_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2023/pair_0003_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2023_0004",
       "province": "Safi",
       "year": 2023,
-      "image_a": "Safi/2023/pair_0004_a.png",
-      "image_b": "Safi/2023/pair_0004_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 614171309,
-      "seed_b": 1990718676
+      "image_a": "Safi/2023/pair_0004_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2023/pair_0004_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2023_0005",
       "province": "Safi",
       "year": 2023,
-      "image_a": "Safi/2023/pair_0005_a.png",
-      "image_b": "Safi/2023/pair_0005_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "no_till",
-      "seed_a": 1295363486,
-      "seed_b": 562455278
+      "image_a": "Safi/2023/pair_0005_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2023/pair_0005_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2023_0006",
       "province": "Safi",
       "year": 2023,
-      "image_a": "Safi/2023/pair_0006_a.png",
-      "image_b": "Safi/2023/pair_0006_b.png",
+      "image_a": "Safi/2023/pair_0006_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 1570669688,
-      "seed_b": 589082299
+      "image_b": "Safi/2023/pair_0006_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2023_0007",
       "province": "Safi",
       "year": 2023,
-      "image_a": "Safi/2023/pair_0007_a.png",
-      "image_b": "Safi/2023/pair_0007_b.png",
+      "image_a": "Safi/2023/pair_0007_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 326631629,
-      "seed_b": 1727564028
+      "image_b": "Safi/2023/pair_0007_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2023_0008",
       "province": "Safi",
       "year": 2023,
-      "image_a": "Safi/2023/pair_0008_a.png",
-      "image_b": "Safi/2023/pair_0008_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 660792212,
-      "seed_b": 835363268
+      "image_a": "Safi/2023/pair_0008_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2023/pair_0008_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2024_0001",
       "province": "Safi",
       "year": 2024,
-      "image_a": "Safi/2024/pair_0001_a.png",
-      "image_b": "Safi/2024/pair_0001_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "till",
-      "seed_a": 278270263,
-      "seed_b": 929690763
+      "image_a": "Safi/2024/pair_0001_a.jpg",
+      "truth_a": "till",
+      "image_b": "Safi/2024/pair_0001_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2024_0002",
       "province": "Safi",
       "year": 2024,
-      "image_a": "Safi/2024/pair_0002_a.png",
-      "image_b": "Safi/2024/pair_0002_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 442917833,
-      "seed_b": 1399216593
+      "image_a": "Safi/2024/pair_0002_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2024/pair_0002_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2024_0003",
       "province": "Safi",
       "year": 2024,
-      "image_a": "Safi/2024/pair_0003_a.png",
-      "image_b": "Safi/2024/pair_0003_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1648157649,
-      "seed_b": 1353005112
+      "image_a": "Safi/2024/pair_0003_a.jpg",
+      "truth_a": "till",
+      "image_b": "Safi/2024/pair_0003_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2024_0004",
       "province": "Safi",
       "year": 2024,
-      "image_a": "Safi/2024/pair_0004_a.png",
-      "image_b": "Safi/2024/pair_0004_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 677161072,
-      "seed_b": 1088857425
+      "image_a": "Safi/2024/pair_0004_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2024/pair_0004_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2024_0005",
       "province": "Safi",
       "year": 2024,
-      "image_a": "Safi/2024/pair_0005_a.png",
-      "image_b": "Safi/2024/pair_0005_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 653733795,
-      "seed_b": 1359159750
+      "image_a": "Safi/2024/pair_0005_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2024/pair_0005_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2024_0006",
       "province": "Safi",
       "year": 2024,
-      "image_a": "Safi/2024/pair_0006_a.png",
-      "image_b": "Safi/2024/pair_0006_b.png",
+      "image_a": "Safi/2024/pair_0006_a.jpg",
       "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 1030804174,
-      "seed_b": 398342455
+      "image_b": "Safi/2024/pair_0006_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2024_0007",
       "province": "Safi",
       "year": 2024,
-      "image_a": "Safi/2024/pair_0007_a.png",
-      "image_b": "Safi/2024/pair_0007_b.png",
+      "image_a": "Safi/2024/pair_0007_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1068823551,
-      "seed_b": 1469577994
+      "image_b": "Safi/2024/pair_0007_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2024_0008",
       "province": "Safi",
       "year": 2024,
-      "image_a": "Safi/2024/pair_0008_a.png",
-      "image_b": "Safi/2024/pair_0008_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "till",
-      "seed_a": 42352650,
-      "seed_b": 736364832
+      "image_a": "Safi/2024/pair_0008_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2024/pair_0008_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2025_0001",
       "province": "Safi",
       "year": 2025,
-      "image_a": "Safi/2025/pair_0001_a.png",
-      "image_b": "Safi/2025/pair_0001_b.png",
+      "image_a": "Safi/2025/pair_0001_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 504601127,
-      "seed_b": 227788517
+      "image_b": "Safi/2025/pair_0001_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2025_0002",
       "province": "Safi",
       "year": 2025,
-      "image_a": "Safi/2025/pair_0002_a.png",
-      "image_b": "Safi/2025/pair_0002_b.png",
+      "image_a": "Safi/2025/pair_0002_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 536193240,
-      "seed_b": 1245794001
+      "image_b": "Safi/2025/pair_0002_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2025_0003",
       "province": "Safi",
       "year": 2025,
-      "image_a": "Safi/2025/pair_0003_a.png",
-      "image_b": "Safi/2025/pair_0003_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "ambiguous",
-      "seed_a": 1669420914,
-      "seed_b": 888694800
+      "image_a": "Safi/2025/pair_0003_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2025/pair_0003_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2025_0004",
       "province": "Safi",
       "year": 2025,
-      "image_a": "Safi/2025/pair_0004_a.png",
-      "image_b": "Safi/2025/pair_0004_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 196986498,
-      "seed_b": 1407972502
+      "image_a": "Safi/2025/pair_0004_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2025/pair_0004_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2025_0005",
       "province": "Safi",
       "year": 2025,
-      "image_a": "Safi/2025/pair_0005_a.png",
-      "image_b": "Safi/2025/pair_0005_b.png",
+      "image_a": "Safi/2025/pair_0005_a.jpg",
       "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 1004057994,
-      "seed_b": 1724768137
+      "image_b": "Safi/2025/pair_0005_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2025_0006",
       "province": "Safi",
       "year": 2025,
-      "image_a": "Safi/2025/pair_0006_a.png",
-      "image_b": "Safi/2025/pair_0006_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1199193489,
-      "seed_b": 121322932
+      "image_a": "Safi/2025/pair_0006_a.jpg",
+      "truth_a": "till",
+      "image_b": "Safi/2025/pair_0006_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Safi_2025_0007",
       "province": "Safi",
       "year": 2025,
-      "image_a": "Safi/2025/pair_0007_a.png",
-      "image_b": "Safi/2025/pair_0007_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "no_till",
-      "seed_a": 786169248,
-      "seed_b": 1099216897
+      "image_a": "Safi/2025/pair_0007_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Safi/2025/pair_0007_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Safi_2025_0008",
       "province": "Safi",
       "year": 2025,
-      "image_a": "Safi/2025/pair_0008_a.png",
-      "image_b": "Safi/2025/pair_0008_b.png",
+      "image_a": "Safi/2025/pair_0008_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 539809400,
-      "seed_b": 1551868008
+      "image_b": "Safi/2025/pair_0008_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2021_0001",
       "province": "El-Jadida",
       "year": 2021,
-      "image_a": "El-Jadida/2021/pair_0001_a.png",
-      "image_b": "El-Jadida/2021/pair_0001_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 420997680,
-      "seed_b": 865039762
+      "image_a": "El-Jadida/2021/pair_0001_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "El-Jadida/2021/pair_0001_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2021_0002",
       "province": "El-Jadida",
       "year": 2021,
-      "image_a": "El-Jadida/2021/pair_0002_a.png",
-      "image_b": "El-Jadida/2021/pair_0002_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1374017526,
-      "seed_b": 231233511
+      "image_a": "El-Jadida/2021/pair_0002_a.jpg",
+      "truth_a": "till",
+      "image_b": "El-Jadida/2021/pair_0002_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "El-Jadida_2021_0003",
       "province": "El-Jadida",
       "year": 2021,
-      "image_a": "El-Jadida/2021/pair_0003_a.png",
-      "image_b": "El-Jadida/2021/pair_0003_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 881862441,
-      "seed_b": 897291134
+      "image_a": "El-Jadida/2021/pair_0003_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "El-Jadida/2021/pair_0003_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "El-Jadida_2021_0004",
       "province": "El-Jadida",
       "year": 2021,
-      "image_a": "El-Jadida/2021/pair_0004_a.png",
-      "image_b": "El-Jadida/2021/pair_0004_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 68680992,
-      "seed_b": 845886733
+      "image_a": "El-Jadida/2021/pair_0004_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "El-Jadida/2021/pair_0004_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "El-Jadida_2021_0005",
       "province": "El-Jadida",
       "year": 2021,
-      "image_a": "El-Jadida/2021/pair_0005_a.png",
-      "image_b": "El-Jadida/2021/pair_0005_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 1814801773,
-      "seed_b": 1158102248
+      "image_a": "El-Jadida/2021/pair_0005_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "El-Jadida/2021/pair_0005_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "El-Jadida_2021_0006",
       "province": "El-Jadida",
       "year": 2021,
-      "image_a": "El-Jadida/2021/pair_0006_a.png",
-      "image_b": "El-Jadida/2021/pair_0006_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1420054862,
-      "seed_b": 1587941342
+      "image_a": "El-Jadida/2021/pair_0006_a.jpg",
+      "truth_a": "till",
+      "image_b": "El-Jadida/2021/pair_0006_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2021_0007",
       "province": "El-Jadida",
       "year": 2021,
-      "image_a": "El-Jadida/2021/pair_0007_a.png",
-      "image_b": "El-Jadida/2021/pair_0007_b.png",
+      "image_a": "El-Jadida/2021/pair_0007_a.jpg",
       "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 707832915,
-      "seed_b": 1778921736
+      "image_b": "El-Jadida/2021/pair_0007_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2021_0008",
       "province": "El-Jadida",
       "year": 2021,
-      "image_a": "El-Jadida/2021/pair_0008_a.png",
-      "image_b": "El-Jadida/2021/pair_0008_b.png",
+      "image_a": "El-Jadida/2021/pair_0008_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 382739284,
-      "seed_b": 1660394940
+      "image_b": "El-Jadida/2021/pair_0008_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2022_0001",
       "province": "El-Jadida",
       "year": 2022,
-      "image_a": "El-Jadida/2022/pair_0001_a.png",
-      "image_b": "El-Jadida/2022/pair_0001_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 864673067,
-      "seed_b": 1933347005
+      "image_a": "El-Jadida/2022/pair_0001_a.jpg",
+      "truth_a": "till",
+      "image_b": "El-Jadida/2022/pair_0001_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "El-Jadida_2022_0002",
       "province": "El-Jadida",
       "year": 2022,
-      "image_a": "El-Jadida/2022/pair_0002_a.png",
-      "image_b": "El-Jadida/2022/pair_0002_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1361283012,
-      "seed_b": 1202205912
+      "image_a": "El-Jadida/2022/pair_0002_a.jpg",
+      "truth_a": "till",
+      "image_b": "El-Jadida/2022/pair_0002_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "El-Jadida_2022_0003",
       "province": "El-Jadida",
       "year": 2022,
-      "image_a": "El-Jadida/2022/pair_0003_a.png",
-      "image_b": "El-Jadida/2022/pair_0003_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 1198171758,
-      "seed_b": 473870820
+      "image_a": "El-Jadida/2022/pair_0003_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "El-Jadida/2022/pair_0003_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "El-Jadida_2022_0004",
       "province": "El-Jadida",
       "year": 2022,
-      "image_a": "El-Jadida/2022/pair_0004_a.png",
-      "image_b": "El-Jadida/2022/pair_0004_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 714002022,
-      "seed_b": 1251240842
+      "image_a": "El-Jadida/2022/pair_0004_a.jpg",
+      "truth_a": "till",
+      "image_b": "El-Jadida/2022/pair_0004_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2022_0005",
       "province": "El-Jadida",
       "year": 2022,
-      "image_a": "El-Jadida/2022/pair_0005_a.png",
-      "image_b": "El-Jadida/2022/pair_0005_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 955202602,
-      "seed_b": 1094734141
+      "image_a": "El-Jadida/2022/pair_0005_a.jpg",
+      "truth_a": "till",
+      "image_b": "El-Jadida/2022/pair_0005_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2022_0006",
       "province": "El-Jadida",
       "year": 2022,
-      "image_a": "El-Jadida/2022/pair_0006_a.png",
-      "image_b": "El-Jadida/2022/pair_0006_b.png",
+      "image_a": "El-Jadida/2022/pair_0006_a.jpg",
       "truth_a": "till",
-      "truth_b": "ambiguous",
-      "seed_a": 1730842466,
-      "seed_b": 1968585779
+      "image_b": "El-Jadida/2022/pair_0006_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2022_0007",
       "province": "El-Jadida",
       "year": 2022,
-      "image_a": "El-Jadida/2022/pair_0007_a.png",
-      "image_b": "El-Jadida/2022/pair_0007_b.png",
+      "image_a": "El-Jadida/2022/pair_0007_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1745594958,
-      "seed_b": 438176359
+      "image_b": "El-Jadida/2022/pair_0007_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2022_0008",
       "province": "El-Jadida",
       "year": 2022,
-      "image_a": "El-Jadida/2022/pair_0008_a.png",
-      "image_b": "El-Jadida/2022/pair_0008_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 306333792,
-      "seed_b": 1648688700
+      "image_a": "El-Jadida/2022/pair_0008_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "El-Jadida/2022/pair_0008_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "El-Jadida_2023_0001",
       "province": "El-Jadida",
       "year": 2023,
-      "image_a": "El-Jadida/2023/pair_0001_a.png",
-      "image_b": "El-Jadida/2023/pair_0001_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 645361753,
-      "seed_b": 1017832706
+      "image_a": "El-Jadida/2023/pair_0001_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "El-Jadida/2023/pair_0001_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "El-Jadida_2023_0002",
       "province": "El-Jadida",
       "year": 2023,
-      "image_a": "El-Jadida/2023/pair_0002_a.png",
-      "image_b": "El-Jadida/2023/pair_0002_b.png",
+      "image_a": "El-Jadida/2023/pair_0002_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 801493944,
-      "seed_b": 1249508319
+      "image_b": "El-Jadida/2023/pair_0002_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2023_0003",
       "province": "El-Jadida",
       "year": 2023,
-      "image_a": "El-Jadida/2023/pair_0003_a.png",
-      "image_b": "El-Jadida/2023/pair_0003_b.png",
+      "image_a": "El-Jadida/2023/pair_0003_a.jpg",
       "truth_a": "till",
-      "truth_b": "ambiguous",
-      "seed_a": 1923693701,
-      "seed_b": 48842844
+      "image_b": "El-Jadida/2023/pair_0003_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2023_0004",
       "province": "El-Jadida",
       "year": 2023,
-      "image_a": "El-Jadida/2023/pair_0004_a.png",
-      "image_b": "El-Jadida/2023/pair_0004_b.png",
+      "image_a": "El-Jadida/2023/pair_0004_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1317978359,
-      "seed_b": 1106613606
+      "image_b": "El-Jadida/2023/pair_0004_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2023_0005",
       "province": "El-Jadida",
       "year": 2023,
-      "image_a": "El-Jadida/2023/pair_0005_a.png",
-      "image_b": "El-Jadida/2023/pair_0005_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1891000976,
-      "seed_b": 387503237
+      "image_a": "El-Jadida/2023/pair_0005_a.jpg",
+      "truth_a": "till",
+      "image_b": "El-Jadida/2023/pair_0005_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "El-Jadida_2023_0006",
       "province": "El-Jadida",
       "year": 2023,
-      "image_a": "El-Jadida/2023/pair_0006_a.png",
-      "image_b": "El-Jadida/2023/pair_0006_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "ambiguous",
-      "seed_a": 144535290,
-      "seed_b": 377791444
+      "image_a": "El-Jadida/2023/pair_0006_a.jpg",
+      "truth_a": "till",
+      "image_b": "El-Jadida/2023/pair_0006_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2023_0007",
       "province": "El-Jadida",
       "year": 2023,
-      "image_a": "El-Jadida/2023/pair_0007_a.png",
-      "image_b": "El-Jadida/2023/pair_0007_b.png",
-      "truth_a": "till",
-      "truth_b": "ambiguous",
-      "seed_a": 84872775,
-      "seed_b": 1094695619
+      "image_a": "El-Jadida/2023/pair_0007_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "El-Jadida/2023/pair_0007_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "El-Jadida_2023_0008",
       "province": "El-Jadida",
       "year": 2023,
-      "image_a": "El-Jadida/2023/pair_0008_a.png",
-      "image_b": "El-Jadida/2023/pair_0008_b.png",
+      "image_a": "El-Jadida/2023/pair_0008_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1099652977,
-      "seed_b": 1588814941
+      "image_b": "El-Jadida/2023/pair_0008_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2024_0001",
       "province": "El-Jadida",
       "year": 2024,
-      "image_a": "El-Jadida/2024/pair_0001_a.png",
-      "image_b": "El-Jadida/2024/pair_0001_b.png",
+      "image_a": "El-Jadida/2024/pair_0001_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 1687923477,
-      "seed_b": 1315370887
+      "image_b": "El-Jadida/2024/pair_0001_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2024_0002",
       "province": "El-Jadida",
       "year": 2024,
-      "image_a": "El-Jadida/2024/pair_0002_a.png",
-      "image_b": "El-Jadida/2024/pair_0002_b.png",
+      "image_a": "El-Jadida/2024/pair_0002_a.jpg",
       "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 1071506535,
-      "seed_b": 1525747006
+      "image_b": "El-Jadida/2024/pair_0002_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "El-Jadida_2024_0003",
       "province": "El-Jadida",
       "year": 2024,
-      "image_a": "El-Jadida/2024/pair_0003_a.png",
-      "image_b": "El-Jadida/2024/pair_0003_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 421748305,
-      "seed_b": 520646098
+      "image_a": "El-Jadida/2024/pair_0003_a.jpg",
+      "truth_a": "till",
+      "image_b": "El-Jadida/2024/pair_0003_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2024_0004",
       "province": "El-Jadida",
       "year": 2024,
-      "image_a": "El-Jadida/2024/pair_0004_a.png",
-      "image_b": "El-Jadida/2024/pair_0004_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "till",
-      "seed_a": 352673788,
-      "seed_b": 1350974480
+      "image_a": "El-Jadida/2024/pair_0004_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "El-Jadida/2024/pair_0004_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "El-Jadida_2024_0005",
       "province": "El-Jadida",
       "year": 2024,
-      "image_a": "El-Jadida/2024/pair_0005_a.png",
-      "image_b": "El-Jadida/2024/pair_0005_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 284308715,
-      "seed_b": 1097343220
+      "image_a": "El-Jadida/2024/pair_0005_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "El-Jadida/2024/pair_0005_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "El-Jadida_2024_0006",
       "province": "El-Jadida",
       "year": 2024,
-      "image_a": "El-Jadida/2024/pair_0006_a.png",
-      "image_b": "El-Jadida/2024/pair_0006_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 524143970,
-      "seed_b": 366271977
+      "image_a": "El-Jadida/2024/pair_0006_a.jpg",
+      "truth_a": "till",
+      "image_b": "El-Jadida/2024/pair_0006_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "El-Jadida_2024_0007",
       "province": "El-Jadida",
       "year": 2024,
-      "image_a": "El-Jadida/2024/pair_0007_a.png",
-      "image_b": "El-Jadida/2024/pair_0007_b.png",
+      "image_a": "El-Jadida/2024/pair_0007_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 1332381239,
-      "seed_b": 731973329
+      "image_b": "El-Jadida/2024/pair_0007_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2024_0008",
       "province": "El-Jadida",
       "year": 2024,
-      "image_a": "El-Jadida/2024/pair_0008_a.png",
-      "image_b": "El-Jadida/2024/pair_0008_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "till",
-      "seed_a": 270761677,
-      "seed_b": 1396647551
+      "image_a": "El-Jadida/2024/pair_0008_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "El-Jadida/2024/pair_0008_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2025_0001",
       "province": "El-Jadida",
       "year": 2025,
-      "image_a": "El-Jadida/2025/pair_0001_a.png",
-      "image_b": "El-Jadida/2025/pair_0001_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 369457389,
-      "seed_b": 429753527
+      "image_a": "El-Jadida/2025/pair_0001_a.jpg",
+      "truth_a": "till",
+      "image_b": "El-Jadida/2025/pair_0001_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2025_0002",
       "province": "El-Jadida",
       "year": 2025,
-      "image_a": "El-Jadida/2025/pair_0002_a.png",
-      "image_b": "El-Jadida/2025/pair_0002_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 1702187784,
-      "seed_b": 138385260
+      "image_a": "El-Jadida/2025/pair_0002_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "El-Jadida/2025/pair_0002_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2025_0003",
       "province": "El-Jadida",
       "year": 2025,
-      "image_a": "El-Jadida/2025/pair_0003_a.png",
-      "image_b": "El-Jadida/2025/pair_0003_b.png",
+      "image_a": "El-Jadida/2025/pair_0003_a.jpg",
       "truth_a": "till",
-      "truth_b": "ambiguous",
-      "seed_a": 1054556964,
-      "seed_b": 273141691
+      "image_b": "El-Jadida/2025/pair_0003_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2025_0004",
       "province": "El-Jadida",
       "year": 2025,
-      "image_a": "El-Jadida/2025/pair_0004_a.png",
-      "image_b": "El-Jadida/2025/pair_0004_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1723977920,
-      "seed_b": 348766832
+      "image_a": "El-Jadida/2025/pair_0004_a.jpg",
+      "truth_a": "till",
+      "image_b": "El-Jadida/2025/pair_0004_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2025_0005",
       "province": "El-Jadida",
       "year": 2025,
-      "image_a": "El-Jadida/2025/pair_0005_a.png",
-      "image_b": "El-Jadida/2025/pair_0005_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 1284805530,
-      "seed_b": 510682994
+      "image_a": "El-Jadida/2025/pair_0005_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "El-Jadida/2025/pair_0005_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2025_0006",
       "province": "El-Jadida",
       "year": 2025,
-      "image_a": "El-Jadida/2025/pair_0006_a.png",
-      "image_b": "El-Jadida/2025/pair_0006_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 715067706,
-      "seed_b": 1898260980
+      "image_a": "El-Jadida/2025/pair_0006_a.jpg",
+      "truth_a": "till",
+      "image_b": "El-Jadida/2025/pair_0006_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2025_0007",
       "province": "El-Jadida",
       "year": 2025,
-      "image_a": "El-Jadida/2025/pair_0007_a.png",
-      "image_b": "El-Jadida/2025/pair_0007_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1011332337,
-      "seed_b": 995734159
+      "image_a": "El-Jadida/2025/pair_0007_a.jpg",
+      "truth_a": "till",
+      "image_b": "El-Jadida/2025/pair_0007_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "El-Jadida_2025_0008",
       "province": "El-Jadida",
       "year": 2025,
-      "image_a": "El-Jadida/2025/pair_0008_a.png",
-      "image_b": "El-Jadida/2025/pair_0008_b.png",
-      "truth_a": "no_till",
-      "truth_b": "ambiguous",
-      "seed_a": 1713553947,
-      "seed_b": 162514079
+      "image_a": "El-Jadida/2025/pair_0008_a.jpg",
+      "truth_a": "till",
+      "image_b": "El-Jadida/2025/pair_0008_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2021_0001",
       "province": "Beni-Mellal",
       "year": 2021,
-      "image_a": "Beni-Mellal/2021/pair_0001_a.png",
-      "image_b": "Beni-Mellal/2021/pair_0001_b.png",
+      "image_a": "Beni-Mellal/2021/pair_0001_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 120191199,
-      "seed_b": 1206243694
+      "image_b": "Beni-Mellal/2021/pair_0001_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2021_0002",
       "province": "Beni-Mellal",
       "year": 2021,
-      "image_a": "Beni-Mellal/2021/pair_0002_a.png",
-      "image_b": "Beni-Mellal/2021/pair_0002_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1451247021,
-      "seed_b": 231224603
+      "image_a": "Beni-Mellal/2021/pair_0002_a.jpg",
+      "truth_a": "till",
+      "image_b": "Beni-Mellal/2021/pair_0002_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2021_0003",
       "province": "Beni-Mellal",
       "year": 2021,
-      "image_a": "Beni-Mellal/2021/pair_0003_a.png",
-      "image_b": "Beni-Mellal/2021/pair_0003_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "till",
-      "seed_a": 1324377998,
-      "seed_b": 1362644673
+      "image_a": "Beni-Mellal/2021/pair_0003_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Beni-Mellal/2021/pair_0003_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2021_0004",
       "province": "Beni-Mellal",
       "year": 2021,
-      "image_a": "Beni-Mellal/2021/pair_0004_a.png",
-      "image_b": "Beni-Mellal/2021/pair_0004_b.png",
+      "image_a": "Beni-Mellal/2021/pair_0004_a.jpg",
       "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 418128758,
-      "seed_b": 145204083
+      "image_b": "Beni-Mellal/2021/pair_0004_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2021_0005",
       "province": "Beni-Mellal",
       "year": 2021,
-      "image_a": "Beni-Mellal/2021/pair_0005_a.png",
-      "image_b": "Beni-Mellal/2021/pair_0005_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 1547642542,
-      "seed_b": 1772881153
+      "image_a": "Beni-Mellal/2021/pair_0005_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Beni-Mellal/2021/pair_0005_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2021_0006",
       "province": "Beni-Mellal",
       "year": 2021,
-      "image_a": "Beni-Mellal/2021/pair_0006_a.png",
-      "image_b": "Beni-Mellal/2021/pair_0006_b.png",
+      "image_a": "Beni-Mellal/2021/pair_0006_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 116072960,
-      "seed_b": 1091760831
+      "image_b": "Beni-Mellal/2021/pair_0006_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2021_0007",
       "province": "Beni-Mellal",
       "year": 2021,
-      "image_a": "Beni-Mellal/2021/pair_0007_a.png",
-      "image_b": "Beni-Mellal/2021/pair_0007_b.png",
-      "truth_a": "ambiguous",
-      "truth_b": "ambiguous",
-      "seed_a": 379052976,
-      "seed_b": 1942236388
+      "image_a": "Beni-Mellal/2021/pair_0007_a.jpg",
+      "truth_a": "till",
+      "image_b": "Beni-Mellal/2021/pair_0007_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2021_0008",
       "province": "Beni-Mellal",
       "year": 2021,
-      "image_a": "Beni-Mellal/2021/pair_0008_a.png",
-      "image_b": "Beni-Mellal/2021/pair_0008_b.png",
+      "image_a": "Beni-Mellal/2021/pair_0008_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 1509398082,
-      "seed_b": 712163188
+      "image_b": "Beni-Mellal/2021/pair_0008_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2022_0001",
       "province": "Beni-Mellal",
       "year": 2022,
-      "image_a": "Beni-Mellal/2022/pair_0001_a.png",
-      "image_b": "Beni-Mellal/2022/pair_0001_b.png",
-      "truth_a": "no_till",
-      "truth_b": "ambiguous",
-      "seed_a": 1023039582,
-      "seed_b": 1369923997
+      "image_a": "Beni-Mellal/2022/pair_0001_a.jpg",
+      "truth_a": "till",
+      "image_b": "Beni-Mellal/2022/pair_0001_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2022_0002",
       "province": "Beni-Mellal",
       "year": 2022,
-      "image_a": "Beni-Mellal/2022/pair_0002_a.png",
-      "image_b": "Beni-Mellal/2022/pair_0002_b.png",
+      "image_a": "Beni-Mellal/2022/pair_0002_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 819897148,
-      "seed_b": 1077503088
+      "image_b": "Beni-Mellal/2022/pair_0002_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2022_0003",
       "province": "Beni-Mellal",
       "year": 2022,
-      "image_a": "Beni-Mellal/2022/pair_0003_a.png",
-      "image_b": "Beni-Mellal/2022/pair_0003_b.png",
+      "image_a": "Beni-Mellal/2022/pair_0003_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1432964983,
-      "seed_b": 928946115
+      "image_b": "Beni-Mellal/2022/pair_0003_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2022_0004",
       "province": "Beni-Mellal",
       "year": 2022,
-      "image_a": "Beni-Mellal/2022/pair_0004_a.png",
-      "image_b": "Beni-Mellal/2022/pair_0004_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 994764522,
-      "seed_b": 1384343124
+      "image_a": "Beni-Mellal/2022/pair_0004_a.jpg",
+      "truth_a": "till",
+      "image_b": "Beni-Mellal/2022/pair_0004_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2022_0005",
       "province": "Beni-Mellal",
       "year": 2022,
-      "image_a": "Beni-Mellal/2022/pair_0005_a.png",
-      "image_b": "Beni-Mellal/2022/pair_0005_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 213080962,
-      "seed_b": 1107371601
+      "image_a": "Beni-Mellal/2022/pair_0005_a.jpg",
+      "truth_a": "till",
+      "image_b": "Beni-Mellal/2022/pair_0005_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2022_0006",
       "province": "Beni-Mellal",
       "year": 2022,
-      "image_a": "Beni-Mellal/2022/pair_0006_a.png",
-      "image_b": "Beni-Mellal/2022/pair_0006_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1387976612,
-      "seed_b": 1903597514
+      "image_a": "Beni-Mellal/2022/pair_0006_a.jpg",
+      "truth_a": "till",
+      "image_b": "Beni-Mellal/2022/pair_0006_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2022_0007",
       "province": "Beni-Mellal",
       "year": 2022,
-      "image_a": "Beni-Mellal/2022/pair_0007_a.png",
-      "image_b": "Beni-Mellal/2022/pair_0007_b.png",
+      "image_a": "Beni-Mellal/2022/pair_0007_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1268664826,
-      "seed_b": 1075359709
+      "image_b": "Beni-Mellal/2022/pair_0007_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2022_0008",
       "province": "Beni-Mellal",
       "year": 2022,
-      "image_a": "Beni-Mellal/2022/pair_0008_a.png",
-      "image_b": "Beni-Mellal/2022/pair_0008_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 732973962,
-      "seed_b": 1910272025
+      "image_a": "Beni-Mellal/2022/pair_0008_a.jpg",
+      "truth_a": "till",
+      "image_b": "Beni-Mellal/2022/pair_0008_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2023_0001",
       "province": "Beni-Mellal",
       "year": 2023,
-      "image_a": "Beni-Mellal/2023/pair_0001_a.png",
-      "image_b": "Beni-Mellal/2023/pair_0001_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 837886639,
-      "seed_b": 1546125024
+      "image_a": "Beni-Mellal/2023/pair_0001_a.jpg",
+      "truth_a": "till",
+      "image_b": "Beni-Mellal/2023/pair_0001_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2023_0002",
       "province": "Beni-Mellal",
       "year": 2023,
-      "image_a": "Beni-Mellal/2023/pair_0002_a.png",
-      "image_b": "Beni-Mellal/2023/pair_0002_b.png",
+      "image_a": "Beni-Mellal/2023/pair_0002_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 1707189326,
-      "seed_b": 335512900
+      "image_b": "Beni-Mellal/2023/pair_0002_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2023_0003",
       "province": "Beni-Mellal",
       "year": 2023,
-      "image_a": "Beni-Mellal/2023/pair_0003_a.png",
-      "image_b": "Beni-Mellal/2023/pair_0003_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1593324258,
-      "seed_b": 286010445
+      "image_a": "Beni-Mellal/2023/pair_0003_a.jpg",
+      "truth_a": "till",
+      "image_b": "Beni-Mellal/2023/pair_0003_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2023_0004",
       "province": "Beni-Mellal",
       "year": 2023,
-      "image_a": "Beni-Mellal/2023/pair_0004_a.png",
-      "image_b": "Beni-Mellal/2023/pair_0004_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 694640502,
-      "seed_b": 1281578228
+      "image_a": "Beni-Mellal/2023/pair_0004_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Beni-Mellal/2023/pair_0004_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2023_0005",
       "province": "Beni-Mellal",
       "year": 2023,
-      "image_a": "Beni-Mellal/2023/pair_0005_a.png",
-      "image_b": "Beni-Mellal/2023/pair_0005_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 652953918,
-      "seed_b": 676852914
+      "image_a": "Beni-Mellal/2023/pair_0005_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Beni-Mellal/2023/pair_0005_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2023_0006",
       "province": "Beni-Mellal",
       "year": 2023,
-      "image_a": "Beni-Mellal/2023/pair_0006_a.png",
-      "image_b": "Beni-Mellal/2023/pair_0006_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 1145446227,
-      "seed_b": 1229055847
+      "image_a": "Beni-Mellal/2023/pair_0006_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Beni-Mellal/2023/pair_0006_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2023_0007",
       "province": "Beni-Mellal",
       "year": 2023,
-      "image_a": "Beni-Mellal/2023/pair_0007_a.png",
-      "image_b": "Beni-Mellal/2023/pair_0007_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 449658327,
-      "seed_b": 692927203
+      "image_a": "Beni-Mellal/2023/pair_0007_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Beni-Mellal/2023/pair_0007_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2023_0008",
       "province": "Beni-Mellal",
       "year": 2023,
-      "image_a": "Beni-Mellal/2023/pair_0008_a.png",
-      "image_b": "Beni-Mellal/2023/pair_0008_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 1506052202,
-      "seed_b": 1293463815
+      "image_a": "Beni-Mellal/2023/pair_0008_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Beni-Mellal/2023/pair_0008_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2024_0001",
       "province": "Beni-Mellal",
       "year": 2024,
-      "image_a": "Beni-Mellal/2024/pair_0001_a.png",
-      "image_b": "Beni-Mellal/2024/pair_0001_b.png",
+      "image_a": "Beni-Mellal/2024/pair_0001_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 214755126,
-      "seed_b": 663371105
+      "image_b": "Beni-Mellal/2024/pair_0001_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2024_0002",
       "province": "Beni-Mellal",
       "year": 2024,
-      "image_a": "Beni-Mellal/2024/pair_0002_a.png",
-      "image_b": "Beni-Mellal/2024/pair_0002_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 528443330,
-      "seed_b": 1642069987
+      "image_a": "Beni-Mellal/2024/pair_0002_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Beni-Mellal/2024/pair_0002_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2024_0003",
       "province": "Beni-Mellal",
       "year": 2024,
-      "image_a": "Beni-Mellal/2024/pair_0003_a.png",
-      "image_b": "Beni-Mellal/2024/pair_0003_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 241511706,
-      "seed_b": 206947510
+      "image_a": "Beni-Mellal/2024/pair_0003_a.jpg",
+      "truth_a": "till",
+      "image_b": "Beni-Mellal/2024/pair_0003_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2024_0004",
       "province": "Beni-Mellal",
       "year": 2024,
-      "image_a": "Beni-Mellal/2024/pair_0004_a.png",
-      "image_b": "Beni-Mellal/2024/pair_0004_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 107730663,
-      "seed_b": 993195513
+      "image_a": "Beni-Mellal/2024/pair_0004_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Beni-Mellal/2024/pair_0004_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2024_0005",
       "province": "Beni-Mellal",
       "year": 2024,
-      "image_a": "Beni-Mellal/2024/pair_0005_a.png",
-      "image_b": "Beni-Mellal/2024/pair_0005_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 900701262,
-      "seed_b": 1567515424
+      "image_a": "Beni-Mellal/2024/pair_0005_a.jpg",
+      "truth_a": "till",
+      "image_b": "Beni-Mellal/2024/pair_0005_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2024_0006",
       "province": "Beni-Mellal",
       "year": 2024,
-      "image_a": "Beni-Mellal/2024/pair_0006_a.png",
-      "image_b": "Beni-Mellal/2024/pair_0006_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 1584213685,
-      "seed_b": 1671861606
+      "image_a": "Beni-Mellal/2024/pair_0006_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Beni-Mellal/2024/pair_0006_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2024_0007",
       "province": "Beni-Mellal",
       "year": 2024,
-      "image_a": "Beni-Mellal/2024/pair_0007_a.png",
-      "image_b": "Beni-Mellal/2024/pair_0007_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 835896891,
-      "seed_b": 1491820680
+      "image_a": "Beni-Mellal/2024/pair_0007_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Beni-Mellal/2024/pair_0007_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2024_0008",
       "province": "Beni-Mellal",
       "year": 2024,
-      "image_a": "Beni-Mellal/2024/pair_0008_a.png",
-      "image_b": "Beni-Mellal/2024/pair_0008_b.png",
+      "image_a": "Beni-Mellal/2024/pair_0008_a.jpg",
       "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 802093225,
-      "seed_b": 1005265206
+      "image_b": "Beni-Mellal/2024/pair_0008_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2025_0001",
       "province": "Beni-Mellal",
       "year": 2025,
-      "image_a": "Beni-Mellal/2025/pair_0001_a.png",
-      "image_b": "Beni-Mellal/2025/pair_0001_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1360550530,
-      "seed_b": 590377658
+      "image_a": "Beni-Mellal/2025/pair_0001_a.jpg",
+      "truth_a": "till",
+      "image_b": "Beni-Mellal/2025/pair_0001_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2025_0002",
       "province": "Beni-Mellal",
       "year": 2025,
-      "image_a": "Beni-Mellal/2025/pair_0002_a.png",
-      "image_b": "Beni-Mellal/2025/pair_0002_b.png",
-      "truth_a": "till",
-      "truth_b": "no_till",
-      "seed_a": 1904397439,
-      "seed_b": 1050443126
+      "image_a": "Beni-Mellal/2025/pair_0002_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Beni-Mellal/2025/pair_0002_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2025_0003",
       "province": "Beni-Mellal",
       "year": 2025,
-      "image_a": "Beni-Mellal/2025/pair_0003_a.png",
-      "image_b": "Beni-Mellal/2025/pair_0003_b.png",
+      "image_a": "Beni-Mellal/2025/pair_0003_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 1055308232,
-      "seed_b": 120901879
+      "image_b": "Beni-Mellal/2025/pair_0003_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2025_0004",
       "province": "Beni-Mellal",
       "year": 2025,
-      "image_a": "Beni-Mellal/2025/pair_0004_a.png",
-      "image_b": "Beni-Mellal/2025/pair_0004_b.png",
-      "truth_a": "no_till",
-      "truth_b": "till",
-      "seed_a": 406034373,
-      "seed_b": 248700542
+      "image_a": "Beni-Mellal/2025/pair_0004_a.jpg",
+      "truth_a": "till",
+      "image_b": "Beni-Mellal/2025/pair_0004_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2025_0005",
       "province": "Beni-Mellal",
       "year": 2025,
-      "image_a": "Beni-Mellal/2025/pair_0005_a.png",
-      "image_b": "Beni-Mellal/2025/pair_0005_b.png",
+      "image_a": "Beni-Mellal/2025/pair_0005_a.jpg",
       "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 779134864,
-      "seed_b": 1087122155
+      "image_b": "Beni-Mellal/2025/pair_0005_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2025_0006",
       "province": "Beni-Mellal",
       "year": 2025,
-      "image_a": "Beni-Mellal/2025/pair_0006_a.png",
-      "image_b": "Beni-Mellal/2025/pair_0006_b.png",
+      "image_a": "Beni-Mellal/2025/pair_0006_a.jpg",
       "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 172190806,
-      "seed_b": 892615904
+      "image_b": "Beni-Mellal/2025/pair_0006_b.jpg",
+      "truth_b": "no_till"
     },
     {
       "pair_id": "Beni-Mellal_2025_0007",
       "province": "Beni-Mellal",
       "year": 2025,
-      "image_a": "Beni-Mellal/2025/pair_0007_a.png",
-      "image_b": "Beni-Mellal/2025/pair_0007_b.png",
-      "truth_a": "no_till",
-      "truth_b": "no_till",
-      "seed_a": 1623045673,
-      "seed_b": 834612243
+      "image_a": "Beni-Mellal/2025/pair_0007_a.jpg",
+      "truth_a": "till",
+      "image_b": "Beni-Mellal/2025/pair_0007_b.jpg",
+      "truth_b": "till"
     },
     {
       "pair_id": "Beni-Mellal_2025_0008",
       "province": "Beni-Mellal",
       "year": 2025,
-      "image_a": "Beni-Mellal/2025/pair_0008_a.png",
-      "image_b": "Beni-Mellal/2025/pair_0008_b.png",
-      "truth_a": "till",
-      "truth_b": "till",
-      "seed_a": 1419896365,
-      "seed_b": 954518145
+      "image_a": "Beni-Mellal/2025/pair_0008_a.jpg",
+      "truth_a": "no_till",
+      "image_b": "Beni-Mellal/2025/pair_0008_b.jpg",
+      "truth_b": "till"
     }
   ]
 }
