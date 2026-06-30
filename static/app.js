@@ -206,13 +206,13 @@ function finish(why) {
   clearPersist();
   const t = $("#complete-title"), b = $("#complete-text");
   if (why === "none_left" || why === "done_all") {
-    t.innerHTML = "All done — the study is complete! 🎉";
-    b.textContent = "Every field has now been checked by enough people. "
-      + "Thank you so much for contributing.";
+    t.textContent = "The study is complete";
+    b.textContent = "Every field has now been reviewed. Thank you for contributing — "
+      + "your responses make a real difference to the analysis.";
   } else {
-    t.innerHTML = "Thank you! 🙏";
-    b.textContent = "Your answers are saved. You can close this tab, or come back any time "
-      + "with the same link to do more.";
+    t.textContent = "Thank you";
+    b.textContent = "Your responses are saved. You can close this tab, or return any time "
+      + "with the same link to continue.";
   }
   show("complete");
 }
