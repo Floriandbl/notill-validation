@@ -74,21 +74,21 @@ window.STUDY_CONFIG = {
     intro: "Two clear examples. In each, the red arrow marks the field you are judging.",
     items: [
       {
-        src: "source/till.jpg",
+        src: "source/notill.jpg",
         label: "Tilled",
         points: [
-          "Bare, reddish-brown soil",
-          "Visible plough lines / furrows",
-          "Little or no crop residue on the surface",
+          "Soil has been turned / worked before sowing",
+          "Cultivated surface, little crop residue",
+          "Here, the greener field",
         ],
       },
       {
-        src: "source/notill.jpg",
+        src: "source/till.jpg",
         label: "No-till",
         points: [
-          "Greener surface — vegetation or cover",
-          "Crop residue / stubble left on top",
-          "Soil has not been turned/worked",
+          "Soil left undisturbed — direct-seeded",
+          "Crop residue / stubble kept on the surface",
+          "Here, the reddish-brown field",
         ],
       },
     ],
