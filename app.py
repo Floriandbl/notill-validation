@@ -3,8 +3,8 @@
 app.py - LOCAL backend + dev server for the image-pair comparison study.
 
 Standard library only (http.server + sqlite3). This lets you run and test the
-ENTIRE flow on your machine - name login, 50-pair batches, max-2 labelers,
-partial saving - with no Supabase account. For public diffusion you switch the
+ENTIRE flow on your machine - name login, 50-pair batches, partial saving
+(no per-pair labeler cap right now) - with no Supabase account. For public diffusion you switch the
 frontend to the Supabase backend (see supabase/schema.sql and README); the API
 contract below is mirrored exactly by the Supabase RPC functions.
 
@@ -40,7 +40,9 @@ DB_PATH = os.path.join(DATA_DIR, "study.db")
 META_CSV = os.path.join(ROOT, "pairs_metadata.csv")
 
 BATCH_SIZE = 50
-MAX_LABELERS = 2
+MAX_LABELERS = None          # None = UNLIMITED labelers per pair (cap removed for now).
+                             # Set to an int (e.g. 2) to re-enable a per-pair cap.
+_CAP = MAX_LABELERS if MAX_LABELERS is not None else 10 ** 9
 IMAGE_EXTS = (".png", ".jpg", ".jpeg", ".webp", ".gif")
 _lock = threading.Lock()
 
@@ -111,9 +113,9 @@ def reload_pairs():
 # ----------------------------------------------------------------------------
 def claim_batch(name, size=BATCH_SIZE):
     """Return up to `size` pairs for this respondent:
-       - exclude pairs already at MAX_LABELERS
+       - exclude pairs already at the cap (_CAP; effectively unlimited when MAX_LABELERS is None)
        - exclude pairs this respondent already answered
-       - prefer pairs that already have 1 label (to drive them to 2)
+       - prefer pairs with the FEWEST labels (spread coverage across the pool)
     """
     name = name.strip()
     with _lock:
@@ -126,14 +128,14 @@ def claim_batch(name, size=BATCH_SIZE):
             WHERE (SELECT COUNT(*) FROM responses r WHERE r.pair_id = p.pair_id) < ?
               AND p.pair_id NOT IN (
                     SELECT pair_id FROM responses WHERE respondent = ?)
-            ORDER BY lc DESC, p.pair_id
+            ORDER BY lc ASC, p.pair_id
             LIMIT ?
-            """, (MAX_LABELERS, name, size)).fetchall()
+            """, (_CAP, name, size)).fetchall()
         remaining = con.execute(
             """SELECT COUNT(*) FROM pairs p
                WHERE (SELECT COUNT(*) FROM responses r WHERE r.pair_id=p.pair_id) < ?
                  AND p.pair_id NOT IN (SELECT pair_id FROM responses WHERE respondent=?)
-            """, (MAX_LABELERS, name)).fetchone()[0]
+            """, (_CAP, name)).fetchone()[0]
         con.close()
     pairs = [{"pair_id": r["pair_id"], "province": r["province"], "year": r["year"],
               "image_a": r["image_a"], "image_b": r["image_b"]} for r in rows]
@@ -141,7 +143,7 @@ def claim_batch(name, size=BATCH_SIZE):
 
 
 def submit_response(name, pair_id, answers):
-    """Atomically record one answer, enforcing the max-2 rule at write time."""
+    """Atomically record one answer (re-checks the per-pair cap at write time)."""
     name = name.strip()
     with _lock:
         con = connect()
@@ -164,7 +166,7 @@ def submit_response(name, pair_id, answers):
                      pair_id, name))
                 con.commit(); con.close()
                 return {"ok": True, "updated": True}
-            if count >= MAX_LABELERS:
+            if count >= _CAP:
                 con.rollback(); con.close()
                 return {"ok": False, "reason": "pair_full"}
             con.execute(
@@ -189,9 +191,9 @@ def stats():
     labelers = con.execute("SELECT COUNT(DISTINCT respondent) FROM responses").fetchone()[0]
     con.close()
     dist = {str(r["lc"]): r["n"] for r in by_count}
-    complete = sum(n for lc, n in dist.items() if int(lc) >= MAX_LABELERS)
+    pairs_with_label = sum(n for lc, n in dist.items() if int(lc) >= 1)
     return {"total_pairs": total, "responses": responses, "labelers": labelers,
-            "label_count_distribution": dist, "complete_pairs": complete,
+            "label_count_distribution": dist, "pairs_with_label": pairs_with_label,
             "max_labelers": MAX_LABELERS, "batch_size": BATCH_SIZE}
 
 

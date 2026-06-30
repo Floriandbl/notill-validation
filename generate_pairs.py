@@ -1,29 +1,30 @@
 #!/usr/bin/env python3
 """
-generate_pairs.py - Synthetic image PAIRS for the crowdsourced comparison app.
+generate_pairs.py - Synthetic FALSE-COLOUR field-parcel pairs for the study.
 
 Pure Python standard library (no numpy / Pillow). Produces seeded, reproducible
-256x256 RGB PNG chips organised as the production app expects:
+256x256 RGB PNG chips that imitate the false-colour satellite tiles used in the
+project (à la the two reference screenshots):
 
-    images/{province}/{year}/pair_{NNNN}_a.png
-    images/{province}/{year}/pair_{NNNN}_b.png
+    TILL     -> bare / worked soil = RED / maroon, with fine plough (furrow) lines
+    NO_TILL  -> vegetation / residue cover = GREEN
+    AMBIGUOUS-> in between (hard cases)
 
-Each pair = two independent "field" chips (image A and image B), each one either
-tilled (bare/disturbed soil, brown, faint furrows) or no-till (residue-covered,
-greener, straw speckle). That lets your two questions ask about each image
-independently OR compare them.
+Each chip shows several irregular parcels (Voronoi cells) with dark field
+boundaries, occasional pixelated cloud/no-data patches (teal/blue-grey), and a
+RED ARROW pointing at the TARGET parcel — the field the question is about. The
+target parcel's class is the chip's "truth".
 
-Outputs:
-    images/...                 the PNG chips
-    pairs_metadata.csv         one row per pair (province, year, paths, A/B truth)
-    manifest.json              full generation parameters (reproducibility)
+Organised as the app expects:
+    images/{province}/{year}/pair_{NNNN}_a.png  (+ _b.png)
 
-The "truth" is for your own validation only; the app never shows it.
+Outputs pairs_metadata.csv (truth_a/truth_b for self-checking) and manifest.json.
+These are SYNTHETIC placeholders; drop real exported chips into images/ for production.
 
 Usage:
-    python generate_pairs.py                                  # 10 starter pairs (Settat 2023/2024)
-    python generate_pairs.py --provinces Settat Khouribga --years 2023 2024 --per-cell 50
-    python generate_pairs.py --clean                          # wipe images/ + metadata first
+    python generate_pairs.py                       # 200 pairs (5 provinces x 5 years x 8)
+    python generate_pairs.py --per-cell 2 --provinces Settat --years 2023   # tiny test set
+    python generate_pairs.py --clean               # wipe images/ + metadata first
 """
 import argparse
 import csv
@@ -67,7 +68,7 @@ def _grid(freq, rng):
     return [[rng.random() for _ in range(freq + 1)] for _ in range(freq + 1)]
 
 
-def fbm_field(seed, base_freq=4, octaves=5):
+def fbm_field(seed, base_freq=5, octaves=5):
     field = [0.0] * (W * H)
     rng = random.Random(seed)
     amp, freq, amp_total = 1.0, base_freq, 0.0
@@ -97,11 +98,13 @@ def fbm_field(seed, base_freq=4, octaves=5):
     return [v * inv for v in field]
 
 
-TILL_RAMP = [(0.00, (62, 46, 36)), (0.40, (118, 88, 62)),
-             (0.72, (170, 134, 96)), (1.00, (208, 182, 150))]
-NOTILL_RAMP = [(0.00, (52, 66, 42)), (0.40, (84, 104, 60)),
-               (0.72, (122, 138, 90)), (1.00, (156, 168, 122))]
-RESIDUE_STRAW = (196, 186, 142)
+# false-colour ramps: red = tilled bare soil, green = vegetation / no-till
+TILL_RAMP = [(0.00, (66, 27, 31)), (0.38, (112, 48, 52)),
+             (0.68, (150, 74, 73)), (1.00, (190, 124, 118))]
+NOTILL_RAMP = [(0.00, (33, 50, 29)), (0.40, (58, 92, 47)),
+               (0.70, (94, 126, 70)), (1.00, (128, 158, 100))]
+CLOUD_COLORS = [(98, 126, 128), (74, 96, 104), (50, 64, 72), (122, 142, 140)]
+ARROW_COLOR = (236, 58, 40)
 
 
 def ramp(t, stops):
@@ -121,69 +124,181 @@ def clamp8(v):
     return 0 if v < 0 else 255 if v > 255 else int(v)
 
 
-def render_chip(seed, truth):
-    """One 256x256 chip. truth in {till, no_till, ambiguous}."""
-    rng = random.Random(seed)
-    base = fbm_field(seed, 4, 5)
-    speck = fbm_field(seed + 4441, 48, 1)
-    if truth == "till":
-        tillness = 0.86
-    elif truth == "no_till":
-        tillness = 0.14
-    else:
-        tillness = 0.42 + 0.16 * (rng.random() - 0.5)
+# ----------------------------------------------------------------------------
+# Parcels (low-res Voronoi, upsampled by lookup)
+# ----------------------------------------------------------------------------
+def voronoi_labels(seeds, pg):
+    lab = [[0] * pg for _ in range(pg)]
+    for gy in range(pg):
+        for gx in range(pg):
+            best, bestd = 0, 1e18
+            for i, (sx, sy) in enumerate(seeds):
+                d = (gx - sx) ** 2 + (gy - sy) ** 2
+                if d < bestd:
+                    bestd, best = d, i
+            lab[gy][gx] = best
+    return lab
 
-    residue_density = rng.uniform(0.10, 0.32)
-    ang = math.radians(rng.uniform(0, 180))
-    ca, sa = math.cos(ang), math.sin(ang)
-    furrow_freq = 18.0 + 8.0 * rng.random()
-    furrow_amp = rng.uniform(0.10, 0.18)
-    tone = rng.uniform(0.92, 1.06)
+
+# ----------------------------------------------------------------------------
+# Simple raster drawing for the arrow
+# ----------------------------------------------------------------------------
+def _disc(px, cx, cy, r, color):
+    r2 = r * r
+    for yy in range(int(cy - r), int(cy + r) + 1):
+        if 0 <= yy < H:
+            dy = yy - cy
+            for xx in range(int(cx - r), int(cx + r) + 1):
+                if 0 <= xx < W and (xx - cx) ** 2 + dy * dy <= r2:
+                    idx = (yy * W + xx) * 3
+                    px[idx], px[idx + 1], px[idx + 2] = color
+
+
+def _thick_line(px, x0, y0, x1, y1, r, color):
+    steps = int(max(abs(x1 - x0), abs(y1 - y0))) + 1
+    for s in range(steps + 1):
+        t = s / steps
+        _disc(px, x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, r, color)
+
+
+def _triangle(px, p0, p1, p2, color):
+    xs = (p0[0], p1[0], p2[0])
+    ys = (p0[1], p1[1], p2[1])
+    minx, maxx = max(0, int(min(xs))), min(W - 1, int(max(xs)))
+    miny, maxy = max(0, int(min(ys))), min(H - 1, int(max(ys)))
+
+    def sign(ax, ay, bx, by, cx, cy):
+        return (ax - cx) * (by - cy) - (bx - cx) * (ay - cy)
+
+    for yy in range(miny, maxy + 1):
+        for xx in range(minx, maxx + 1):
+            d1 = sign(xx, yy, p0[0], p0[1], p1[0], p1[1])
+            d2 = sign(xx, yy, p1[0], p1[1], p2[0], p2[1])
+            d3 = sign(xx, yy, p2[0], p2[1], p0[0], p0[1])
+            has_neg = (d1 < 0) or (d2 < 0) or (d3 < 0)
+            has_pos = (d1 > 0) or (d2 > 0) or (d3 > 0)
+            if not (has_neg and has_pos):
+                idx = (yy * W + xx) * 3
+                px[idx], px[idx + 1], px[idx + 2] = color
+
+
+def draw_arrow(px, tx, ty, rng):
+    """Red arrow whose tip lands on the target field at (tx, ty)."""
+    ang = math.radians(rng.choice([28, 55, 125, 152, 208, 235, 305, 332]))
+    L = rng.uniform(0.34, 0.46) * W
+    sx = min(W - 10, max(10, tx + math.cos(ang) * L))
+    sy = min(H - 10, max(10, ty + math.sin(ang) * L))
+    _thick_line(px, sx, sy, tx, ty, 4.2, ARROW_COLOR)
+    # arrowhead pointing from start -> tip
+    dx, dy = tx - sx, ty - sy
+    dlen = math.hypot(dx, dy) or 1.0
+    ux, uy = dx / dlen, dy / dlen
+    size = 18.0
+    bx, by = tx - ux * size, ty - uy * size      # base centre, behind tip
+    perpx, perpy = -uy, ux                       # perpendicular unit vector
+    a = (bx + perpx * size * 0.62, by + perpy * size * 0.62)
+    b = (bx - perpx * size * 0.62, by - perpy * size * 0.62)
+    _triangle(px, (tx, ty), a, b, ARROW_COLOR)
+
+
+# ----------------------------------------------------------------------------
+# Chip rendering
+# ----------------------------------------------------------------------------
+def tillness_of(c):
+    return 0.85 if c == "till" else (0.12 if c == "no_till" else 0.46)
+
+
+def render_chip(seed, truth):
+    rng = random.Random(seed)
+    pg = 100
+    nseeds = rng.randint(5, 8)
+    seeds = [(rng.uniform(6, pg - 6), rng.uniform(6, pg - 6)) for _ in range(nseeds)]
+    labels = voronoi_labels(seeds, pg)
+
+    # target parcel = seed nearest the centre -> arrow points roughly to middle
+    cx0, cy0 = pg / 2, pg / 2
+    target = min(range(nseeds), key=lambda i: (seeds[i][0] - cx0) ** 2 + (seeds[i][1] - cy0) ** 2)
+
+    pclass, pang, pfreq, ptone = {}, {}, {}, {}
+    for i in range(nseeds):
+        if i == target:
+            pclass[i] = truth
+        else:
+            r = rng.random()
+            pclass[i] = "till" if r < 0.68 else ("no_till" if r < 0.93 else "ambiguous")
+        pang[i] = math.radians(rng.uniform(0, 180))
+        pfreq[i] = 26 + 18 * rng.random()
+        ptone[i] = rng.uniform(0.90, 1.08)
+
+    base = fbm_field(seed, base_freq=5, octaves=5)
+    cloud = fbm_field(seed + 7777, base_freq=7, octaves=2)
+    has_clouds = rng.random() < 0.6
+    cloud_thr = rng.uniform(0.66, 0.78)
 
     px = bytearray(W * H * 3)
+    sxw, syh = pg / W, pg / H
     i = 0
     for y in range(H):
+        gy = int(y * syh)
+        gy2 = int((y + 1) * syh) if y + 1 < H else gy
         for x in range(W):
+            gx = int(x * sxw)
+            pid = labels[gy][gx]
+            till = tillness_of(pclass[pid])
             v = base[y * W + x]
             rt, gt, bt = ramp(v, TILL_RAMP)
             rn, gn, bn = ramp(v, NOTILL_RAMP)
-            r = rn + (rt - rn) * tillness
-            g = gn + (gt - gn) * tillness
-            b = bn + (bt - bn) * tillness
-            if tillness > 0.4:
-                s = math.sin((x * ca + y * sa) / W * furrow_freq * 2 * math.pi)
-                m = 1.0 - furrow_amp * tillness * (0.5 + 0.5 * s)
-                r, g, b = r * m, g * m, b * m
-            if tillness < 0.6 and speck[y * W + x] > (1.0 - residue_density):
-                a = 0.55 * (1.0 - tillness)
-                r += (RESIDUE_STRAW[0] - r) * a
-                g += (RESIDUE_STRAW[1] - g) * a
-                b += (RESIDUE_STRAW[2] - b) * a
+            r = rn + (rt - rn) * till
+            g = gn + (gt - gn) * till
+            b = bn + (bt - bn) * till
+            # plough furrows (directional, per parcel)
+            ang = pang[pid]
+            s = math.sin((x * math.cos(ang) + y * math.sin(ang)) / W * pfreq[pid] * 2 * math.pi)
+            m = 1.0 - 0.16 * (0.5 + 0.5 * s)
+            tone = ptone[pid]
+            r *= m * tone
+            g *= m * tone
+            b *= m * tone
+            # field boundary (neighbour parcel differs)
+            gx2 = int((x + 1) * sxw) if x + 1 < W else gx
+            if labels[gy][gx2] != pid or labels[gy2][gx] != pid:
+                r *= 0.45
+                g *= 0.45
+                b *= 0.45
+            # pixelated cloud / no-data patches
+            if has_clouds and cloud[y * W + x] > cloud_thr:
+                cc = CLOUD_COLORS[((x // 6) * 7 + (y // 6) * 13 + pid) % len(CLOUD_COLORS)]
+                a = 0.82
+                r += (cc[0] - r) * a
+                g += (cc[1] - g) * a
+                b += (cc[2] - b) * a
             n = rng.randint(-4, 4)
-            px[i] = clamp8(r * tone + n)
-            px[i + 1] = clamp8(g * tone + n)
-            px[i + 2] = clamp8(b * tone + n)
+            px[i] = clamp8(r + n)
+            px[i + 1] = clamp8(g + n)
+            px[i + 2] = clamp8(b + n)
             i += 3
+
+    tx = seeds[target][0] / pg * W
+    ty = seeds[target][1] / pg * H
+    draw_arrow(px, tx, ty, rng)
     return px
 
 
 # ----------------------------------------------------------------------------
-# Pair planning
+# Main
 # ----------------------------------------------------------------------------
-# A spread of A/B truth combinations so either question style is exercised.
-PAIR_TRUTHS = [
-    ("till", "no_till"), ("no_till", "till"), ("till", "till"),
-    ("no_till", "no_till"), ("till", "no_till"), ("no_till", "till"),
-    ("till", "ambiguous"), ("ambiguous", "no_till"),
-]
+def pick_truth(rng):
+    r = rng.random()
+    return "till" if r < 0.5 else ("no_till" if r < 0.9 else "ambiguous")
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Generate synthetic image pairs.")
-    ap.add_argument("--provinces", nargs="+", default=["Settat"])
-    ap.add_argument("--years", nargs="+", type=int, default=[2023, 2024])
-    ap.add_argument("--per-cell", type=int, default=5,
-                    help="pairs per province-year cell (default 5)")
+    ap = argparse.ArgumentParser(description="Generate synthetic false-colour image pairs.")
+    ap.add_argument("--provinces", nargs="+",
+                    default=["Settat", "Khouribga", "Safi", "El-Jadida", "Beni-Mellal"])
+    ap.add_argument("--years", nargs="+", type=int, default=[2021, 2022, 2023, 2024, 2025])
+    ap.add_argument("--per-cell", type=int, default=8,
+                    help="pairs per province-year cell (default 8 -> 5x5x8 = 200)")
     ap.add_argument("-s", "--seed", type=int, default=20260626)
     ap.add_argument("--clean", action="store_true")
     args = ap.parse_args()
@@ -199,30 +314,28 @@ def main():
     rng = random.Random(args.seed)
     rows = []
     total = len(args.provinces) * len(args.years) * args.per_cell
-    print(f"Generating {total} pairs ({total * 2} chips) ...")
+    print(f"Generating {total} pairs ({total * 2} chips, {W}x{H}) ...")
     done = 0
     for province in args.provinces:
         for year in args.years:
             cell_dir = os.path.join(IMAGES_DIR, province, str(year))
             os.makedirs(cell_dir, exist_ok=True)
             for k in range(1, args.per_cell + 1):
-                pid_num = f"{k:04d}"
-                pair_id = f"{province}_{year}_{pid_num}"
-                truth_a, truth_b = rng.choice(PAIR_TRUTHS)
-                seed_a = rng.randint(1, 2_000_000_000)
-                seed_b = rng.randint(1, 2_000_000_000)
-                rel_a = f"{province}/{year}/pair_{pid_num}_a.png"
-                rel_b = f"{province}/{year}/pair_{pid_num}_b.png"
+                num = f"{k:04d}"
+                pair_id = f"{province}_{year}_{num}"
+                truth_a, truth_b = pick_truth(rng), pick_truth(rng)
+                seed_a, seed_b = rng.randint(1, 2_000_000_000), rng.randint(1, 2_000_000_000)
+                rel_a = f"{province}/{year}/pair_{num}_a.png"
+                rel_b = f"{province}/{year}/pair_{num}_b.png"
                 write_png(os.path.join(IMAGES_DIR, rel_a), render_chip(seed_a, truth_a))
                 write_png(os.path.join(IMAGES_DIR, rel_b), render_chip(seed_b, truth_b))
-                rows.append({
-                    "pair_id": pair_id, "province": province, "year": year,
-                    "image_a": rel_a, "image_b": rel_b,
-                    "truth_a": truth_a, "truth_b": truth_b,
-                    "seed_a": seed_a, "seed_b": seed_b,
-                })
+                rows.append({"pair_id": pair_id, "province": province, "year": year,
+                             "image_a": rel_a, "image_b": rel_b,
+                             "truth_a": truth_a, "truth_b": truth_b,
+                             "seed_a": seed_a, "seed_b": seed_b})
                 done += 1
-                print(f"  [{done:3d}/{total}] {pair_id}  A={truth_a} B={truth_b}")
+                if done % 25 == 0 or done == total:
+                    print(f"  {done}/{total} pairs")
 
     cols = ["pair_id", "province", "year", "image_a", "image_b",
             "truth_a", "truth_b", "seed_a", "seed_b"]
@@ -231,7 +344,6 @@ def main():
         w.writerow(cols)
         for r in rows:
             w.writerow([r[c] for c in cols])
-
     with open(MANIFEST, "w", encoding="utf-8") as f:
         json.dump({"master_seed": args.seed, "provinces": args.provinces,
                    "years": args.years, "per_cell": args.per_cell,
@@ -239,7 +351,7 @@ def main():
 
     print(f"\nDone. {len(rows)} pairs -> {IMAGES_DIR}")
     print(f"Metadata -> {META_CSV}")
-    print("These are SYNTHETIC placeholders. Replace images/ with real chips for production.")
+    print("SYNTHETIC placeholders. Replace images/ with real chips for production.")
 
 
 if __name__ == "__main__":

@@ -1,18 +1,20 @@
 -- =====================================================================
 --  Supabase / Postgres schema for the tillage image-pair study.
 --  Run this once in the Supabase SQL editor (Dashboard -> SQL -> New query).
+--  Safe to re-run: tables use IF NOT EXISTS and functions use CREATE OR REPLACE.
 --
 --  Design notes
---  - The "max 2 labelers per pair" rule is enforced ATOMICALLY at write
---    time inside submit_response() (row lock on the pair). This is the
---    hard guarantee; concurrent users can never push a pair to 3.
---  - claim_batch() also uses FOR UPDATE SKIP LOCKED so two people asking
---    for a batch at the same instant are unlikely to be handed the same
---    pairs in the first place.
---  - The browser uses only the public "anon" key and can ONLY call the two
---    functions below (RLS is on, and there are no anon table policies), so
---    respondent names are never readable from the client. You (the
---    researcher) read responses with the service_role key from R.
+--  - NO per-pair labeler cap right now (each pair can be seen by any number of
+--    people). One answer per person per pair is still enforced by the
+--    unique(pair_id, respondent) constraint. To re-enable a cap, add a count
+--    check back into submit_response() (see git history) and a `< N` filter in
+--    claim_batch().
+--  - claim_batch() hands out the least-labeled pairs first (spreads coverage)
+--    and uses FOR UPDATE SKIP LOCKED so simultaneous requests don't collide.
+--  - The browser uses only the public anon/publishable key and can ONLY call
+--    the two functions below (RLS is on, no anon table policies), so respondent
+--    names are never readable from the client. You (the researcher) read
+--    responses with the service_role key from R.
 -- =====================================================================
 
 -- ---------- tables ---------------------------------------------------
@@ -49,24 +51,24 @@ declare
   v_pairs jsonb;
   v_remaining int;
 begin
+  -- No per-pair labeler cap right now: only exclude pairs this person already
+  -- answered, and hand out the least-labeled pairs first to spread coverage.
   select coalesce(jsonb_agg(t), '[]'::jsonb) into v_pairs
   from (
     select p.pair_id, p.province, p.year, p.image_a, p.image_b
     from public.pairs p
-    where (select count(*) from public.responses r where r.pair_id = p.pair_id) < 2
-      and not exists (
+    where not exists (
         select 1 from public.responses r
         where r.pair_id = p.pair_id and r.respondent = p_name)
-    order by (select count(*) from public.responses r where r.pair_id = p.pair_id) desc,
+    order by (select count(*) from public.responses r where r.pair_id = p.pair_id) asc,
              p.pair_id
-    limit greatest(1, least(p_size, 200))
+    limit greatest(1, least(p_size, 500))
     for update of p skip locked
   ) t;
 
   select count(*) into v_remaining
   from public.pairs p
-  where (select count(*) from public.responses r where r.pair_id = p.pair_id) < 2
-    and not exists (
+  where not exists (
       select 1 from public.responses r
       where r.pair_id = p.pair_id and r.respondent = p_name);
 
@@ -74,20 +76,18 @@ begin
 end;
 $$;
 
--- ---------- submit one answer (atomic max-2 enforcement) ------------
+-- ---------- submit one answer (one per person; no per-pair cap right now) ----
 -- Returns: { "ok": true }
 --        | { "ok": true, "updated": true }      (re-answer by same person)
---        | { "ok": false, "reason": "pair_full" | "unknown_pair" }
+--        | { "ok": false, "reason": "unknown_pair" }
 create or replace function public.submit_response(p_pair_id text, p_name text, p_answers jsonb)
 returns jsonb
 language plpgsql
 security definer
 set search_path = public
 as $$
-declare
-  v_count int;
 begin
-  -- pair must exist; lock its row to serialise concurrent submits
+  -- pair must exist; lock its row to serialise concurrent submits by the same person
   perform 1 from public.pairs where pair_id = p_pair_id for update;
   if not found then
     return jsonb_build_object('ok', false, 'reason', 'unknown_pair');
@@ -101,17 +101,15 @@ begin
     return jsonb_build_object('ok', true, 'updated', true);
   end if;
 
-  select count(*) into v_count from public.responses where pair_id = p_pair_id;
-  if v_count >= 2 then
-    return jsonb_build_object('ok', false, 'reason', 'pair_full');
-  end if;
-
+  -- no per-pair labeler cap right now; one answer per person is still enforced
+  -- by the unique(pair_id, respondent) constraint
   insert into public.responses(pair_id, respondent, answers)
   values (p_pair_id, p_name, p_answers);
   return jsonb_build_object('ok', true);
 
 exception when unique_violation then
-  return jsonb_build_object('ok', false, 'reason', 'pair_full');
+  -- same person raced two submits for this pair -> treat as a successful answer
+  return jsonb_build_object('ok', true, 'updated', true);
 end;
 $$;
 

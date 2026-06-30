@@ -22,6 +22,11 @@ gh_user   <- "Floriandbl"
 gh_repo   <- "notill-validation"
 gh_branch <- "main"
 
+# Reload behaviour: TRUE => pairs_seed.sql starts by clearing existing pairs +
+# responses, so re-running it in Supabase REPLACES the whole pool (use this when
+# you change the image set, e.g. 10 -> 200). FALSE => append only.
+reset_before_load <- TRUE
+
 ## ---- 2. paths -------------------------------------------------------
 # Set this to your App/ folder, or just run R from inside App/.
 app_dir <- getwd()
@@ -66,7 +71,10 @@ vals <- sprintf("  ('%s','%s',%s,'%s','%s')",
                 esc(out$pair_id), esc(out$province),
                 ifelse(is.na(out$year), "null", out$year),
                 esc(out$image_a), esc(out$image_b))
+prefix <- if (isTRUE(reset_before_load))
+  "truncate table public.responses, public.pairs;\n\n" else ""
 sql <- paste0(
+  prefix,
   "insert into public.pairs (pair_id, province, year, image_a, image_b) values\n",
   paste(vals, collapse = ",\n"),
   "\non conflict (pair_id) do nothing;\n")

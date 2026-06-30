@@ -7,7 +7,7 @@ Designed for **thousands of image pairs**, with:
 
 - **Name-only login** (no accounts)
 - **50-pair sessions**, with "give me another set" when finished
-- **Max 2 labelers per pair**, enforced atomically (never 3, even under races)
+- **No per-pair labeler cap right now** (one answer per person per pair; a cap can be re-enabled in `app.py` / `schema.sql`)
 - **Partial saving** — every answer is persisted immediately
 - **One-page instructions** before labeling
 
@@ -27,7 +27,7 @@ The browser code is backend-agnostic ([static/api.js](static/api.js)); switching
 1. Double-click **`run_app.bat`** (or run the two commands below).
    ```powershell
    cd "C:\Users\fdebundel\Documents\Dropbox\CA_Morocco\5_Code\App"
-   python generate_pairs.py     # makes ~10 synthetic starter pairs (first time)
+   python generate_pairs.py     # makes 200 synthetic starter pairs (first time)
    python app.py                # opens http://localhost:8000
    ```
 2. Enter a name → read the intro → label pairs → ask for another set.
@@ -103,10 +103,10 @@ columns as the local export) and run `r/analyze_responses.R` on it.
 
 ### Why responses can't live on GitHub
 GitHub/jsDelivr host the **app and images** perfectly. They **cannot** hold
-responses: the max-2 rule needs an atomic transaction (git would race to 3+
-labelers), partial-save means thousands of tiny writes (not what git is for),
-and respondent names are personal data (a public repo would expose them).
-Supabase's Postgres handles all three. That's the whole reason for the split.
+responses: partial-save means thousands of tiny writes (not what git is for),
+concurrent writers would collide, and respondent names are personal data (a
+public repo would expose them). A database also lets you re-impose a per-pair
+labeler cap later with an atomic check. Supabase's Postgres handles all of this.
 
 ---
 
@@ -115,8 +115,8 @@ Supabase's Postgres handles all three. That's the whole reason for the split.
 `pairs(pair_id, province, year, image_a, image_b)` — one row per image pair.
 `responses(pair_id, respondent, answers, created_at)` with `UNIQUE(pair_id,
 respondent)`. **Label count = rows per pair.** Each Next click = one row
-(your partial save). The atomic max-2 check lives in `submit_response()`
-(Supabase) and `app.py` (local) — identical behaviour.
+(your partial save). There is no per-pair labeler cap right now; `submit_response()`
+(Supabase) and `app.py` (local) behave identically and a cap can be re-enabled in both.
 
 ## Files
 
