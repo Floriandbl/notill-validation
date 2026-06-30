@@ -35,6 +35,7 @@ from urllib.parse import urlparse, unquote
 ROOT = os.path.dirname(os.path.abspath(__file__))
 IMAGES_DIR = os.path.join(ROOT, "images")
 STATIC_DIR = os.path.join(ROOT, "static")
+SOURCE_DIR = os.path.join(ROOT, "source")
 DATA_DIR = os.path.join(ROOT, "data")
 DB_PATH = os.path.join(DATA_DIR, "study.db")
 META_CSV = os.path.join(ROOT, "pairs_metadata.csv")
@@ -291,6 +292,9 @@ class Handler(BaseHTTPRequestHandler):
             self._file(full) if full else self._json({"error": "bad path"}, 400); return
         if path.startswith("/static/"):
             full = self._safe(STATIC_DIR, path[len("/static/"):])
+            self._file(full) if full else self._json({"error": "bad path"}, 400); return
+        if path.startswith("/source/"):
+            full = self._safe(SOURCE_DIR, path[len("/source/"):])
             self._file(full) if full else self._json({"error": "bad path"}, 400); return
         self._json({"error": "not found"}, 404)
 

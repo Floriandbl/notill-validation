@@ -17,7 +17,7 @@ const state = {
 };
 
 const $ = (s) => document.querySelector(s);
-const screens = ["landing", "intro", "loading", "question", "batchdone", "complete"];
+const screens = ["landing", "intro", "examples", "loading", "question", "batchdone", "complete"];
 function show(name) {
   screens.forEach((s) => $("#screen-" + s).classList.toggle("hidden", s !== name));
 }
@@ -38,7 +38,8 @@ function init() {
   $("#defs-body").innerHTML = cfg.quickRefHtml || cfg.introHtml;
 
   $("#btn-start").addEventListener("click", onStart);
-  $("#btn-begin").addEventListener("click", beginBatch);
+  $("#btn-begin").addEventListener("click", () => show("examples"));
+  $("#btn-examples-start").addEventListener("click", beginBatch);
   $("#btn-next").addEventListener("click", onNext);
   $("#btn-more").addEventListener("click", beginBatch);
   $("#btn-stop").addEventListener("click", () => finish("stopped"));
@@ -46,22 +47,43 @@ function init() {
   $("#defs-close").addEventListener("click", () => $("#defs-modal").classList.add("hidden"));
   $("#name-input").addEventListener("keydown", (e) => { if (e.key === "Enter") onStart(); });
 
-  loadProgress();   // populate the landing-page progress panel
+  renderExamples();   // build the worked-examples sheet
+  loadProgress();     // populate the landing-page progress panel
 
-  // resume an in-progress batch if one exists
+  // Always start from the homepage. We only remember the name for convenience;
+  // we never resume into a mid-batch question screen.
   const saved = safeParse(localStorage.getItem(LS_KEY));
-  if (saved && saved.name && Array.isArray(saved.batch) && saved.idx < saved.batch.length) {
-    state.name = saved.name; state.batch = saved.batch;
-    state.idx = saved.idx; state.remaining = saved.remaining;
-    $("#name-input").value = saved.name;
-    setWho();
-    renderPair();
-    show("question");
-    toast("Welcome back — resuming where you left off.");
-    return;
-  }
   if (saved && saved.name) $("#name-input").value = saved.name;
   show("landing");
+}
+
+/* ---------- worked-examples sheet ---------- */
+function renderExamples() {
+  const ex = cfg.examples;
+  if (!ex) return;
+  $("#examples-intro").textContent = ex.intro || "";
+  const grid = $("#examples-grid");
+  grid.innerHTML = "";
+  (ex.items || []).forEach((it) => {
+    const card = document.createElement("div");
+    card.className = "example";
+    const fig = document.createElement("figure");
+    fig.className = "example-img";
+    const img = document.createElement("img");
+    img.src = it.src; img.alt = it.label + " field example"; img.loading = "lazy";
+    const badge = document.createElement("span");
+    const isNo = /no/i.test(it.label);
+    badge.className = "example-badge " + (isNo ? "notill" : "till");
+    badge.textContent = it.label;
+    fig.appendChild(img); fig.appendChild(badge);
+    const ul = document.createElement("ul");
+    ul.className = "example-points";
+    (it.points || []).forEach((pt) => {
+      const li = document.createElement("li"); li.textContent = pt; ul.appendChild(li);
+    });
+    card.appendChild(fig); card.appendChild(ul);
+    grid.appendChild(card);
+  });
 }
 
 function safeParse(s) { try { return JSON.parse(s); } catch (_) { return null; } }

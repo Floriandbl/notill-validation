@@ -67,6 +67,33 @@ window.STUDY_CONFIG = {
     <p><span class="swatch notill"></span><strong>No-till:</strong> greener, straw/stubble residue on top.</p>
   `,
 
+  /* ---- worked examples (shown on their own screen before labeling) ----
+   * Two reference images with how-to-tell notes. Swap `src` for your own
+   * clearest examples; the red arrow marks the field being judged.          */
+  examples: {
+    intro: "Two clear examples. In each, the red arrow marks the field you are judging.",
+    items: [
+      {
+        src: "source/till.jpg",
+        label: "Tilled",
+        points: [
+          "Bare, reddish-brown soil",
+          "Visible plough lines / furrows",
+          "Little or no crop residue on the surface",
+        ],
+      },
+      {
+        src: "source/notill.jpg",
+        label: "No-till",
+        points: [
+          "Greener surface — vegetation or cover",
+          "Crop residue / stubble left on top",
+          "Soil has not been turned/worked",
+        ],
+      },
+    ],
+  },
+
   /* ---- the two questions --------------------------------------------
    * Each question is a single choice from `options`.
    * `imageRef`: "a", "b", or null  (used only to label which image it's about)
