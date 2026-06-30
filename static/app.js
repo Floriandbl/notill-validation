@@ -43,6 +43,8 @@ function init() {
   $("#defs-close").addEventListener("click", () => $("#defs-modal").classList.add("hidden"));
   $("#name-input").addEventListener("keydown", (e) => { if (e.key === "Enter") onStart(); });
 
+  loadProgress();   // populate the landing-page progress panel
+
   // resume an in-progress batch if one exists
   const saved = safeParse(localStorage.getItem(LS_KEY));
   if (saved && saved.name && Array.isArray(saved.batch) && saved.idx < saved.batch.length) {
@@ -60,6 +62,31 @@ function init() {
 }
 
 function safeParse(s) { try { return JSON.parse(s); } catch (_) { return null; } }
+
+/* ---------- landing-page progress panel ---------- */
+async function loadProgress() {
+  const g = cfg.goal || {};
+  const seasons = (g.seasonEnd - g.seasonStart + 1) || 1;
+  const goalFields = (g.provinces || 0) * seasons * (g.fieldsPerSeasonPerProvince || 0);
+  const goalCells = (g.provinces || 0) * seasons;
+  const fmt = (n) => Number(n || 0).toLocaleString();
+  try {
+    const p = await Api.progress();
+    const classified = (p.pairs_done || 0) * 2;          // 2 fields per answered pair
+    const remaining = Math.max(0, goalFields - classified);
+    const pct = goalFields ? Math.round((classified / goalFields) * 100) : 0;
+    $("#pp-contributors").textContent = fmt(p.contributors);
+    $("#pp-classified").textContent = fmt(classified);
+    $("#pp-remaining").textContent = fmt(remaining);
+    $("#pp-cells").textContent = `${fmt(p.cells_done)}/${fmt(goalCells)}`;
+    $("#pp-bar-fill").style.width = pct + "%";
+    $("#pp-goal").textContent =
+      `${fmt(classified)} of ${fmt(goalFields)} fields classified · ${pct}% · `
+      + `goal: ${g.fieldsPerSeasonPerProvince} fields × ${seasons} seasons × ${g.provinces} provinces`;
+  } catch (e) {
+    $("#pp-goal").textContent = "Live progress will appear once the study database is connected.";
+  }
+}
 
 /* ---------- landing -> intro ---------- */
 function onStart() {

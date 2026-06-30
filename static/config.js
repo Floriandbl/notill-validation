@@ -20,6 +20,16 @@ window.STUDY_CONFIG = {
   title: "Tillage Field Comparison",
   org: "Conservation Agriculture · Morocco",
 
+  // Project goal — drives the progress panel on the landing page.
+  // 1 field = 1 image; each pair shows 2 fields. Target = provinces × seasons ×
+  // fieldsPerSeasonPerProvince. (20 × 11 × 100 = 22,000 fields = 11,000 pairs.)
+  goal: {
+    provinces: 20,
+    seasonStart: 2015,
+    seasonEnd: 2025,
+    fieldsPerSeasonPerProvince: 100,
+  },
+
   /* ---- one-page intro (shown once, before labeling) -----------------
    * Plain HTML. Keep it to roughly one screen. This is where you teach
    * people how to answer correctly. Replace the placeholder text.        */

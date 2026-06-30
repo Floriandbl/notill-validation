@@ -23,18 +23,32 @@
   </header>
 
   <main id="main">
-    <!-- 1. Landing / name -->
-    <section id="screen-landing" class="screen card">
-      <h2>Help us check our tillage maps</h2>
-      <p class="lead">You'll compare pairs of field images and answer two quick questions.
-        No account needed &mdash; just tell us what to call you so we can credit your help.</p>
-      <label class="field">
-        <span>Your name or initials</span>
-        <input id="name-input" type="text" placeholder="e.g. Florian D." autocomplete="off" />
-      </label>
-      <button id="btn-start" class="primary">Continue</button>
-      <p class="fineprint">Your name is stored only to track answers for research and to avoid
-        showing you the same field twice. It is not shared publicly.</p>
+    <!-- 1. Landing / name + progress -->
+    <section id="screen-landing" class="screen landing">
+      <div id="progress-panel" class="progress-panel">
+        <div class="pp-head">Project progress</div>
+        <div class="pp-stats">
+          <div class="pp-stat"><span class="pp-num" id="pp-contributors">&ndash;</span><span class="pp-label">contributors</span></div>
+          <div class="pp-stat"><span class="pp-num" id="pp-classified">&ndash;</span><span class="pp-label">fields classified</span></div>
+          <div class="pp-stat"><span class="pp-num" id="pp-remaining">&ndash;</span><span class="pp-label">fields remaining</span></div>
+          <div class="pp-stat"><span class="pp-num" id="pp-cells">&ndash;</span><span class="pp-label">province&ndash;seasons done</span></div>
+        </div>
+        <div class="pp-bar" role="progressbar"><div id="pp-bar-fill" class="pp-bar-fill"></div></div>
+        <div class="pp-goal muted" id="pp-goal"></div>
+      </div>
+
+      <div class="card">
+        <h2>Help us check our tillage maps</h2>
+        <p class="lead">You'll compare pairs of field images and answer two quick questions.
+          No account needed &mdash; just tell us what to call you so we can credit your help.</p>
+        <label class="field">
+          <span>Your name or initials</span>
+          <input id="name-input" type="text" placeholder="e.g. Florian D." autocomplete="off" />
+        </label>
+        <button id="btn-start" class="primary">Continue</button>
+        <p class="fineprint">Your name is stored only to track answers for research and to avoid
+          showing you the same field twice. It is not shared publicly.</p>
+      </div>
     </section>
 
     <!-- 2. Intro / instructions (one page) -->

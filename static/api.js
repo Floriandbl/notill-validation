@@ -25,10 +25,17 @@ const Api = (() => {
     return res.json();
   }
 
+  async function getJSON(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`${res.status}`);
+    return res.json();
+  }
+
   /* ---------- LOCAL (Python app.py) ---------- */
   const local = {
     claim: (name) => postJSON("/api/claim", { name, size: cfg.batchSize }),
     submit: (name, pairId, answers) => postJSON("/api/submit", { name, pair_id: pairId, answers }),
+    progress: () => getJSON("/api/progress"),
   };
 
   /* ---------- SUPABASE (production) ----------
@@ -58,6 +65,12 @@ const Api = (() => {
       const c = await client();
       const { data, error } = await c.rpc("submit_response", {
         p_pair_id: pairId, p_name: name, p_answers: answers });
+      if (error) throw new Error(error.message);
+      return data;
+    },
+    progress: async () => {
+      const c = await client();
+      const { data, error } = await c.rpc("study_progress");
       if (error) throw new Error(error.message);
       return data;
     },

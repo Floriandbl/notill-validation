@@ -166,7 +166,26 @@ fieldset.q legend { padding: 0; font: 600 16.5px var(--font-sans); color: var(--
   z-index: 60; font-size: 14px; box-shadow: 0 8px 26px rgba(28,30,24,.22); }
 .hidden { display: none !important; }
 
+/* ---------- landing progress panel ---------- */
+.landing { max-width: 620px; margin: 16px auto; }
+.landing .card { max-width: none; margin: 0; }
+.progress-panel { background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius-lg); padding: 20px 24px; margin-bottom: 16px; }
+.pp-head { font: 600 12px var(--font-sans); text-transform: uppercase; letter-spacing: .09em;
+  color: var(--ink-3); margin-bottom: 14px; }
+.pp-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.pp-stat { display: flex; flex-direction: column; gap: 2px; }
+.pp-num { font: 600 25px var(--font-serif); color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.pp-label { font-size: 11.5px; color: var(--ink-3); }
+.pp-bar { height: 6px; border-radius: 999px; background: var(--surface-2);
+  border: 1px solid var(--line); overflow: hidden; margin: 18px 0 9px; }
+.pp-bar-fill { height: 100%; width: 0%; background: var(--accent); transition: width .4s ease; }
+.pp-goal { font-size: 12.5px; }
+
 @media (max-width: 720px) {
   .pair { grid-template-columns: 1fr; }
   .card { padding: 28px 24px; }
+}
+@media (max-width: 560px) {
+  .pp-stats { grid-template-columns: repeat(2, 1fr); }
 }

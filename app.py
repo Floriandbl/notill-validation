@@ -197,6 +197,42 @@ def stats():
             "max_labelers": MAX_LABELERS, "batch_size": BATCH_SIZE}
 
 
+def progress():
+    """Aggregate study progress (mirrors Supabase study_progress())."""
+    con = connect()
+    contributors = con.execute("SELECT COUNT(DISTINCT respondent) FROM responses").fetchone()[0]
+    responses = con.execute("SELECT COUNT(*) FROM responses").fetchone()[0]
+    rows = con.execute("""
+        SELECT p.province, p.year, p.pair_id, COUNT(r.id) AS lc
+        FROM pairs p LEFT JOIN responses r ON r.pair_id = p.pair_id
+        GROUP BY p.province, p.year, p.pair_id
+    """).fetchall()
+    con.close()
+    pairs_total = len(rows)
+    pairs_done = sum(1 for r in rows if r["lc"] > 0)
+    cells = {}
+    for r in rows:
+        c = cells.setdefault((r["province"], r["year"]), [0, 0])
+        c[0] += 1
+        if r["lc"] > 0:
+            c[1] += 1
+    by_year = {}
+    for (prov, yr), (tot, done) in cells.items():
+        b = by_year.setdefault(yr, [0, 0])
+        b[0] += tot
+        b[1] += done
+    return {
+        "contributors": contributors,
+        "responses": responses,
+        "pairs_total": pairs_total,
+        "pairs_done": pairs_done,
+        "cells_total": len(cells),
+        "cells_started": sum(1 for v in cells.values() if v[1] > 0),
+        "cells_done": sum(1 for v in cells.values() if v[0] > 0 and v[1] == v[0]),
+        "by_year": [{"year": y, "pairs": b[0], "done": b[1]} for y, b in sorted(by_year.items())],
+    }
+
+
 # ----------------------------------------------------------------------------
 # HTTP handler
 # ----------------------------------------------------------------------------
@@ -248,6 +284,8 @@ class Handler(BaseHTTPRequestHandler):
             self._file(os.path.join(ROOT, "index.html")); return
         if path == "/api/stats":
             self._json(stats()); return
+        if path == "/api/progress":
+            self._json(progress()); return
         if path.startswith("/images/"):
             full = self._safe(IMAGES_DIR, path[len("/images/"):])
             self._file(full) if full else self._json({"error": "bad path"}, 400); return

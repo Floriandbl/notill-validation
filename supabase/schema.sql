@@ -113,6 +113,41 @@ exception when unique_violation then
 end;
 $$;
 
+-- ---------- public progress (aggregate counts only; no names) -------
+-- Returns headline study progress for the landing page. Exposes only counts,
+-- never respondent names, so it is safe to call with the public anon key.
+create or replace function public.study_progress()
+returns jsonb
+language sql
+security definer
+set search_path = public
+stable
+as $$
+  with pd as (
+    select p.province, p.year, p.pair_id, count(r.id) as lc
+    from public.pairs p
+    left join public.responses r on r.pair_id = p.pair_id
+    group by p.province, p.year, p.pair_id
+  ),
+  cells as (
+    select province, year, count(*) as total, count(*) filter (where lc > 0) as done
+    from pd group by province, year
+  )
+  select jsonb_build_object(
+    'contributors',  (select count(distinct respondent) from public.responses),
+    'responses',     (select count(*) from public.responses),
+    'pairs_total',   (select count(*) from pd),
+    'pairs_done',    (select count(*) from pd where lc > 0),
+    'cells_total',   (select count(*) from cells),
+    'cells_started', (select count(*) from cells where done > 0),
+    'cells_done',    (select count(*) from cells where total > 0 and done = total),
+    'by_year', (
+      select coalesce(jsonb_agg(jsonb_build_object('year', year, 'pairs', t, 'done', d)
+                                order by year), '[]'::jsonb)
+      from (select year, sum(total) as t, sum(done) as d from cells group by year) z)
+  );
+$$;
+
 -- ---------- lock down direct table access ---------------------------
 alter table public.pairs     enable row level security;
 alter table public.responses enable row level security;
@@ -124,6 +159,7 @@ revoke all on public.responses from anon, authenticated;
 
 grant execute on function public.claim_batch(text, int)             to anon, authenticated;
 grant execute on function public.submit_response(text, text, jsonb) to anon, authenticated;
+grant execute on function public.study_progress()                   to anon, authenticated;
 
 -- =====================================================================
 --  Loading the pairs:

@@ -73,9 +73,14 @@ def pick_truth(rng):
 def main():
     ap = argparse.ArgumentParser(description="Build pairs from real source screenshots.")
     ap.add_argument("--provinces", nargs="+",
-                    default=["Settat", "Khouribga", "Safi", "El-Jadida", "Beni-Mellal"])
-    ap.add_argument("--years", nargs="+", type=int, default=[2021, 2022, 2023, 2024, 2025])
-    ap.add_argument("--per-cell", type=int, default=8)
+                    default=["Settat", "Berrechid", "Khouribga", "Beni-Mellal", "Fquih-Ben-Salah",
+                             "Khemisset", "Sidi-Kacem", "Sidi-Slimane", "Kenitra", "Sidi-Bennour",
+                             "El-Jadida", "Safi", "Youssoufia", "Rehamna", "El-Kelaa",
+                             "Meknes", "El-Hajeb", "Taza", "Taourirt", "Khenifra"])
+    ap.add_argument("--years", nargs="+", type=int,
+                    default=[2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025])
+    ap.add_argument("--per-cell", type=int, default=50,
+                    help="pairs per province-season (50 pairs = 100 fields). 20x11x50 = 11,000 pairs")
     ap.add_argument("--out-size", type=int, default=320)
     ap.add_argument("-s", "--seed", type=int, default=20260630)
     args = ap.parse_args()
