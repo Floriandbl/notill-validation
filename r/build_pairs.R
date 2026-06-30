@@ -9,10 +9,18 @@
 #  Base R only (no packages needed).
 # =====================================================================
 
-## ---- 1. EDIT THESE to point at your public GitHub repo --------------
-gh_user   <- "YOUR_GITHUB_USERNAME"
-gh_repo   <- "YOUR_REPO_NAME"      # the repo that contains the images/ folder
-gh_branch <- "main"               # branch or tag
+## ---- 1. CHOOSE how images are served --------------------------------
+# "same_origin" : images served from the SAME site as the app
+#                 (Cloudflare Pages / Netlify; works with a PRIVATE repo,
+#                  and also works on GitHub Pages). This is the default.
+# "jsdelivr"    : images from a PUBLIC GitHub repo via the jsDelivr CDN
+#                 (only for a public repo; better bandwidth at large scale).
+host_mode <- "same_origin"
+
+# Only used when host_mode == "jsdelivr":
+gh_user   <- "Floriandbl"
+gh_repo   <- "notill-validation"
+gh_branch <- "main"
 
 ## ---- 2. paths -------------------------------------------------------
 # Set this to your App/ folder, or just run R from inside App/.
@@ -29,17 +37,21 @@ if (!file.exists(meta_path)) {
 
 meta <- read.csv(meta_path, stringsAsFactors = FALSE)
 
-## ---- 3. build CDN URLs ---------------------------------------------
-cdn <- function(relpath) {
-  sprintf("https://cdn.jsdelivr.net/gh/%s/%s@%s/images/%s",
-          gh_user, gh_repo, gh_branch, relpath)
+## ---- 3. build image URLs -------------------------------------------
+make_url <- function(relpath) {
+  if (host_mode == "jsdelivr") {
+    sprintf("https://cdn.jsdelivr.net/gh/%s/%s@%s/images/%s",
+            gh_user, gh_repo, gh_branch, relpath)
+  } else {
+    paste0("images/", relpath)   # relative to the app origin (same-site hosting)
+  }
 }
 out <- data.frame(
   pair_id  = meta$pair_id,
   province = meta$province,
   year     = meta$year,
-  image_a  = vapply(meta$image_a, cdn, character(1)),
-  image_b  = vapply(meta$image_b, cdn, character(1)),
+  image_a  = vapply(meta$image_a, make_url, character(1)),
+  image_b  = vapply(meta$image_b, make_url, character(1)),
   stringsAsFactors = FALSE
 )
 
@@ -62,7 +74,8 @@ sql_path <- file.path(app_dir, "pairs_seed.sql")
 writeLines(sql, sql_path)
 cat("Wrote SQL seed ->", sql_path, "\n")
 
-cat("\nNext steps:\n",
-    " 1. Push the App/images folder to a PUBLIC GitHub repo (", gh_user, "/", gh_repo, ").\n",
+cat("\nNext steps (host_mode = '", host_mode, "'):\n",
+    " 1. Deploy the app + images (Cloudflare Pages/Netlify for a private repo,\n",
+    "    or GitHub Pages for a public repo).\n",
     " 2. Load the pairs: import pairs_for_supabase.csv OR run pairs_seed.sql in Supabase.\n",
-    " 3. Set backend:'supabase' + keys in static/config.js and deploy to GitHub Pages.\n", sep = "")
+    " 3. Set backend:'supabase' + keys in static/config.js and redeploy.\n", sep = "")

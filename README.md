@@ -59,24 +59,33 @@ the wording/options with exactly what you want respondents to answer.
 
 ---
 
-## C. Go live (public link via GitHub Pages + Supabase)
+## C. Go live (free)
 
-Free within the free tiers. Six steps; R owns the data, the app is already built.
+The app + images must be reachable by your external volunteers, so **the live
+site is public either way.** Pick a host based on whether you want the *repo*
+public:
 
-1. **Generate / collect images** into `images/{province}/{year}/pair_NNNN_a.png`
-   (+`_b.png`). For real data, replace the synthetic `images/` with your exported
-   parcel chips and regenerate `pairs_metadata.csv` to match (same columns).
+- **Public repo → GitHub Pages** (simplest). Repo and images are public.
+- **Private repo → Cloudflare Pages / Netlify** (free). Keeps your **source code
+  and history private**; the deployed site is still public. Use this if the repo
+  must stay private — free GitHub Pages and jsDelivr both require a *public* repo,
+  so a private repo deploys via Cloudflare/Netlify instead.
 
-2. **Push `images/` to a PUBLIC GitHub repo.** jsDelivr serves any file in it via
-   CDN automatically. (Keep total repo size under ~1 GB.)
+Steps (same for both unless noted):
 
-3. **Build the pairs list (R):** edit the GitHub user/repo/branch at the top of
-   [r/build_pairs.R](r/build_pairs.R), then run it. It writes
-   `pairs_for_supabase.csv` and `pairs_seed.sql` with jsDelivr URLs.
+1. **Images** into `images/{province}/{year}/pair_NNNN_a|b.png`. Replace the
+   synthetic ones with your real chips and regenerate `pairs_metadata.csv`.
 
-4. **Set up Supabase** (free project, EU region): open the SQL editor and run
-   [supabase/schema.sql](supabase/schema.sql). Then load the pairs — import
-   `pairs_for_supabase.csv` in the Table editor, or run `pairs_seed.sql`.
+2. **Push** the App folder to your repo (public or private per above).
+
+3. **Set up Supabase** (free, EU region): run [supabase/schema.sql](supabase/schema.sql)
+   in the SQL editor.
+
+4. **Build the pairs list (R):** in [r/build_pairs.R](r/build_pairs.R) set
+   `host_mode` — `"same_origin"` (images served by your host; works for Cloudflare,
+   Netlify, and Pages) or `"jsdelivr"` (public repo, better bandwidth at scale).
+   Run it, then load the output into Supabase (import `pairs_for_supabase.csv`, or
+   run `pairs_seed.sql`).
 
 5. **Point the app at Supabase:** in [static/config.js](static/config.js) set
    ```js
@@ -85,8 +94,9 @@ Free within the free tiers. Six steps; R owns the data, the app is already built
    supabaseAnonKey: "<your anon public key>",
    ```
 
-6. **Deploy the frontend on GitHub Pages:** push `static/` (and `index.html`)
-   and enable Pages. Email the resulting `https://<you>.github.io/...` link.
+6. **Deploy:** public → enable GitHub Pages (Settings → Pages → branch `main`,
+   `/root`). private → connect the repo in Cloudflare Pages/Netlify (framework
+   preset *None*, no build command, output dir = repo root). Email the resulting URL.
 
 To analyze production data, export the Supabase `responses` table to CSV (same
 columns as the local export) and run `r/analyze_responses.R` on it.
