@@ -11,9 +11,9 @@ window.STUDY_CONFIG = {
    * To go live: set this to "supabase" and fill in the two keys below
    * (Supabase dashboard -> Project Settings -> API).
    */
-  backend: "local",
-  supabaseUrl: "",          // e.g. "https://abcdefgh.supabase.co"
-  supabaseAnonKey: "",      // the public "anon" key (safe to ship in the browser)
+  backend: "supabase",
+  supabaseUrl: "https://hpliztipokptoiwiouoa.supabase.co",
+  supabaseAnonKey: "sb_publishable_HXAIQNMCL2LTIzbxyp2WsA_6Ixg3KXv",   // publishable key — safe in the browser
 
   /* ---- study parameters --------------------------------------------- */
   batchSize: 50,            // pairs offered per session
