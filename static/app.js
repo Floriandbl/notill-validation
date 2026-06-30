@@ -3,7 +3,10 @@
  *  Screens: landing -> intro -> loading -> question(loop) -> batchdone -> complete
  * ===================================================================== */
 const cfg = window.STUDY_CONFIG;
-const LS_KEY = "tillage_study_session_v1";
+// Bump this version whenever the image set / paths change, so old saved
+// sessions (with now-dead image URLs) are ignored instead of resumed.
+const LS_KEY = "tillage_study_session_v3";
+let _selfHealed = false;   // guard so a bad image triggers at most one reclaim
 
 const state = {
   name: "",
@@ -121,14 +124,26 @@ async function beginBatch() {
   }
 }
 
+/* If an image fails to load (e.g. a stale saved session points at a URL that
+   no longer exists), discard the session and pull a fresh batch — once. */
+function onImageError() {
+  if (_selfHealed) return;
+  _selfHealed = true;
+  clearPersist();
+  toast("Your saved session was out of date — loading fresh images…");
+  beginBatch();
+}
+
 /* ---------- render current pair ---------- */
 function renderPair() {
   const p = state.batch[state.idx];
   if (!p) { onBatchEnd(); return; }
   state.answers = {};
 
-  $("#img-a").src = p.image_a;
-  $("#img-b").src = p.image_b;
+  const ia = $("#img-a"), ib = $("#img-b");
+  ia.onerror = ib.onerror = onImageError;   // self-heal if a URL is dead/stale
+  ia.src = p.image_a;
+  ib.src = p.image_b;
 
   const total = state.batch.length;
   $("#qcount").textContent = `${state.idx + 1} / ${total}`;
