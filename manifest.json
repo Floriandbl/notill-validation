@@ -1,0 +1,124 @@
+{
+  "master_seed": 20260626,
+  "provinces": [
+    "Settat"
+  ],
+  "years": [
+    2023,
+    2024
+  ],
+  "per_cell": 5,
+  "count": 10,
+  "pairs": [
+    {
+      "pair_id": "Settat_2023_0001",
+      "province": "Settat",
+      "year": 2023,
+      "image_a": "Settat/2023/pair_0001_a.png",
+      "image_b": "Settat/2023/pair_0001_b.png",
+      "truth_a": "no_till",
+      "truth_b": "till",
+      "seed_a": 49297389,
+      "seed_b": 19471185
+    },
+    {
+      "pair_id": "Settat_2023_0002",
+      "province": "Settat",
+      "year": 2023,
+      "image_a": "Settat/2023/pair_0002_a.png",
+      "image_b": "Settat/2023/pair_0002_b.png",
+      "truth_a": "no_till",
+      "truth_b": "till",
+      "seed_a": 1962910294,
+      "seed_b": 1657034767
+    },
+    {
+      "pair_id": "Settat_2023_0003",
+      "province": "Settat",
+      "year": 2023,
+      "image_a": "Settat/2023/pair_0003_a.png",
+      "image_b": "Settat/2023/pair_0003_b.png",
+      "truth_a": "till",
+      "truth_b": "ambiguous",
+      "seed_a": 228134437,
+      "seed_b": 375856416
+    },
+    {
+      "pair_id": "Settat_2023_0004",
+      "province": "Settat",
+      "year": 2023,
+      "image_a": "Settat/2023/pair_0004_a.png",
+      "image_b": "Settat/2023/pair_0004_b.png",
+      "truth_a": "till",
+      "truth_b": "ambiguous",
+      "seed_a": 31363927,
+      "seed_b": 264552844
+    },
+    {
+      "pair_id": "Settat_2023_0005",
+      "province": "Settat",
+      "year": 2023,
+      "image_a": "Settat/2023/pair_0005_a.png",
+      "image_b": "Settat/2023/pair_0005_b.png",
+      "truth_a": "no_till",
+      "truth_b": "till",
+      "seed_a": 1754318242,
+      "seed_b": 40802879
+    },
+    {
+      "pair_id": "Settat_2024_0001",
+      "province": "Settat",
+      "year": 2024,
+      "image_a": "Settat/2024/pair_0001_a.png",
+      "image_b": "Settat/2024/pair_0001_b.png",
+      "truth_a": "no_till",
+      "truth_b": "till",
+      "seed_a": 1968036980,
+      "seed_b": 1879406716
+    },
+    {
+      "pair_id": "Settat_2024_0002",
+      "province": "Settat",
+      "year": 2024,
+      "image_a": "Settat/2024/pair_0002_a.png",
+      "image_b": "Settat/2024/pair_0002_b.png",
+      "truth_a": "no_till",
+      "truth_b": "no_till",
+      "seed_a": 1352699153,
+      "seed_b": 1149066471
+    },
+    {
+      "pair_id": "Settat_2024_0003",
+      "province": "Settat",
+      "year": 2024,
+      "image_a": "Settat/2024/pair_0003_a.png",
+      "image_b": "Settat/2024/pair_0003_b.png",
+      "truth_a": "no_till",
+      "truth_b": "till",
+      "seed_a": 1598487642,
+      "seed_b": 286177155
+    },
+    {
+      "pair_id": "Settat_2024_0004",
+      "province": "Settat",
+      "year": 2024,
+      "image_a": "Settat/2024/pair_0004_a.png",
+      "image_b": "Settat/2024/pair_0004_b.png",
+      "truth_a": "till",
+      "truth_b": "no_till",
+      "seed_a": 685097271,
+      "seed_b": 378697317
+    },
+    {
+      "pair_id": "Settat_2024_0005",
+      "province": "Settat",
+      "year": 2024,
+      "image_a": "Settat/2024/pair_0005_a.png",
+      "image_b": "Settat/2024/pair_0005_b.png",
+      "truth_a": "no_till",
+      "truth_b": "no_till",
+      "seed_a": 1620100060,
+      "seed_b": 546913926
+    }
+  ]
+}

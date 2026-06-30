@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tillage Field Comparison</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%235fae6b'/%3E%3Cpath d='M50 8a42 42 0 0 1 0 84z' fill='%23c08a4e'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="dot"></span>
+      <div>
+        <h1 id="app-title">Tillage Field Comparison</h1>
+        <p class="sub" id="app-org">Conservation Agriculture &middot; Morocco</p>
+      </div>
+    </div>
+    <div class="head-right">
+      <button id="btn-defs" class="ghost hidden">Definitions</button>
+      <span id="who-label" class="who-label hidden"></span>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- 1. Landing / name -->
+    <section id="screen-landing" class="screen card">
+      <h2>Help us check our tillage maps</h2>
+      <p class="lead">You'll compare pairs of field images and answer two quick questions.
+        No account needed &mdash; just tell us what to call you so we can credit your help.</p>
+      <label class="field">
+        <span>Your name or initials</span>
+        <input id="name-input" type="text" placeholder="e.g. Florian D." autocomplete="off" />
+      </label>
+      <button id="btn-start" class="primary">Continue</button>
+      <p class="fineprint">Your name is stored only to track answers for research and to avoid
+        showing you the same field twice. It is not shared publicly.</p>
+    </section>
+
+    <!-- 2. Intro / instructions (one page) -->
+    <section id="screen-intro" class="screen card hidden">
+      <h2>Before you start</h2>
+      <div id="intro-body" class="prose"></div>
+      <button id="btn-begin" class="primary">I understand &mdash; begin</button>
+    </section>
+
+    <!-- 3. Loading -->
+    <section id="screen-loading" class="screen card hidden">
+      <div class="spinner"></div>
+      <p id="loading-text">Loading your batch&hellip;</p>
+    </section>
+
+    <!-- 4. Questionnaire -->
+    <section id="screen-question" class="screen hidden">
+      <div class="qprogress">
+        <div class="bar"><div id="qbar" class="bar-fill"></div></div>
+        <span id="qcount" class="qcount">0 / 0</span>
+      </div>
+
+      <div class="pair">
+        <figure class="imgcard">
+          <div class="imgtag tag-a">A</div>
+          <img id="img-a" alt="Field image A" />
+        </figure>
+        <figure class="imgcard">
+          <div class="imgtag tag-b">B</div>
+          <img id="img-b" alt="Field image B" />
+        </figure>
+      </div>
+
+      <div id="questions" class="questions"></div>
+
+      <div class="qfooter">
+        <span id="save-status" class="save-status"></span>
+        <button id="btn-next" class="primary" disabled>Next &rsaquo;</button>
+      </div>
+    </section>
+
+    <!-- 5. Batch finished -->
+    <section id="screen-batchdone" class="screen card hidden">
+      <h2>Nice work &mdash; that batch is done! &#127881;</h2>
+      <p id="batchdone-text" class="lead"></p>
+      <div class="row">
+        <button id="btn-more" class="primary">Give me another set</button>
+        <button id="btn-stop" class="ghost">I'll stop here</button>
+      </div>
+    </section>
+
+    <!-- 6. Complete / nothing left -->
+    <section id="screen-complete" class="screen card hidden">
+      <h2 id="complete-title">Thank you! &#128591;</h2>
+      <p id="complete-text" class="lead"></p>
+    </section>
+  </main>
+
+  <!-- definitions modal -->
+  <div id="defs-modal" class="modal hidden">
+    <div class="modal-card">
+      <button class="modal-close" id="defs-close">&times;</button>
+      <h3>Quick reference</h3>
+      <div id="defs-body" class="prose"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="static/config.js"></script>
+  <script src="static/api.js"></script>
+  <script src="static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+pair_id,province,year,image_a,image_b,truth_a,truth_b,seed_a,seed_b
+Settat_2023_0001,Settat,2023,Settat/2023/pair_0001_a.png,Settat/2023/pair_0001_b.png,no_till,till,49297389,19471185
+Settat_2023_0002,Settat,2023,Settat/2023/pair_0002_a.png,Settat/2023/pair_0002_b.png,no_till,till,1962910294,1657034767
+Settat_2023_0003,Settat,2023,Settat/2023/pair_0003_a.png,Settat/2023/pair_0003_b.png,till,ambiguous,228134437,375856416
+Settat_2023_0004,Settat,2023,Settat/2023/pair_0004_a.png,Settat/2023/pair_0004_b.png,till,ambiguous,31363927,264552844
+Settat_2023_0005,Settat,2023,Settat/2023/pair_0005_a.png,Settat/2023/pair_0005_b.png,no_till,till,1754318242,40802879
+Settat_2024_0001,Settat,2024,Settat/2024/pair_0001_a.png,Settat/2024/pair_0001_b.png,no_till,till,1968036980,1879406716
+Settat_2024_0002,Settat,2024,Settat/2024/pair_0002_a.png,Settat/2024/pair_0002_b.png,no_till,no_till,1352699153,1149066471
+Settat_2024_0003,Settat,2024,Settat/2024/pair_0003_a.png,Settat/2024/pair_0003_b.png,no_till,till,1598487642,286177155
+Settat_2024_0004,Settat,2024,Settat/2024/pair_0004_a.png,Settat/2024/pair_0004_b.png,till,no_till,685097271,378697317
+Settat_2024_0005,Settat,2024,Settat/2024/pair_0005_a.png,Settat/2024/pair_0005_b.png,no_till,no_till,1620100060,546913926
