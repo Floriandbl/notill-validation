@@ -24,6 +24,7 @@ import csv
 import io
 import json
 import os
+import shutil
 import time
 from datetime import date, timedelta
 
@@ -47,6 +48,10 @@ BOX_M     = 250                 # Settat fields are SMALL: median 0.75 ha ~= 87 
                                 # In a 500 m box the field is only ~17% of the frame; at
                                 # 250 m it's ~35%, at 200 m ~43%. Tune to taste.
 PANEL_PX  = 320                 # pixels per facet
+
+CLEAN_FIRST = True              # wipe images/ + pairs_metadata.csv before generating.
+                                # The repo still holds the OLD placeholder dataset; without
+                                # this you'd append 500 real rows onto 11,000 dead ones.
 
 BANDS = ["B11", "B8", "B2"]     # agriculture false colour: veg green, bare soil red/brown
 VIS   = {"min": 0, "max": 3000}
@@ -187,6 +192,12 @@ def process(feature, windows):
 
 def main():
     init_ee()
+    if CLEAN_FIRST:
+        if os.path.isdir(IMAGES_DIR):
+            shutil.rmtree(IMAGES_DIR)
+        if os.path.exists(META_CSV):
+            os.remove(META_CSV)
+        print("Cleared images/ and pairs_metadata.csv — starting from the real dataset only.")
     with open(GEOJSON, encoding="utf-8") as f:
         feats = json.load(f)["features"]
     windows = season_windows(SEASON)

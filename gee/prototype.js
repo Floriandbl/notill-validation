@@ -1,40 +1,37 @@
 // ============================================================================
 //  PROTOTYPE — paste into the GEE Code Editor (code.earthengine.google.com)
-//  Purpose: tune the LOOK on one field before the batch run. Adjust BANDS / VIS
-//  / dates until the 6 layers match your reference tiles, then copy those exact
+//  Purpose: eyeball the IMAGERY on one real field before the batch run. Tune
+//  BANDS / VIS / dates until the 8 layers look right, then copy those exact
 //  values into gee/build_from_gee.py and run the Python batch.
+//
+//  No parcel asset needed: the shapefile stays local, and the field delineation
+//  + centroid dot are drawn locally by build_from_gee.py. This script is only
+//  for judging the composite's look (band combo, stretch, cloudiness, dates).
 // ============================================================================
 
-// ---- fill these in ----
-var PARCELS_ASSET  = 'projects/your-project/assets/morocco_parcels';  // your uploaded layer
-var PROVINCE_FIELD = 'province';                                       // its province attribute
-var PROVINCE       = 'Settat';
-var SEASON_YEAR    = 2020;
+// ---- a real sampled field (any lon/lat row from prep/fields_settat_500.csv) ----
+var LON = -7.278611, LAT = 32.451724;    // settat_453, 1.31 ha
+var SEASON_YEAR = 2025;
 
-// ---- knobs to tune ----
-var SEASON_START = ee.Date.fromYMD(SEASON_YEAR, 10, 1);   // ~1 Oct
-var N_STEPS = 6, STEP_DAYS = 14, BUFFER_M = 600;
+// ---- knobs to tune (mirror these into gee/build_from_gee.py) ----
+var SEASON_START = ee.Date.fromYMD(SEASON_YEAR, 9, 1);    // 1 Sept
+var N_STEPS = 8, STEP_DAYS = 14, BOX_M = 250;             // 250 x 250 m box
 var BANDS = ['B11', 'B8', 'B2'];        // agriculture false colour: veg=green, soil=red/brown
 var VIS   = {min: 0, max: 3000};
 var MAX_CLOUD = 60;
 
-// ---- pick one random field ----
-var parcels = ee.FeatureCollection(PARCELS_ASSET)
-                .filter(ee.Filter.eq(PROVINCE_FIELD, PROVINCE));
-var field  = ee.Feature(parcels.randomColumn('rnd', 42).sort('rnd').first());
-var region = field.geometry().centroid(1).buffer(BUFFER_M).bounds();
-Map.centerObject(region, 14);
-print('field centroid [lon, lat]:', field.geometry().centroid(1).coordinates());
+var centre = ee.Geometry.Point([LON, LAT]);
+var region = centre.buffer(BOX_M / 2).bounds();
+Map.centerObject(region, 16);
+Map.addLayer(centre, {color: 'red'}, 'centroid');
 
-// ---- cloud mask + composite + red boundary ----
 function maskS2(img) {
   var scl = img.select('SCL');
   var bad = scl.eq(3).or(scl.eq(8)).or(scl.eq(9)).or(scl.eq(10)).or(scl.eq(11));
   return img.updateMask(bad.not());
 }
-var outline = ee.Image().byte().paint(ee.FeatureCollection([field]), 1, 2);
-var red = ee.Image.constant([236, 58, 40]).visualize({min: 0, max: 255});
 
+// one layer per date — toggle them in the Layers panel to see the field change
 for (var i = 0; i < N_STEPS; i++) {
   var s = SEASON_START.advance(i * STEP_DAYS, 'day');
   var e = s.advance(STEP_DAYS, 'day');
@@ -42,7 +39,8 @@ for (var i = 0; i < N_STEPS; i++) {
       .filterBounds(region).filterDate(s, e)
       .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', MAX_CLOUD))
       .map(maskS2).median();
-  var shown = comp.visualize({bands: BANDS, min: VIS.min, max: VIS.max}).where(outline, red);
-  Map.addLayer(shown.clip(region), {}, 'step ' + (i + 1));   // toggle layers to compare dates
+  var shown = comp.visualize({bands: BANDS, min: VIS.min, max: VIS.max});
+  Map.addLayer(shown.clip(region), {}, 'ABCDEFGH'.charAt(i));   // A..H, same as the montage
 }
-print('Tune BANDS / VIS / SEASON_START above, then copy them into build_from_gee.py');
+print('Fields here are small (median 0.75 ha ~ 9 Sentinel-2 pixels): judge the field by how');
+print('its TONE changes across A..H, not by texture. Copy BANDS/VIS/dates into build_from_gee.py.');

@@ -1,92 +1,97 @@
 # =====================================================================
-#  analyze_responses.R  -  coverage, inter-rater agreement, and (for the
-#  synthetic starter set) accuracy of the crowd labels.
+#  analyze_responses.R  —  coverage, agreement, timing-of-tillage, and QC
+#  for the single-field / 8-date-montage design.
 #
-#  Input: responses_export.csv  (produce it with:  python export_responses.py)
-#         For production data from Supabase, export the `responses` table to
-#         CSV from the dashboard with the same columns and point `csv_path` to it.
+#  Input: responses_export.csv  (python export_responses.py), or the Supabase
+#         `responses` table exported to CSV with the same columns.
 #
-#  Base R only (no packages needed). Cohen's kappa is implemented inline.
+#  Base R only. Cohen's kappa implemented inline.
 # =====================================================================
 
-## ---- locate the export ---------------------------------------------
-app_dir <- getwd()
+app_dir  <- getwd()
 csv_path <- file.path(app_dir, "responses_export.csv")
 if (!file.exists(csv_path) && file.exists(file.path(app_dir, "..", "responses_export.csv"))) {
   csv_path <- normalizePath(file.path(app_dir, "..", "responses_export.csv"))
 }
-if (!file.exists(csv_path)) {
-  stop("responses_export.csv not found. Run:  python export_responses.py")
-}
+if (!file.exists(csv_path)) stop("responses_export.csv not found. Run: python export_responses.py")
+
 d <- read.csv(csv_path, stringsAsFactors = FALSE)
 cat("Loaded", nrow(d), "responses from", csv_path, "\n\n")
 
-## ---- which answer columns exist? (everything that's not metadata) --
-meta_cols  <- c("pair_id", "province", "year", "respondent", "created_at",
-                "truth_a", "truth_b")
-ans_cols   <- setdiff(names(d), meta_cols)
-cat("Answer columns:", paste(ans_cols, collapse = ", "), "\n\n")
-
-## ---- coverage -------------------------------------------------------
-labelers_per_pair <- tapply(d$respondent, d$pair_id, function(x) length(unique(x)))
+## ---- coverage --------------------------------------------------------
+raters_per_field <- tapply(d$respondent, d$field_id, function(x) length(unique(x)))
 cat("== Coverage ==\n")
-cat("  Pairs with >=1 response :", length(labelers_per_pair), "\n")
-cat("  Pairs with 2 responses  :", sum(labelers_per_pair >= 2), "\n")
-cat("  Distinct labelers       :", length(unique(d$respondent)), "\n")
-cat("  Total responses         :", nrow(d), "\n\n")
+cat("  responses            :", nrow(d), "\n")
+cat("  distinct fields seen :", length(raters_per_field), "\n")
+cat("  fields with >=2 raters:", sum(raters_per_field >= 2), "\n")
+cat("  contributors         :", length(unique(d$respondent)), "\n\n")
 
-## ---- answer distributions ------------------------------------------
-cat("== Answer distributions ==\n")
-for (q in ans_cols) {
-  cat(" ", q, ":\n")
-  print(table(d[[q]], useNA = "ifany"))
-}
-cat("\n")
+## ---- main answer: was it tilled? ------------------------------------
+cat("== q_field (was it tilled?) ==\n")
+if ("q_field" %in% names(d)) {
+  print(table(d$q_field, useNA = "ifany"))
+  cat("\n")
+} else cat("  (no q_field column)\n\n")
 
-## ---- Cohen's kappa (inline, base R) --------------------------------
+## ---- conditional: when was it first visible? ------------------------
+# Only asked when q_field == "till", so it is EXPECTED to be blank elsewhere.
+cat("== q_when (first image showing tillage) — among 'till' answers ==\n")
+if ("q_when" %in% names(d) && "q_field" %in% names(d)) {
+  w <- d$q_when[d$q_field == "till" & !is.na(d$q_when) & d$q_when != ""]
+  if (length(w)) {
+    print(table(factor(w, levels = c(LETTERS[1:8], "unsure"))))
+    cat("\n  (A=1 Sep, B=15 Sep, C=29 Sep, D=13 Oct, E=27 Oct, F=10 Nov, G=24 Nov, H=8 Dec)\n")
+    stray <- sum(d$q_field != "till" & !is.na(d$q_when) & d$q_when != "")
+    cat("  sanity — q_when set on a non-till answer:", stray, "(should be 0)\n\n")
+  } else cat("  no 'till' answers yet\n\n")
+} else cat("  (no q_when column)\n\n")
+
+## ---- Cohen's kappa ---------------------------------------------------
 cohen_kappa <- function(a, b) {
   lv <- sort(unique(c(a, b)))
   tab <- table(factor(a, lv), factor(b, lv))
-  n <- sum(tab)
-  if (n == 0) return(NA_real_)
+  n <- sum(tab); if (n == 0) return(NA_real_)
   po <- sum(diag(tab)) / n
   pe <- sum(rowSums(tab) * colSums(tab)) / n^2
   if (pe == 1) return(NA_real_)
   (po - pe) / (1 - pe)
 }
 
-## ---- inter-rater agreement on pairs with exactly 2 labelers --------
-cat("== Inter-rater agreement (pairs with 2 labelers) ==\n")
-two <- names(labelers_per_pair[labelers_per_pair == 2])
-for (q in ans_cols) {
-  r1 <- c(); r2 <- c()
-  for (pid in two) {
-    sub <- d[d$pair_id == pid, ]
-    a <- sub[[q]][!is.na(sub[[q]]) & sub[[q]] != ""]
-    if (length(a) >= 2) { r1 <- c(r1, a[1]); r2 <- c(r2, a[2]) }
-  }
-  if (length(r1) == 0) { cat(" ", q, ": no double-labeled pairs yet\n"); next }
-  agree <- mean(r1 == r2)
-  k <- cohen_kappa(r1, r2)
-  cat(sprintf("  %-6s  n=%-3d  raw agreement=%.0f%%  kappa=%.2f\n",
-              q, length(r1), 100 * agree, k))
+cat("== Inter-rater agreement on q_field (fields rated by >=2 people) ==\n")
+multi <- names(raters_per_field[raters_per_field >= 2])
+r1 <- c(); r2 <- c()
+for (fid in multi) {
+  a <- d$q_field[d$field_id == fid]
+  a <- a[!is.na(a) & a != ""]
+  if (length(a) >= 2) { r1 <- c(r1, a[1]); r2 <- c(r2, a[2]) }
 }
+if (length(r1)) {
+  cat(sprintf("  n=%d  raw agreement=%.0f%%  kappa=%.2f\n",
+              length(r1), 100 * mean(r1 == r2), cohen_kappa(r1, r2)))
+} else cat("  no double-rated fields yet\n")
 cat("\n")
 
-## ---- accuracy vs synthetic truth (starter set only) ----------------
-# Maps each answer column to a truth column by convention: q_a -> truth_a, q_b -> truth_b
-if (all(c("truth_a", "truth_b") %in% names(d))) {
-  cat("== Accuracy vs synthetic truth (synthetic chips only) ==\n")
-  truth_map <- list(q_a = "truth_a", q_b = "truth_b")
-  for (q in ans_cols) {
-    tcol <- truth_map[[q]]
-    if (is.null(tcol) || !(tcol %in% names(d))) next
-    keep <- d[[q]] %in% c("till", "no_till") & d[[tcol]] %in% c("till", "no_till")
-    if (!any(keep)) { cat(" ", q, ": nothing to score yet\n"); next }
-    acc <- mean(d[[q]][keep] == d[[tcol]][keep])
-    cat(sprintf("  %-6s  n=%-3d  accuracy=%.0f%%\n", q, sum(keep), 100 * acc))
-  }
-  cat("  (excludes 'unsure' answers and 'ambiguous' truth)\n")
+## ---- QC on the technical context -------------------------------------
+cat("== QC (technical context) ==\n")
+if ("ip" %in% names(d))            cat("  distinct IPs        :", length(unique(d$ip[d$ip != ""])), "\n")
+if ("meta_timezone" %in% names(d)) {
+  tz <- d$meta_timezone[d$meta_timezone != ""]
+  if (length(tz)) { cat("  timezones           :\n"); print(sort(table(tz), decreasing = TRUE)) }
 }
+if ("created_at" %in% names(d)) {
+  ts <- as.POSIXct(d$created_at, format = "%Y-%m-%dT%H:%M:%S", tz = "UTC")
+  ts <- ts[!is.na(ts)]
+  if (length(ts)) {
+    cat("  first / last answer :", format(min(ts)), "/", format(max(ts)), "\n")
+    cat("  answers by hour (server clock):\n")
+    print(table(as.integer(format(ts, "%H"))))
+  }
+}
+cat("\n  Watch for: many answers from one IP under different names, or implausibly\n",
+    " fast answering — both are quality flags, not proof of anything.\n")
+
+## ---- responses per contributor ---------------------------------------
+cat("\n== Responses per contributor ==\n")
+print(sort(table(d$respondent), decreasing = TRUE))
 
 cat("\nDone.\n")
