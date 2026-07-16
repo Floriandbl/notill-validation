@@ -136,10 +136,12 @@ def fetch_panel(rect, start, end, tries=5):
 # ======================================================================
 # Local overlay: delineation + centroid dot
 # ======================================================================
-# The overlay must contrast with the IMAGERY. Soil renders red and vegetation green,
-# so a red outline vanishes on soil (and green would vanish on crops). Cyan is the one
-# colour that is far from both.
-OUTLINE = (0, 255, 255)
+# The overlay must contrast with the IMAGERY. Soil renders red, vegetation green, and an
+# NDTI ramp runs brown->teal — magenta is the one colour that appears in none of them.
+OUTLINE = (255, 0, 255)
+OUTLINE_WIDTH = 3      # at BOX_M=650/PANEL_PX=320 the median field is only ~43 px wide,
+                       # so a thicker line starts hiding the pixels being judged. 4 is the max.
+DOT_R = 4.0            # centroid dot radius
 RED = OUTLINE          # kept as an alias: older code referred to RED
 
 
@@ -155,10 +157,11 @@ def overlay_field(img, ring_utm, cxy, bounds):
     d = ImageDraw.Draw(img)
     pts = [to_px(X, Y) for X, Y in ring_utm]
     if len(pts) > 1:
-        d.line(pts + [pts[0]], fill=RED, width=2)    # closed delineation
+        # joint="curve" closes the corner gaps a thick polyline would otherwise leave
+        d.line(pts + [pts[0]], fill=OUTLINE, width=OUTLINE_WIDTH, joint="curve")
     cx, cy = to_px(*cxy)
-    r = 3.5
-    d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=RED, outline=(255, 255, 255))
+    d.ellipse([cx - DOT_R, cy - DOT_R, cx + DOT_R, cy + DOT_R],
+              fill=OUTLINE, outline=(255, 255, 255))
     return img
 
 
