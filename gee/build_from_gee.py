@@ -36,7 +36,9 @@ from pyproj import Transformer
 # ======================================================================
 # CONFIG
 # ======================================================================
-EE_PROJECT = "your-gcp-project-id"      # TODO: your Earth Engine / GCP project
+EE_PROJECT = "ca-morocco"       # picked from your `gcloud projects list`. It must be a
+                                # Cloud project with the Earth Engine API enabled.
+                                # Check/adjust: gcloud projects list
 
 PROVINCE = "Settat"
 SEASON   = 2025                 # season START year: 1 Sep 2025 -> ~22 Dec 2025. TODO confirm.
