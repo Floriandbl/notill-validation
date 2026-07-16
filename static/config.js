@@ -16,18 +16,22 @@ window.STUDY_CONFIG = {
   supabaseAnonKey: "sb_publishable_HXAIQNMCL2LTIzbxyp2WsA_6Ixg3KXv",   // publishable key — safe in the browser
 
   /* ---- study parameters --------------------------------------------- */
-  batchSize: 50,            // pairs offered per session
-  title: "Tillage Field Comparison",
+  batchSize: 50,            // fields offered per session
+  title: "Tillage Field Assessment",
   org: "Conservation Agriculture · Morocco",
 
+  // 1 = ONE image per screen (the 8-date montage of a single field) + one question.
+  // 2 = the old A/B pair mode (two fields side by side, one question each).
+  imagesPerScreen: 1,
+
   // Project goal — drives the progress panel on the landing page.
-  // 1 field = 1 image; each pair shows 2 fields. Target = provinces × seasons ×
-  // fieldsPerSeasonPerProvince. (20 × 11 × 100 = 22,000 fields = 11,000 pairs.)
+  // 1 field = 1 image = 1 screen. Target = provinces × seasons × fieldsPerSeasonPerProvince.
+  // Current pilot: Settat only, one season, 500 fields.
   goal: {
-    provinces: 20,
-    seasonStart: 2015,
+    provinces: 1,
+    seasonStart: 2025,
     seasonEnd: 2025,
-    fieldsPerSeasonPerProvince: 100,
+    fieldsPerSeasonPerProvince: 500,
   },
 
   /* ---- one-page intro (shown once, before labeling) -----------------
@@ -38,9 +42,13 @@ window.STUDY_CONFIG = {
     in Moroccan croplands. It takes about 10&ndash;15 minutes.</p>
 
     <h3>What you'll do</h3>
-    <p>On each screen you'll see <strong>two field images (A and B)</strong> and answer
-    <strong>two short questions</strong>, then press <em>Next</em> for a new pair.
-    Your answers are saved automatically as you go.</p>
+    <p>On each screen you'll see <strong>one field, shown at 8 dates</strong> across the
+    season (every two weeks from September). The field is <strong>outlined in red</strong>.
+    Answer <strong>one question</strong> &mdash; was it tilled? &mdash; then press
+    <em>Next</em> for a new field. Your answers are saved automatically as you go.</p>
+
+    <p class="muted">Watching the field <em>change over time</em> is the key: that's what
+    reveals whether the soil was worked.</p>
 
     <h3>How to read the images</h3>
     <div class="def-grid">
@@ -100,19 +108,9 @@ window.STUDY_CONFIG = {
    * Add/remove options freely; `value` is what gets stored, `label` is shown.   */
   questions: [
     {
-      id: "q_a",
-      text: "Image A &mdash; what is the tillage status of this field?",
+      id: "q_field",
+      text: "Looking at the outlined field across the 8 dates &mdash; was it tilled?",
       imageRef: "a",
-      options: [
-        { value: "till",    label: "Tilled" },
-        { value: "no_till", label: "No-till" },
-        { value: "unsure",  label: "Can't tell" },
-      ],
-    },
-    {
-      id: "q_b",
-      text: "Image B &mdash; what is the tillage status of this field?",
-      imageRef: "b",
       options: [
         { value: "till",    label: "Tilled" },
         { value: "no_till", label: "No-till" },

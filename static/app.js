@@ -97,7 +97,8 @@ async function loadProgress() {
   const fmt = (n) => Number(n || 0).toLocaleString();
   try {
     const p = await Api.progress();
-    const classified = (p.pairs_done || 0) * 2;          // 2 fields per answered pair
+    // one field per screen (imagesPerScreen:1), or two in legacy pair mode
+    const classified = (p.pairs_done || 0) * (cfg.imagesPerScreen || 2);
     const remaining = Math.max(0, goalFields - classified);
     const pct = goalFields ? Math.round((classified / goalFields) * 100) : 0;
     $("#pp-contributors").textContent = fmt(p.contributors);
@@ -105,9 +106,11 @@ async function loadProgress() {
     $("#pp-remaining").textContent = fmt(remaining);
     $("#pp-cells").textContent = `${fmt(p.cells_done)}/${fmt(goalCells)}`;
     $("#pp-bar-fill").style.width = pct + "%";
-    $("#pp-goal").textContent =
-      `${fmt(classified)} of ${fmt(goalFields)} fields classified · ${pct}% · `
-      + `goal: ${g.fieldsPerSeasonPerProvince} fields × ${seasons} seasons × ${g.provinces} provinces`;
+    const parts = [`${fmt(classified)} of ${fmt(goalFields)} fields classified`, `${pct}%`];
+    if (seasons > 1 || g.provinces > 1) {   // only spell out the grid when there is one
+      parts.push(`goal: ${g.fieldsPerSeasonPerProvince} fields × ${seasons} season(s) × ${g.provinces} province(s)`);
+    }
+    $("#pp-goal").textContent = parts.join(" · ");
   } catch (e) {
     $("#pp-goal").textContent = "Live progress will appear once the study database is connected.";
   }
@@ -162,10 +165,18 @@ function renderPair() {
   if (!p) { onBatchEnd(); return; }
   state.answers = {};
 
+  // One montage per screen (imagesPerScreen: 1) or the legacy A/B pair (2).
+  const single = (cfg.imagesPerScreen || 2) === 1;
   const ia = $("#img-a"), ib = $("#img-b");
-  ia.onerror = ib.onerror = onImageError;   // self-heal if a URL is dead/stale
+  $("#pair-grid").classList.toggle("single", single);
+  $("#card-b").classList.toggle("hidden", single);
+  $("#tag-a").classList.toggle("hidden", single);   // no A/B labels when there's one image
+  ia.onerror = onImageError;                        // self-heal if a URL is dead/stale
   ia.src = p.image_a;
-  ib.src = p.image_b;
+  if (!single) {
+    ib.onerror = onImageError;
+    ib.src = p.image_b;
+  }
 
   const total = state.batch.length;
   $("#qcount").textContent = `${state.idx + 1} / ${total}`;

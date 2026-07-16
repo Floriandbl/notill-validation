@@ -3,26 +3,26 @@
 build_from_gee.py — build the REAL labeling dataset from Sentinel-2 (Google Earth Engine).
 
 Implements the pipeline:
-  1. randomly pick N fields inside each province (from YOUR parcel layer)
-  2. take each field's centroid
-  3. build 6 Sentinel-2 composites, one every 2 weeks across the tillage season
-  4. paint the field's boundary on each date
-  5. stitch the 6 dates into ONE image (2x3 facets, dated)
+  1. randomly pick N GPS locations (fields) inside the province, from YOUR parcel layer
+  2. take each field's centroid — all 8 dates use that exact same location
+  3. build 8 Sentinel-2 composites, one every 2 weeks from 1 September
+  4. overlay the parcel delineation (boundary painted red) on each date
+  5. stitch the 8 dates into ONE image (4x2 facets, dated)
   6. save as  {lat}_{lon}_{season}_{province}.jpg  under images/{province}/{season}/
-  7. iterate over fields / seasons / provinces
-  8/9. write pairs_metadata.csv (2 fields = 1 pair) so the app + build_pairs.R can use it
+  7. iterate over all fields
+  8/9. write pairs_metadata.csv — ONE field = ONE row = one screen in the app
+       (image_b stays empty: the app runs in single-image mode)
 
-Run it in a GEE-authenticated Python environment:
+Run it in a GEE-authenticated Python environment (Colab is easiest):
     pip install earthengine-api pillow requests
     earthengine authenticate           # once
     python build_from_gee.py
 
-Start with the PILOT config below (1 province, 1 season, 100 fields = 50 pairs),
-eyeball the output, THEN scale by expanding PROVINCES / SEASONS.
+Current run: Settat, one season, 500 fields -> 500 montages -> 500 screens.
 
-NOTE ON SCALE: full scale (100 fields x 11 seasons x 20 provinces) = 22,000 montages
-= ~132,000 thumbnail pulls and several GB. At that size, host images/ in object
-storage (Cloudflare R2 / S3), not git — the app just needs the URLs in the pairs table.
+NOTE ON SCALE: 500 fields x 8 dates = 4,000 thumbnail pulls (~20-40 min) and a few
+hundred MB — fine for git/Pages. If you later go to many provinces/seasons, move
+images/ to object storage (R2/S3); the app only needs the URLs in the pairs table.
 """
 import csv
 import io
@@ -41,17 +41,18 @@ EE_PROJECT      = "your-gcp-project-id"          # TODO: your Earth Engine / GCP
 PARCELS_ASSET   = "projects/your-project/assets/morocco_parcels"  # TODO: your parcel layer
 PROVINCE_FIELD  = "province"                      # TODO: attribute holding the province name
 
-PROVINCES = ["Settat"]                            # PILOT: one. Scale: your 20 provinces.
-SEASONS   = [2020]                                # PILOT: one. Scale: 2015..2025.
-                                                  # (season is named by its START year)
+PROVINCES = ["Settat"]         # current run: Settat only
+SEASONS   = [2025]             # season named by its START year (Sep 2025 -> Dec 2025).
+                               # TODO: confirm which season you want.
 
-SEASON_START_MD = (10, 1)      # tillage season starts ~1 October (month, day)
-N_STEPS         = 6            # 6 dates
-STEP_DAYS       = 14           # every 2 weeks  -> ~12 weeks of season
-N_FIELDS        = 100          # fields per province-season (=> 50 pairs)
+SEASON_START_MD = (9, 1)       # tillage season starts 1 September (month, day)
+N_STEPS         = 8            # 8 dates -> an 8-facet montage
+STEP_DAYS       = 14           # every 2 weeks -> 16 weeks (1 Sep .. ~22 Dec)
+N_FIELDS        = 500          # GPS locations sampled in the province
 
-BUFFER_M   = 600              # half-size of each panel's footprint (m). ~1.2 km box.
-PANEL_PX   = 300             # pixels per facet
+BUFFER_M   = 250              # half-size -> 500 x 500 m footprint.
+                              # Want a closer look? drop to 150 (300 m) or 100 (200 m).
+PANEL_PX   = 320             # pixels per facet
 BANDS      = ["B11", "B8", "B2"]   # Sentinel-2 "agriculture": veg=green, bare soil=red/brown
 VIS        = {"min": 0, "max": 3000}
 MAX_CLOUD  = 60              # drop scenes cloudier than this before compositing
@@ -126,7 +127,7 @@ def download_thumb(img_vis, region, dim, tries=5):
 # Montage (Pillow) — 6 facets, 2 rows x 3 cols, dated
 # ======================================================================
 def make_montage(panels, labels):
-    cols, rows, pad, cap = 3, 2, 5, 20
+    cols, rows, pad, cap = 4, 2, 5, 20      # 8 facets: 4 across x 2 down
     w, h = panels[0].size
     W = cols * w + (cols + 1) * pad
     H = rows * (h + cap) + (rows + 1) * pad
@@ -180,23 +181,21 @@ def main():
         for season in SEASONS:
             print(f"== {province} {season}: sampling {N_FIELDS} fields ==")
             geoms = sample_fields(province, N_FIELDS)
-            fields = []
             for i, g in enumerate(geoms, 1):
                 try:
-                    fields.append(process_field(g, province, season))
-                    print(f"  [{i}/{len(geoms)}] {fields[-1]['rel']}")
+                    f = process_field(g, province, season)
+                    # ONE field = one montage = one screen (image_b unused in
+                    # single-image mode; kept empty for schema compatibility)
+                    rows.append({
+                        "pair_id": f"{province}_{season}_{i:04d}",
+                        "province": province, "year": season,
+                        "image_a": f["rel"], "image_b": "",
+                        "lat_a": f["lat"], "lon_a": f["lon"],
+                        "lat_b": "", "lon_b": "",
+                    })
+                    print(f"  [{i}/{len(geoms)}] {f['rel']}")
                 except Exception as e:
                     print(f"  [{i}/{len(geoms)}] SKIPPED ({e})")
-            # pair fields two-by-two -> app pairs
-            for k in range(0, len(fields) - 1, 2):
-                a, b = fields[k], fields[k + 1]
-                rows.append({
-                    "pair_id": f"{province}_{season}_{k // 2 + 1:04d}",
-                    "province": province, "year": season,
-                    "image_a": a["rel"], "image_b": b["rel"],
-                    "lat_a": a["lat"], "lon_a": a["lon"],
-                    "lat_b": b["lat"], "lon_b": b["lon"],
-                })
 
     cols = ["pair_id", "province", "year", "image_a", "image_b",
             "lat_a", "lon_a", "lat_b", "lon_b"]
@@ -208,7 +207,7 @@ def main():
         for r in rows:
             w.writerow([r[c] for c in cols])
 
-    print(f"\nDone. {len(rows)} pairs. Metadata -> {META_CSV}")
+    print(f"\nDone. {len(rows)} fields (= {len(rows)} screens). Metadata -> {META_CSV}")
     print("Next: Rscript r/build_pairs.R  ->  load into Supabase  ->  it's live.")
 
 
