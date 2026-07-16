@@ -44,9 +44,10 @@ SEASON   = 2025                 # season START year: 1 Sep 2025 -> ~22 Dec 2025.
 SEASON_START_MD = (9, 1)        # 1 September
 N_STEPS   = 8                   # 8 dates -> 8 facets (A..H)
 STEP_DAYS = 14                  # every 2 weeks
-BOX_M     = 250                 # Settat fields are SMALL: median 0.75 ha ~= 87 m across.
-                                # In a 500 m box the field is only ~17% of the frame; at
-                                # 250 m it's ~35%, at 200 m ~43%. Tune to taste.
+BOX_M     = 750                 # footprint per facet. Settat fields are small (median
+                                # 0.75 ha ~= 87 m across), so the field fills ~12% of the
+                                # frame at 750 m, ~35% at 250 m, ~43% at 200 m.
+                                # 750 m = more surrounding context, smaller field.
 PANEL_PX  = 320                 # pixels per facet
 
 CLEAN_FIRST = True              # wipe images/ + pairs_metadata.csv before generating.

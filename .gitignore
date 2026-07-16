@@ -25,3 +25,7 @@ _sim_tmp.py
 *.Rhistory
 .RData
 .Rproj.user/
+
+# GEE overlay self-test output (regenerate with gee/_overlay_selftest.py)
+gee/_overlay_selftest.jpg
+gee/_cmp_*.jpg
