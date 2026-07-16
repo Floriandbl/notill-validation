@@ -17,7 +17,10 @@ var SEASON_YEAR = 2025;
 var SEASON_START = ee.Date.fromYMD(SEASON_YEAR, 9, 1);    // 1 Sept
 var N_STEPS = 8, STEP_DAYS = 14, BOX_M = 250;             // 250 x 250 m box
 var BANDS = ['B11', 'B8', 'B2'];        // agriculture false colour: veg=green, soil=red/brown
-var VIS   = {min: 0, max: 3000};
+// Per-band stretch measured from real Settat reflectance. min=0/max=3000 saturates
+// B11+B8 (everything renders yellow); stretching BLUE to its own range makes soil
+// magenta — so the blue ceiling is deliberately wide. Keep fixed across all dates.
+var VIS   = {min: [2000, 2900, 250], max: [5200, 5100, 5000]};
 var MAX_CLOUD = 60;
 
 var centre = ee.Geometry.Point([LON, LAT]);

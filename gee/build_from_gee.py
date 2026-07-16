@@ -57,7 +57,17 @@ CLEAN_FIRST = True              # wipe images/ + pairs_metadata.csv before gener
                                 # this you'd append 500 real rows onto 11,000 dead ones.
 
 BANDS = ["B11", "B8", "B2"]     # agriculture false colour: veg green, bare soil red/brown
-VIS   = {"min": 0, "max": 3000}
+# Per-band stretch, measured from real Settat reflectance (2-98th percentiles,
+# Sep 2025):  B11 2120..5159 | B8 2967..5029 | B2 297..1527.
+#   - min=0/max=3000 for everything saturated B11+B8 -> every field rendered YELLOW.
+#   - stretching BLUE to its own 2-98% is the obvious fix and it's WRONG: bare soil is
+#     genuinely bright in blue, so it renders MAGENTA. The blue ceiling is kept wide on
+#     purpose, which keeps soil low-blue => red, and vegetation => green.
+# Predicted: bare soil ~RGB(220,61,55), vegetation ~RGB(32,232,5).
+#
+# KEEP THIS FIXED ACROSS ALL 8 DATES. A per-date auto-stretch would make colour change
+# meaningless — the whole point is that a change from A..H is a change on the ground.
+VIS   = {"min": [2000, 2900, 250], "max": [5200, 5100, 5000]}
 MAX_CLOUD = 60
 UTM_CRS = "EPSG:32629"          # UTM 29N — correct for Settat
 
