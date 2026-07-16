@@ -102,10 +102,15 @@ window.STUDY_CONFIG = {
     ],
   },
 
-  /* ---- the two questions --------------------------------------------
+  /* ---- questions -----------------------------------------------------
    * Each question is a single choice from `options`.
-   * `imageRef`: "a", "b", or null  (used only to label which image it's about)
-   * Add/remove options freely; `value` is what gets stored, `label` is shown.   */
+   * `showIf: {question, equals}` makes a question CONDITIONAL — it only appears
+   * once the referenced question has that answer, and its answer is dropped if
+   * the condition stops being true. Only VISIBLE questions are required.
+   *
+   * The A..H labels must match the montage panels, i.e. the GEE settings
+   * SEASON_START_MD=(9,1), N_STEPS=8, STEP_DAYS=14. Dates are year-agnostic,
+   * so they hold for any season starting 1 September.                        */
   questions: [
     {
       id: "q_field",
@@ -117,7 +122,23 @@ window.STUDY_CONFIG = {
         { value: "unsure",  label: "Can't tell" },
       ],
     },
+    {
+      id: "q_when",
+      text: "In which image do you <strong>first</strong> see that it was tilled?",
+      showIf: { question: "q_field", equals: "till" },
+      options: [
+        { value: "A", label: "A · 1 Sep" },
+        { value: "B", label: "B · 15 Sep" },
+        { value: "C", label: "C · 29 Sep" },
+        { value: "D", label: "D · 13 Oct" },
+        { value: "E", label: "E · 27 Oct" },
+        { value: "F", label: "F · 10 Nov" },
+        { value: "G", label: "G · 24 Nov" },
+        { value: "H", label: "H · 8 Dec" },
+        { value: "unsure", label: "Can't tell" },
+      ],
+    },
   ],
 
-  requireAllAnswers: true,   // Next stays disabled until both questions answered
+  requireAllAnswers: true,   // Next stays disabled until every VISIBLE question is answered
 };

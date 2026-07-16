@@ -190,6 +190,7 @@ function renderPair() {
   cfg.questions.forEach((q) => {
     const fs = document.createElement("fieldset");
     fs.className = "q";
+    fs.dataset.qid = q.id;
     const legend = document.createElement("legend");
     legend.innerHTML = q.text;
     fs.appendChild(legend);
@@ -204,6 +205,7 @@ function renderPair() {
         state.answers[q.id] = o.value;
         opts.querySelectorAll(".opt").forEach((x) => x.classList.remove("sel"));
         b.classList.add("sel");
+        applyConditionals();
         refreshNext();
       });
       opts.appendChild(b);
@@ -211,11 +213,32 @@ function renderPair() {
     fs.appendChild(opts);
     wrap.appendChild(fs);
   });
+  applyConditionals();
   refreshNext();
 }
 
+/* A question with `showIf` only appears once its trigger answer is given. */
+function isVisible(q) {
+  if (!q.showIf) return true;
+  return state.answers[q.showIf.question] === q.showIf.equals;
+}
+
+function applyConditionals() {
+  cfg.questions.forEach((q) => {
+    if (!q.showIf) return;
+    const fs = $(`fieldset.q[data-qid="${q.id}"]`);
+    if (!fs) return;
+    const vis = isVisible(q);
+    fs.classList.toggle("hidden", !vis);
+    if (!vis && state.answers[q.id] !== undefined) {
+      delete state.answers[q.id];      // don't keep an answer to a hidden question
+      fs.querySelectorAll(".opt").forEach((x) => x.classList.remove("sel"));
+    }
+  });
+}
+
 function allAnswered() {
-  return cfg.questions.every((q) => state.answers[q.id] !== undefined);
+  return cfg.questions.filter(isVisible).every((q) => state.answers[q.id] !== undefined);
 }
 function refreshNext() {
   $("#btn-next").disabled = cfg.requireAllAnswers && !allAnswered();

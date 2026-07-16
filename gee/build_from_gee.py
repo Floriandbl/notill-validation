@@ -99,14 +99,19 @@ def visualize_with_boundary(img, field_geom):
     return vis.where(outline, red)
 
 
+PANEL_LETTERS = "ABCDEFGHIJKL"     # panels are labelled A, B, C ... to match the
+                                   # "which image did you first see tillage?" question
+
+
 def season_windows(year):
-    """6 two-week windows: [(start_iso, end_iso, label), ...]."""
+    """N_STEPS two-week windows: [(start_iso, end_iso, 'A · 01 Sep'), ...]."""
     start = date(year, SEASON_START_MD[0], SEASON_START_MD[1])
     out = []
     for i in range(N_STEPS):
         s = start + timedelta(days=i * STEP_DAYS)
         e = s + timedelta(days=STEP_DAYS)
-        out.append((s.isoformat(), e.isoformat(), s.strftime("%d %b %Y")))
+        label = f"{PANEL_LETTERS[i]} · {s.strftime('%d %b').lstrip('0')}"   # 'A · 1 Sep'
+        out.append((s.isoformat(), e.isoformat(), label))
     return out
 
 
