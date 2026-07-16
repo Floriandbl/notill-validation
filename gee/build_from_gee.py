@@ -136,7 +136,11 @@ def fetch_panel(rect, start, end, tries=5):
 # ======================================================================
 # Local overlay: delineation + centroid dot
 # ======================================================================
-RED = (236, 58, 40)
+# The overlay must contrast with the IMAGERY. Soil renders red and vegetation green,
+# so a red outline vanishes on soil (and green would vanish on crops). Cyan is the one
+# colour that is far from both.
+OUTLINE = (0, 255, 255)
+RED = OUTLINE          # kept as an alias: older code referred to RED
 
 
 def overlay_field(img, ring_utm, cxy, bounds):
