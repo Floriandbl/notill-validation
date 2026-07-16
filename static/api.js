@@ -34,7 +34,8 @@ const Api = (() => {
   /* ---------- LOCAL (Python app.py) ---------- */
   const local = {
     claim: (name) => postJSON("/api/claim", { name, size: cfg.batchSize }),
-    submit: (name, pairId, answers) => postJSON("/api/submit", { name, pair_id: pairId, answers }),
+    submit: (name, pairId, answers, meta) =>
+      postJSON("/api/submit", { name, pair_id: pairId, answers, meta }),
     progress: () => getJSON("/api/progress"),
   };
 
@@ -61,10 +62,12 @@ const Api = (() => {
       if (error) throw new Error(error.message);
       return data;
     },
-    submit: async (name, pairId, answers) => {
+    submit: async (name, pairId, answers, meta) => {
       const c = await client();
+      // the client IP is added server-side inside submit_response() — the browser
+      // cannot read its own public IP.
       const { data, error } = await c.rpc("submit_response", {
-        p_pair_id: pairId, p_name: name, p_answers: answers });
+        p_pair_id: pairId, p_name: name, p_answers: answers, p_meta: meta || {} });
       if (error) throw new Error(error.message);
       return data;
     },

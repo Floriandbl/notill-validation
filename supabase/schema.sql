@@ -30,10 +30,19 @@ create table if not exists public.responses (
   id          bigint generated always as identity primary key,
   pair_id     text not null references public.pairs(pair_id),
   respondent  text not null,
-  answers     jsonb not null,            -- {"q_a":"till","q_b":"no_till"}
+  answers     jsonb not null,            -- {"q_field":"till","q_when":"C"}
   created_at  timestamptz not null default now(),
   unique (pair_id, respondent)           -- one answer per person per pair
 );
+
+-- Technical context captured with each answer (disclosed to participants on the
+-- landing page). `meta` = browser/device/timezone/client clock sent by the page;
+-- `ip` = client IP, which ONLY the server can see (JS cannot read it).
+-- Both are personal data under GDPR — keep them in the EU project, never expose
+-- them to the anon key (RLS below blocks all direct table reads), and make sure
+-- the wording on the landing page matches what your IRB approved.
+alter table public.responses add column if not exists meta jsonb;
+alter table public.responses add column if not exists ip   text;
 
 create index if not exists idx_responses_pair on public.responses(pair_id);
 create index if not exists idx_responses_name on public.responses(respondent);
@@ -80,13 +89,26 @@ $$;
 -- Returns: { "ok": true }
 --        | { "ok": true, "updated": true }      (re-answer by same person)
 --        | { "ok": false, "reason": "unknown_pair" }
-create or replace function public.submit_response(p_pair_id text, p_name text, p_answers jsonb)
+-- the 3-arg version is replaced by the 4-arg one below (p_meta has a default,
+-- so leaving both would make the call ambiguous)
+drop function if exists public.submit_response(text, text, jsonb);
+
+create or replace function public.submit_response(
+  p_pair_id text, p_name text, p_answers jsonb, p_meta jsonb default '{}'::jsonb)
 returns jsonb
 language plpgsql
 security definer
 set search_path = public
 as $$
+declare
+  v_ip text;
 begin
+  -- client IP: only visible server-side. PostgREST exposes the request headers;
+  -- x-forwarded-for is a chain, the first entry is the client.
+  v_ip := nullif(split_part(
+            coalesce(current_setting('request.headers', true)::json ->> 'x-forwarded-for', ''),
+            ',', 1), '');
+
   -- pair must exist; lock its row to serialise concurrent submits by the same person
   perform 1 from public.pairs where pair_id = p_pair_id for update;
   if not found then
@@ -96,15 +118,15 @@ begin
   if exists (select 1 from public.responses
              where pair_id = p_pair_id and respondent = p_name) then
     update public.responses
-       set answers = p_answers, created_at = now()
+       set answers = p_answers, created_at = now(), meta = p_meta, ip = v_ip
      where pair_id = p_pair_id and respondent = p_name;
     return jsonb_build_object('ok', true, 'updated', true);
   end if;
 
   -- no per-pair labeler cap right now; one answer per person is still enforced
   -- by the unique(pair_id, respondent) constraint
-  insert into public.responses(pair_id, respondent, answers)
-  values (p_pair_id, p_name, p_answers);
+  insert into public.responses(pair_id, respondent, answers, meta, ip)
+  values (p_pair_id, p_name, p_answers, p_meta, v_ip);
   return jsonb_build_object('ok', true);
 
 exception when unique_violation then
@@ -157,9 +179,9 @@ alter table public.responses enable row level security;
 revoke all on public.pairs     from anon, authenticated;
 revoke all on public.responses from anon, authenticated;
 
-grant execute on function public.claim_batch(text, int)             to anon, authenticated;
-grant execute on function public.submit_response(text, text, jsonb) to anon, authenticated;
-grant execute on function public.study_progress()                   to anon, authenticated;
+grant execute on function public.claim_batch(text, int)                     to anon, authenticated;
+grant execute on function public.submit_response(text, text, jsonb, jsonb)  to anon, authenticated;
+grant execute on function public.study_progress()                           to anon, authenticated;
 
 -- =====================================================================
 --  Loading the pairs:

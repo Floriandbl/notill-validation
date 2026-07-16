@@ -81,6 +81,12 @@ def init_db():
         CREATE INDEX IF NOT EXISTS idx_resp_pair ON responses(pair_id);
         CREATE INDEX IF NOT EXISTS idx_resp_name ON responses(respondent);
     """)
+    # technical context (mirrors the Supabase columns). SQLite has no
+    # "ADD COLUMN IF NOT EXISTS", so check first.
+    have = {r[1] for r in con.execute("PRAGMA table_info(responses)")}
+    for col in ("meta", "ip"):
+        if col not in have:
+            con.execute(f"ALTER TABLE responses ADD COLUMN {col} TEXT")
     con.commit()
     con.close()
 
@@ -143,9 +149,11 @@ def claim_batch(name, size=BATCH_SIZE):
     return {"pairs": pairs, "remaining": remaining}
 
 
-def submit_response(name, pair_id, answers):
-    """Atomically record one answer (re-checks the per-pair cap at write time)."""
+def submit_response(name, pair_id, answers, meta=None, ip=None):
+    """Atomically record one answer (re-checks the per-pair cap at write time).
+    `meta`/`ip` = technical context, disclosed to participants on the landing page."""
     name = name.strip()
+    meta_json = json.dumps(meta or {})
     with _lock:
         con = connect()
         try:
@@ -162,18 +170,20 @@ def submit_response(name, pair_id, answers):
             if already:
                 # idempotent update of this person's own answer
                 con.execute(
-                    "UPDATE responses SET answers=?, created_at=? WHERE pair_id=? AND respondent=?",
+                    "UPDATE responses SET answers=?, created_at=?, meta=?, ip=? "
+                    "WHERE pair_id=? AND respondent=?",
                     (json.dumps(answers), datetime.datetime.now().isoformat(timespec="seconds"),
-                     pair_id, name))
+                     meta_json, ip, pair_id, name))
                 con.commit(); con.close()
                 return {"ok": True, "updated": True}
             if count >= _CAP:
                 con.rollback(); con.close()
                 return {"ok": False, "reason": "pair_full"}
             con.execute(
-                "INSERT INTO responses(pair_id, respondent, answers, created_at) VALUES(?,?,?,?)",
+                "INSERT INTO responses(pair_id, respondent, answers, created_at, meta, ip) "
+                "VALUES(?,?,?,?,?,?)",
                 (pair_id, name, json.dumps(answers),
-                 datetime.datetime.now().isoformat(timespec="seconds")))
+                 datetime.datetime.now().isoformat(timespec="seconds"), meta_json, ip))
             con.commit(); con.close()
             return {"ok": True}
         except sqlite3.Error as e:
@@ -314,9 +324,13 @@ class Handler(BaseHTTPRequestHandler):
             name = str(data.get("name", "")).strip()
             pair_id = str(data.get("pair_id", "")).strip()
             answers = data.get("answers")
+            meta = data.get("meta") if isinstance(data.get("meta"), dict) else {}
             if not name or not pair_id or not isinstance(answers, dict):
                 self._json({"ok": False, "reason": "bad_request"}, 400); return
-            self._json(submit_response(name, pair_id, answers)); return
+            # client IP: honour a proxy header if present, else the socket peer
+            fwd = self.headers.get("X-Forwarded-For", "")
+            ip = fwd.split(",")[0].strip() if fwd else self.client_address[0]
+            self._json(submit_response(name, pair_id, answers, meta, ip)); return
 
         self._json({"error": "not found"}, 404)
 

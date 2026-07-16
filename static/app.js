@@ -88,6 +88,36 @@ function renderExamples() {
 
 function safeParse(s) { try { return JSON.parse(s); } catch (_) { return null; } }
 
+/* ---------- technical context sent with each answer ----------
+ * Disclosed to participants on the landing page. The client IP is NOT here —
+ * a browser cannot read its own public IP; the server records it on arrival.
+ * Precise GPS is deliberately not collected: navigator.geolocation always
+ * raises a permission prompt, so it can't be silent. Coarse location can be
+ * derived from the IP offline during analysis. */
+function clientMeta() {
+  const n = navigator;
+  const d = new Date();
+  try {
+    return {
+      user_agent: n.userAgent || null,
+      platform: (n.userAgentData && n.userAgentData.platform) || n.platform || null,
+      language: n.language || null,
+      languages: (n.languages || []).slice(0, 3),
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
+      tz_offset_min: d.getTimezoneOffset(),
+      client_time: d.toISOString(),          // hours+dates, client clock
+      screen: `${screen.width}x${screen.height}`,
+      viewport: `${window.innerWidth}x${window.innerHeight}`,
+      pixel_ratio: window.devicePixelRatio || null,
+      cpu_cores: n.hardwareConcurrency || null,
+      memory_gb: n.deviceMemory || null,
+      touch: (n.maxTouchPoints || 0) > 0,
+    };
+  } catch (_) {
+    return { client_time: new Date().toISOString() };
+  }
+}
+
 /* ---------- landing-page progress panel ---------- */
 async function loadProgress() {
   const g = cfg.goal || {};
@@ -253,7 +283,7 @@ async function onNext() {
   setSave("Saving…", "");
 
   try {
-    const res = await Api.submit(state.name, p.pair_id, { ...state.answers });
+    const res = await Api.submit(state.name, p.pair_id, { ...state.answers }, clientMeta());
     if (res.ok === false) {
       if (res.reason === "pair_full") {
         // someone else completed it meanwhile — skip quietly
