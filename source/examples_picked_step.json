@@ -1,0 +1,18 @@
+{
+ "method": "changepoint on (tone, texture) z-space; till=max step_ratio, notill=min best_step",
+ "till": {
+  "id": "settat_297182",
+  "file": "Settat/2025/33.37920_-7.66693_2025_Settat.jpg",
+  "step_ratio": 86.267,
+  "best_step": 3.705,
+  "step_panel": "G->H",
+  "season_removed_step_ratio": 7.67
+ },
+ "no_till": {
+  "id": "settat_332186",
+  "file": "Settat/2025/33.26055_-7.20517_2025_Settat.jpg",
+  "best_step": 0.364,
+  "step_ratio": 1.234
+ },
+ "caveat": "ILLUSTRATIVE ONLY - not verified ground truth. Montages are dominated by the seasonal cycle; see script output for numbers."
+}

@@ -64,7 +64,9 @@
     <!-- 2b. Worked examples -->
     <section id="screen-examples" class="screen card hidden">
       <h2>How to tell them apart</h2>
+      <div id="examples-devnote" class="devnote-red hidden"></div>
       <p id="examples-intro" class="lead"></p>
+      <p id="examples-note" class="examples-note hidden"></p>
       <div id="examples-grid" class="examples-grid"></div>
       <button id="btn-examples-start" class="primary">Got it &mdash; start labeling</button>
     </section>
@@ -85,7 +87,8 @@
       <div id="pair-grid" class="pair">
         <figure id="card-a" class="imgcard">
           <div id="tag-a" class="imgtag tag-a">A</div>
-          <img id="img-a" alt="Field image A" />
+          <img id="img-a" alt="One field photographed from space on 8 dates, A to H" />
+          <button id="btn-zoom" class="zoom-hint" type="button">Tap to enlarge</button>
         </figure>
         <figure id="card-b" class="imgcard">
           <div class="imgtag tag-b">B</div>
@@ -96,8 +99,8 @@
       <div id="questions" class="questions"></div>
 
       <div class="qfooter">
+        <button id="btn-next" class="next" disabled>Next &rsaquo;</button>
         <span id="save-status" class="save-status"></span>
-        <button id="btn-next" class="primary" disabled>Next &rsaquo;</button>
       </div>
     </section>
 
@@ -124,6 +127,16 @@
       <button class="modal-close" id="defs-close">&times;</button>
       <h3>Quick reference</h3>
       <div id="defs-body" class="prose"></div>
+    </div>
+  </div>
+
+  <!-- fullscreen image viewer: the montage is 1305x695, far too wide to read on a
+       phone at page width. Tapping it opens the image at a legible size, scrollable
+       and pinch-zoomable. -->
+  <div id="zoom-modal" class="zoom-modal hidden">
+    <button class="zoom-close" id="zoom-close" aria-label="Close">&times;</button>
+    <div class="zoom-scroll" id="zoom-scroll">
+      <img id="zoom-img" alt="Enlarged view of the 8-date field montage" />
     </div>
   </div>
 

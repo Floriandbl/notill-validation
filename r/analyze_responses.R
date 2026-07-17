@@ -2,8 +2,14 @@
 #  analyze_responses.R  —  coverage, agreement, timing-of-tillage, and QC
 #  for the single-field / 8-date-montage design.
 #
-#  Input: responses_export.csv  (python export_responses.py), or the Supabase
-#         `responses` table exported to CSV with the same columns.
+#  Input: responses_export.csv, taken from EITHER
+#    - local test data : python export_responses.py
+#    - live data       : run supabase/export_query.sql in the Supabase SQL
+#                        Editor and Download CSV.
+#  NOT the Table Editor's "Export -> CSV" button on `responses` — that dump
+#  keeps the answers as one JSON blob and has no field_id. Guarded below.
+#
+#  Reads ./responses_export.csv (or ../responses_export.csv). No CLI argument.
 #
 #  Base R only. Cohen's kappa implemented inline.
 # =====================================================================
@@ -17,6 +23,22 @@ if (!file.exists(csv_path)) stop("responses_export.csv not found. Run: python ex
 
 d <- read.csv(csv_path, stringsAsFactors = FALSE)
 cat("Loaded", nrow(d), "responses from", csv_path, "\n\n")
+
+## ---- guard against the raw Supabase table dump -----------------------
+## The Table Editor's "Export -> CSV" gives the unflattened table
+## (id, pair_id, respondent, answers, created_at, meta, ip): the answers are
+## still one JSON blob and there is no field_id, so everything below breaks
+## with an unhelpful tapply error. Say so plainly instead.
+if (!"field_id" %in% names(d)) {
+  if ("pair_id" %in% names(d)) {
+    stop("This looks like a raw Supabase table export (found 'pair_id', no 'field_id',\n",
+         "  and the answers are still a JSON blob). Export it with the SQL in\n",
+         "  supabase/export_query.sql instead — SQL Editor -> paste -> Run -> Download CSV.")
+  }
+  stop("No 'field_id' column in ", csv_path, ".\n",
+       "  Expected columns: field_id, province, year, respondent, created_at, ip, q_field, ...\n",
+       "  Produce it with `python export_responses.py` (local) or supabase/export_query.sql (live).")
+}
 
 ## ---- coverage --------------------------------------------------------
 raters_per_field <- tapply(d$respondent, d$field_id, function(x) length(unique(x)))

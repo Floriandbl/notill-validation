@@ -98,8 +98,14 @@ Steps (same for both unless noted):
    `/root`). private → connect the repo in Cloudflare Pages/Netlify (framework
    preset *None*, no build command, output dir = repo root). Email the resulting URL.
 
-To analyze production data, export the Supabase `responses` table to CSV (same
-columns as the local export) and run `r/analyze_responses.R` on it.
+To analyze production data, run `supabase/export_query.sql` in the Supabase SQL
+Editor and *Download CSV* → save as `responses_export.csv` → `Rscript r/analyze_responses.R`.
+
+Do **not** use the Table Editor's *Export → CSV* button: it dumps `responses`
+verbatim (answers still one JSON blob, no `field_id`), which is *not* the shape
+the local export produces and which `analyze_responses.R` rejects.
+`export_responses.py` is local-SQLite-only — the anon key cannot read `responses`
+(RLS), which is exactly what keeps respondents' answers private.
 
 ### Why responses can't live on GitHub
 GitHub/jsDelivr host the **app and images** perfectly. They **cannot** hold

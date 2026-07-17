@@ -47,6 +47,13 @@ function init() {
   $("#defs-close").addEventListener("click", () => $("#defs-modal").classList.add("hidden"));
   $("#name-input").addEventListener("keydown", (e) => { if (e.key === "Enter") onStart(); });
 
+  // fullscreen montage viewer (essential on a phone, handy on a laptop)
+  $("#img-a").addEventListener("click", openZoom);
+  $("#btn-zoom").addEventListener("click", (e) => { e.stopPropagation(); openZoom(); });
+  $("#zoom-close").addEventListener("click", closeZoom);
+  $("#zoom-modal").addEventListener("click", (e) => { if (e.target.id === "zoom-scroll") closeZoom(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeZoom(); });
+
   renderExamples();   // build the worked-examples sheet
   loadProgress();     // populate the landing-page progress panel
 
@@ -61,7 +68,18 @@ function init() {
 function renderExamples() {
   const ex = cfg.examples;
   if (!ex) return;
-  $("#examples-intro").textContent = ex.intro || "";
+  $("#examples-intro").innerHTML = ex.intro || "";
+
+  // red development-only banner (drop `devNote` from config to hide it)
+  const dev = $("#examples-devnote");
+  dev.textContent = ex.devNote || "";
+  dev.classList.toggle("hidden", !ex.devNote);
+
+  // what the labeler should actually look for
+  const note = $("#examples-note");
+  note.innerHTML = ex.note || "";
+  note.classList.toggle("hidden", !ex.note);
+
   const grid = $("#examples-grid");
   grid.innerHTML = "";
   (ex.items || []).forEach((it) => {
@@ -71,6 +89,7 @@ function renderExamples() {
     fig.className = "example-img";
     const img = document.createElement("img");
     img.src = it.src; img.alt = it.label + " field example"; img.loading = "lazy";
+    img.addEventListener("click", () => openZoom(it.src));   // same viewer as the task screen
     const badge = document.createElement("span");
     const isNo = /no/i.test(it.label);
     badge.className = "example-badge " + (isNo ? "notill" : "till");
@@ -189,6 +208,30 @@ function onImageError() {
   beginBatch();
 }
 
+/* ---------- fullscreen montage viewer ----------
+ * The montage is 1305x695. Fit to a phone's width it becomes a ~180px strip and
+ * each of the 8 panels is unreadable, so tapping opens it at a legible size that
+ * can be scrolled and pinch-zoomed. */
+function openZoom(src) {
+  if (typeof src !== "string") {                 // called from a click handler
+    const p = state.batch[state.idx];
+    if (!p) return;
+    src = p.image_a;
+  }
+  $("#zoom-img").src = src;
+  $("#zoom-modal").classList.remove("hidden");
+  // Always open at panel A. Without this the container keeps the pan position from
+  // the previous field, so field 2 opens already scrolled to wherever you left
+  // field 1 — and the labeler may never notice A/E are off-screen to the left.
+  $("#zoom-scroll").scrollLeft = 0;
+  $("#zoom-scroll").scrollTop = 0;
+  document.body.style.overflow = "hidden";
+}
+function closeZoom() {
+  $("#zoom-modal").classList.add("hidden");
+  document.body.style.overflow = "";
+}
+
 /* ---------- render current pair ---------- */
 function renderPair() {
   const p = state.batch[state.idx];
@@ -201,6 +244,7 @@ function renderPair() {
   $("#pair-grid").classList.toggle("single", single);
   $("#card-b").classList.toggle("hidden", single);
   $("#tag-a").classList.toggle("hidden", single);   // no A/B labels when there's one image
+  $("#btn-zoom").classList.toggle("hidden", !single);   // zoom only applies to the montage
   ia.onerror = onImageError;                        // self-heal if a URL is dead/stale
   ia.src = p.image_a;
   if (!single) {
@@ -225,12 +269,23 @@ function renderPair() {
     legend.innerHTML = q.text;
     fs.appendChild(legend);
     const opts = document.createElement("div");
-    opts.className = "opts";
+    // `layout: "grid4"` lays the buttons out 4-across so they mirror the montage panels.
+    opts.className = "opts" + (q.layout ? " opts-" + q.layout : "");
     q.options.forEach((o) => {
       const b = document.createElement("button");
       b.type = "button";
-      b.className = "opt";
-      b.textContent = o.label;
+      b.className = "opt" + (o.sub ? " opt-stack" : "");
+      if (o.sub) {
+        const big = document.createElement("b");
+        big.className = "opt-key";
+        big.textContent = o.label;
+        const small = document.createElement("span");
+        small.className = "opt-sub";
+        small.textContent = o.sub;
+        b.appendChild(big); b.appendChild(small);
+      } else {
+        b.textContent = o.label;
+      }
       b.addEventListener("click", () => {
         state.answers[q.id] = o.value;
         opts.querySelectorAll(".opt").forEach((x) => x.classList.remove("sel"));

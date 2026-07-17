@@ -43,60 +43,72 @@ window.STUDY_CONFIG = {
 
     <h3>What you'll do</h3>
     <p>On each screen you'll see <strong>one field, shown at 8 dates</strong> across the
-    season (every two weeks from September). The field is <strong>outlined in red</strong>.
+    season (every two weeks from 1 September), labelled <strong>A</strong> to <strong>H</strong>.
+    The field you are judging is <strong>outlined in magenta</strong>, with a dot on its centre.
     Answer <strong>one question</strong> &mdash; was it tilled? &mdash; then press
     <em>Next</em> for a new field. Your answers are saved automatically as you go.</p>
 
-    <p class="muted">Watching the field <em>change over time</em> is the key: that's what
+    <p class="muted">Watching the field <em>change from A to H</em> is the key: that's what
     reveals whether the soil was worked.</p>
 
     <h3>How to read the images</h3>
-    <div class="def-grid">
-      <div class="def">
-        <span class="swatch till"></span>
-        <div><strong>Tilled</strong> &mdash; the soil has been turned/worked.
-        Look for <em>bare brown soil</em>, plough lines or furrows, little plant
-        residue on the surface.</div>
-      </div>
-      <div class="def">
-        <span class="swatch notill"></span>
-        <div><strong>No-till</strong> &mdash; the soil was <em>not</em> worked.
-        Look for a <em>greener, mottled surface</em> with straw/stubble
-        (crop residue) left on top.</div>
-      </div>
+    <div class="devnote">
+      Placeholder &mdash; to be written with Remote&nbsp;Sensing input.
     </div>
+    <p class="muted">Here we can explain how to visually recognise <strong>Till</strong> by
+    looking at &hellip; ; and the same for <strong>No-till</strong> by looking at &hellip;</p>
+
     <p class="muted">If you genuinely cannot decide, choose <em>"Can't tell"</em> &mdash;
     that is more useful to us than a guess.</p>
   `,
 
   /* Optional short reminder available during labeling (the "Definitions" button). */
   quickRefHtml: `
-    <p><span class="swatch till"></span><strong>Tilled:</strong> bare brown soil, furrows, little residue.</p>
-    <p><span class="swatch notill"></span><strong>No-till:</strong> greener, straw/stubble residue on top.</p>
+    <div class="devnote">Placeholder &mdash; to be written with Remote&nbsp;Sensing input.</div>
+    <p class="muted"><strong>Till:</strong> look at &hellip;</p>
+    <p class="muted"><strong>No-till:</strong> look at &hellip;</p>
+    <p class="muted">The field under judgement is outlined in <strong>magenta</strong>.
+    Panels run <strong>A&ndash;D</strong> on the top row, <strong>E&ndash;H</strong> on the bottom.</p>
   `,
 
   /* ---- worked examples (shown on their own screen before labeling) ----
-   * Two reference images with how-to-tell notes. Swap `src` for your own
-   * clearest examples; the red arrow marks the field being judged.          */
+   * Two REAL montages from the Settat 2025 set. They are placeholders chosen
+   * automatically (biggest / smallest step-change in field texture) — NOT
+   * verified ground truth. Swap `src` once a Remote Sensing expert has picked
+   * the two clearest cases.                                                   */
   examples: {
-    intro: "Two clear examples. In each, the red arrow marks the field you are judging.",
+    intro: "Two examples from the real image set. In each, the field you are judging is "
+         + "outlined in magenta, and the 8 panels run A–D on the top row, E–H on the bottom.",
+
+    // Shown in red, for development only — remove before circulating.
+    devNote: "DEV NOTE — need to choose two good images for here.",
+
+    // What we actually want people to look for.
+    note: "The signal is a <strong>sudden change of texture</strong>: the surface inside the "
+        + "field boundary (and sometimes in one or two neighbouring fields worked on the same "
+        + "day) changes <strong>abruptly from one date to the next</strong>, while staying "
+        + "relatively <strong>consistent before it and consistent after it</strong>. It is that "
+        + "step — not the slow seasonal drift that every field shows — that indicates tillage.",
+
     items: [
       {
-        src: "source/notill.jpg",
+        src: "source/example_till.jpg",
         label: "Tilled",
         points: [
-          "Soil has been turned / worked before sowing",
-          "Cultivated surface, little crop residue",
-          "Here, the greener field",
+          "Texture changes abruptly between two consecutive dates",
+          "Relatively consistent before the change, and again after it",
+          "The change is confined to the outlined field (± a neighbour worked the same day)",
+          "PLACEHOLDER — auto-selected, not expert-verified",
         ],
       },
       {
-        src: "source/till.jpg",
+        src: "source/example_notill.jpg",
         label: "No-till",
         points: [
-          "Soil left undisturbed — direct-seeded",
-          "Crop residue / stubble kept on the surface",
-          "Here, the reddish-brown field",
+          "No abrupt step: texture stays consistent across all 8 dates",
+          "Any change is gradual and shared with the whole landscape (season, rain)",
+          "Surface keeps the same mottled residue appearance throughout",
+          "PLACEHOLDER — auto-selected, not expert-verified",
         ],
       },
     ],
@@ -126,16 +138,20 @@ window.STUDY_CONFIG = {
       id: "q_when",
       text: "In which image do you <strong>first</strong> see that it was tilled?",
       showIf: { question: "q_field", equals: "till" },
+      // "grid4" lays the options out 4-across, so the two rows of buttons line up
+      // with the two rows of panels in the montage (A B C D / E F G H).
+      // No "Can't tell" here on purpose: the labeler already said it was tilled,
+      // so they must commit to a panel.
+      layout: "grid4",
       options: [
-        { value: "A", label: "A · 1 Sep" },
-        { value: "B", label: "B · 15 Sep" },
-        { value: "C", label: "C · 29 Sep" },
-        { value: "D", label: "D · 13 Oct" },
-        { value: "E", label: "E · 27 Oct" },
-        { value: "F", label: "F · 10 Nov" },
-        { value: "G", label: "G · 24 Nov" },
-        { value: "H", label: "H · 8 Dec" },
-        { value: "unsure", label: "Can't tell" },
+        { value: "A", label: "A", sub: "1 Sep" },
+        { value: "B", label: "B", sub: "15 Sep" },
+        { value: "C", label: "C", sub: "29 Sep" },
+        { value: "D", label: "D", sub: "13 Oct" },
+        { value: "E", label: "E", sub: "27 Oct" },
+        { value: "F", label: "F", sub: "10 Nov" },
+        { value: "G", label: "G", sub: "24 Nov" },
+        { value: "H", label: "H", sub: "8 Dec" },
       ],
     },
   ],

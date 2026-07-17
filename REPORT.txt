@@ -1,0 +1,222 @@
+===============================================================================
+ TILLAGE FIELD ASSESSMENT — WHAT THIS APP IS AND HOW IT WORKS
+ Conservation Agriculture, Morocco
+ Written 17 July 2026
+===============================================================================
+
+This is a plain-language summary for people who will not read the code:
+collaborators, supervisors, an ethics board, or you in six months. It covers
+what the app does, what it needs, what it collects, how to get the data out,
+how everything is backed up, and one open scientific question that has NOT
+been settled yet.
+
+
+-------------------------------------------------------------------------------
+1. WHAT THE APP DOES
+-------------------------------------------------------------------------------
+
+It is a web page you send to volunteers by email. There is nothing to install
+and no account to create. A volunteer opens the link, types a name, reads a
+one-page explanation, and is then shown fields one at a time.
+
+For each field, they see ONE picture made of 8 smaller satellite pictures of
+the SAME field, taken every two weeks from 1 September through 8 December.
+The 8 pictures are labelled A to H — A, B, C, D across the top row, and
+E, F, G, H across the bottom. The field being judged is outlined in bright
+magenta, with a dot marking its centre.
+
+They answer one question: was this field tilled (was the soil turned over)?
+They can answer "Tilled", "No-till", or "Can't tell".
+
+If — and only if — they answer "Tilled", a second question appears asking in
+WHICH of the 8 pictures they first see the tillage. The eight date buttons are
+laid out in two rows of four so they sit in the same arrangement as the eight
+pictures. There is deliberately no "Can't tell" on this second question: a
+person who has just said the field was tilled should be able to point at where
+they saw it.
+
+They press Next and get another field. A session is 50 fields, roughly 10–15
+minutes. They can stop at any time — everything already answered is kept.
+
+
+-------------------------------------------------------------------------------
+2. WHAT IT NEEDS AS INPUT
+-------------------------------------------------------------------------------
+
+Three things, all of which already exist:
+
+  a) THE PICTURES. 500 montages, one per field, for Settat province, season
+     2025. They live in the folder "images/Settat/2025/" and are named after
+     the field's GPS position, e.g. "32.45172_-7.27861_2025_Settat.jpg".
+     They were built from Sentinel-2 satellite imagery in Google Earth Engine.
+
+  b) THE FIELD LIST. A spreadsheet ("pairs_metadata.csv") with one row per
+     field: its ID, province, year, picture filename, and GPS coordinates.
+     The 500 fields were picked at random from a map of Settat field
+     boundaries, deliberately excluding the very smallest and very largest
+     fields so the sample is representative.
+
+  c) A NAME. That is the only thing we ask a volunteer to type. No email, no
+     password, no account.
+
+
+-------------------------------------------------------------------------------
+3. WHAT DATA IT COLLECTS
+-------------------------------------------------------------------------------
+
+For every single answer, one row is stored containing:
+
+  - the name the volunteer typed
+  - which field they were looking at
+  - their answer ("Tilled" / "No-till" / "Can't tell")
+  - if tilled: which picture (A–H) they first saw it in
+  - the date and time of the answer
+  - their IP address
+  - technical details of their device: browser, operating system, language,
+    timezone, screen and window size, processor cores, memory, touchscreen
+    or not
+
+The last two items are personal data under GDPR. This is disclosed to the
+volunteer in plain language on the first page, BEFORE they type anything. It
+is collected for research quality — it lets us spot, for example, one person
+answering under three different names, or answers submitted implausibly fast.
+It is stored in the EU and is not published.
+
+Note on location: we do NOT collect precise GPS from the volunteer. A browser
+cannot hand that over silently — it always raises a permission pop-up — so we
+deliberately do not ask. Approximate location can be worked out later from the
+IP address if the analysis needs it.
+
+
+-------------------------------------------------------------------------------
+4. HOW TO GET THE DATA OUT
+-------------------------------------------------------------------------------
+
+The answers sit in a Supabase database (a hosted PostgreSQL database, free
+tier, servers in the EU).
+
+  THE LIVE ANSWERS — from the Supabase dashboard:
+      1. SQL Editor -> New query
+      2. Paste the whole of the file "supabase/export_query.sql"
+      3. Run, then click "Download CSV"
+      4. Save it as "responses_export.csv" in the project folder
+
+    Use that query, NOT the "Export -> CSV" button on the responses table.
+    The button dumps the table exactly as stored, which keeps all the answers
+    inside a single JSON blob and has no field identifier column — the
+    analysis script cannot read it and stops with an error. The query above
+    unpacks it into one column per question, which is what the analysis
+    expects. (The script now detects the wrong shape and tells you so, rather
+    than failing cryptically.)
+
+  THE LOCAL TEST ANSWERS — from your machine:
+      python export_responses.py
+    This reads the local test database (data/study.db) ONLY. It cannot reach
+    Supabase: the app's public key is deliberately not allowed to read the
+    responses table, which is what stops a stranger downloading everyone's
+    answers. For live data, use the SQL query above.
+
+  FOR ANALYSIS (either source — both produce identical columns):
+      Rscript r/analyze_responses.R
+    This reports how many fields have been covered, the spread of answers,
+    when in the season people say tillage first appears, agreement between
+    labelers who saw the same field (Cohen's kappa), and some quality checks
+    over IP addresses, timezones and answer times.
+
+
+-------------------------------------------------------------------------------
+5. BACKUP STRATEGY
+-------------------------------------------------------------------------------
+
+There are four independent copies, so no single failure loses the work:
+
+  1. THE CODE AND PICTURES are in a public GitHub repository
+     (github.com/Floriandbl/notill-validation). Every change is a permanent,
+     reversible commit. The website is served directly from that repository
+     by GitHub Pages — so the thing volunteers use and the thing that is
+     backed up are literally the same files.
+
+  2. THE ANSWERS are in Supabase, which takes its own daily backups.
+
+  3. THE OLD ANSWERS from the earlier placeholder round (63 answers from 3
+     people, collected against test images) are preserved in a side table
+     called "responses_placeholder_backup" rather than deleted.
+
+  4. YOUR LOCAL COPY of the whole project, in Dropbox, which is itself
+     versioned.
+
+  Exports (step 4 above) are cheap — running the export regularly and keeping
+  the dated CSVs is a sensible fifth layer, and costs nothing.
+
+  ONE RISK WORTH KNOWING: the Supabase free tier pauses a project after 7 days
+  of no activity, and a paused project makes the app go completely dead — this
+  has already happened once. Before circulating the link widely, either plan to
+  keep it active, or accept that it may need waking up from the dashboard.
+
+
+-------------------------------------------------------------------------------
+6. MAIN FEATURES
+-------------------------------------------------------------------------------
+
+  - No install, no account. One link, works on a phone or a computer.
+  - Fair distribution of work: each volunteer is handed a batch of 50 fields,
+    and the database hands out different fields to different people at the
+    same time without collisions.
+  - Nobody sees the same field twice.
+  - Answers save one at a time, as you go. Closing the tab loses nothing.
+  - Follow-up question that only appears when it is relevant.
+  - Tap-to-enlarge viewer. On a phone the montage is only about 330 pixels
+    wide, which makes each of the 8 pictures roughly 80 pixels — too small to
+    judge. Tapping opens it about three times larger, and it can be pinched
+    and panned.
+  - Designed for phones: no sideways scrolling, finger-sized buttons, and the
+    Next button stays within reach at the bottom of the screen.
+  - A live progress panel on the front page: how many contributors, how many
+    fields done, how many left.
+  - Everything that decides how the study behaves — the questions, the
+    answer options, the intro text, the batch size — lives in ONE file
+    ("static/config.js") that can be edited without touching any programming
+    logic.
+
+
+-------------------------------------------------------------------------------
+7. OPEN QUESTION — PLEASE READ BEFORE SENDING THE LINK OUT
+-------------------------------------------------------------------------------
+
+The app is finished and works. Whether the PICTURES can answer the question is
+not yet established, and this is the real risk to the project.
+
+We measured all 500 montages. Two results stand out:
+
+  - Every field looks broadly the same across the season. All 500 start out
+    the same colour in September and drift the same way by December. The
+    change you see is mostly the dry summer soil greening up after the autumn
+    rains — the weather, not the plough.
+
+  - Of 500 fields, only one showed a clear, sudden change of the kind tillage
+    should produce. When we looked at that one closely, the change covered the
+    whole picture, not just the field — so it was the regional December
+    green-up too, not tillage.
+
+In short: the satellite pictures are dominated by the season. Tillage, if it
+is in there at all, is a much smaller effect, and the Sentinel-2 satellite's
+10-metre resolution is coarse relative to these fields (typically 0.75
+hectares, about 9 pixels across).
+
+Because of this, the two example images on the "How to tell them apart" screen
+are marked in red as placeholders. They were chosen automatically as the most
+and least changeable fields — they are NOT confirmed cases of tillage and
+no-till, and a Remote Sensing specialist needs to replace them. The "How to
+read the images" section is likewise a deliberate placeholder rather than a
+guess.
+
+RECOMMENDED NEXT STEP: take about 20 fields where the technicians already know
+the ground truth, and have two people who understand the agronomy label them
+using this app. If experts cannot beat a coin flip on this imagery, volunteers
+will not either, and we would be spending our volunteers' goodwill — which we
+only get to spend once — on noise. If it fails, the fallback is Planet
+Explorer & Research: 3-metre imagery, near-daily, free for university
+researchers, roughly three weeks to be approved, and our 500 fields over 8
+dates fit comfortably inside the free monthly quota.
+
+===============================================================================
